@@ -1,0 +1,99 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import Button from "../components/ui/Button.astro";
+import PricingToggle from "../components/blocks/PricingToggle.astro";
+import PricingFlag from "../components/blocks/PricingFlag.astro";
+import TierLadder from "../components/blocks/TierLadder.astro";
+import ComparisonMatrix from "../components/blocks/ComparisonMatrix.astro";
+import IncludedExcluded from "../components/blocks/IncludedExcluded.astro";
+import CTABand from "../components/blocks/CTABand.astro";
+import GstLine from "../components/blocks/GstLine.astro";
+import { draftNotice } from "../data/pricing";
+---
+
+<BaseLayout
+  title="Productivity — Microsoft 365, managed | TWNY"
+  description="Microsoft 365 run as one managed operation on a tenant we own and look after. Four tiers, clear boundaries, transparent pricing."
+>
+  {/* Positioning */}
+  <section class="bg-sand">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20">
+      <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-3">
+        Run your business
+      </p>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink max-w-2xl text-balance">
+        Microsoft 365, managed.
+      </h1>
+      <p class="mt-4 text-lg text-steel leading-relaxed max-w-2xl text-pretty">
+        We run your email, files, identity and security on one tenant we own and
+        look after — so there's one source of truth and one person to call.
+      </p>
+      <div class="mt-7">
+        <Button href="/contact" variant="ember">Tell us what you need</Button>
+      </div>
+    </div>
+  </section>
+
+  {/* Plain explainer */}
+  <Section surface="paper" eyebrow="In plain English" heading="What 'managed' means here.">
+    <div class="max-w-2xl space-y-4 text-steel leading-relaxed text-pretty">
+      <p>
+        Microsoft 365 is the email, calendar, files and apps your team works in
+        every day. "Managed" means we set it up properly on one tenant — the
+        account that holds your whole organisation — and then we run it.
+      </p>
+      <p>
+        You don't administer licences, chase security settings, or wonder who
+        owns what. When something needs changing or something breaks, you call
+        us, and we already know your setup.
+      </p>
+    </div>
+  </Section>
+
+  {/* Tier ladder */}
+  <Section surface="sand" eyebrow="The tiers" heading="Four tiers. Pick the floor; grow from there.">
+    <div class="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
+      <PricingToggle />
+      <PricingFlag text={draftNotice} />
+    </div>
+    <TierLadder />
+  </Section>
+
+  {/* Comparison matrix */}
+  <Section
+    surface="paper"
+    eyebrow="Compare"
+    heading="What each tier includes."
+    lede="The honest version — no feature theatre, no ticks for things that don't matter."
+  >
+    <ComparisonMatrix />
+  </Section>
+
+  {/* Included / excluded */}
+  <Section
+    surface="sand"
+    eyebrow="Boundaries"
+    heading="What we run, and where it stops."
+    lede="Clear scope is why the service stays good. One-off projects are consulting, quoted separately."
+  >
+    <IncludedExcluded />
+  </Section>
+
+  {/* Reassurance */}
+  <Section surface="paper" eyebrow="Ownership" heading="You can always leave with everything.">
+    <p class="text-steel leading-relaxed max-w-2xl text-pretty">
+      You own your tenant, your data and your backups. We govern them so they
+      stay clean and consistent — but the keys are yours. If you ever move on,
+      you take the lot, with no hostage-taking and no exit fee.
+    </p>
+    <div class="mt-6">
+      <GstLine />
+    </div>
+  </Section>
+
+  <CTABand
+    heading="Not sure which tier fits?"
+    sub="Tell us how your team works and we'll recommend a starting point — and say so if you need less than you think."
+  />
+</BaseLayout>

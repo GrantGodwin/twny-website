@@ -1,0 +1,23 @@
+---
+// Two intents only:
+//   ember     = primary decision / CTA (the ONLY use of Ember)
+//   mineral   = secondary navigation-style link
+interface Props {
+  href: string;
+  variant?: "ember" | "mineral";
+  class?: string;
+}
+const { href, variant = "ember", class: className = "" } = Astro.props;
+
+const styles = {
+  ember:
+    "inline-flex items-center justify-center bg-ember hover:bg-ember-strong text-white font-medium px-5 py-2.5 rounded-sm transition-colors",
+  mineral:
+    "inline-flex items-center gap-1 text-mineral hover:text-mineral-strong font-medium transition-colors",
+};
+---
+
+<a href={href} class={`${styles[variant]} ${className}`}>
+  <slot />
+  {variant === "mineral" && <span aria-hidden="true">&rarr;</span>}
+</a>

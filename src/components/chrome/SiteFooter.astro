@@ -1,0 +1,48 @@
+---
+import Wordmark from "./Wordmark.astro";
+
+const nav = [
+  { label: "Productivity", href: "/productivity" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Contact", href: "/contact" },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line bg-paper">
+  <div class="mx-auto max-w-6xl px-5 sm:px-8 py-12">
+    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-8">
+      <div class="max-w-sm">
+        <Wordmark class="text-2xl" />
+        <p class="mt-3 text-sm text-steel leading-relaxed">
+          We run the cloud and the website so you can run the business. One
+          operator, one managed tenancy, honest edges.
+        </p>
+      </div>
+
+      <nav aria-label="Footer" class="flex flex-col gap-2">
+        {
+          nav.map((item) => (
+            <a
+              href={item.href}
+              class="text-sm text-steel hover:text-ink transition-colors"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+
+    <div
+      class="mt-10 pt-6 border-t border-line flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+    >
+      <p class="font-mono text-xs text-steel">
+        All prices in AUD and exclude GST. Support is business hours, with
+        best-effort out of hours.
+      </p>
+      <p class="font-mono text-xs text-steel">© {year} TWNY Pty Ltd</p>
+    </div>
+  </div>
+</footer>

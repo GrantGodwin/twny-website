@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import Button from "../components/ui/Button.astro";
+
+// Placeholder contact — no form backend in the prototype. A real form and
+// the guided /recommend flow come later.
+const email = "hello@twny.com.au";
+---
+
+<BaseLayout
+  title="Contact — tell us what you need | TWNY"
+  description="Tell us what you need and we'll recommend a starting point. A short conversation, then a clear recommendation."
+>
+  <section class="bg-sand">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-24">
+      <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-3">
+        Contact
+      </p>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink max-w-2xl text-balance">
+        Tell us what you need.
+      </h1>
+      <p class="mt-4 text-lg text-steel leading-relaxed max-w-2xl text-pretty">
+        A short conversation, then a clear recommendation — and we'll say so if
+        you need less than you think. No sales funnel, no pressure.
+      </p>
+
+      <div class="mt-9">
+        <Button href={`mailto:${email}`} variant="ember">
+          Email {email}
+        </Button>
+      </div>
+
+      <div class="mt-10 max-w-2xl bg-band border border-line rounded-sm p-5">
+        <p class="font-mono text-xs text-steel leading-relaxed">
+          ▲ Prototype placeholder. The contact form and the guided
+          recommendation flow are not built in this prototype — this page exists
+          to anchor the primary CTA. We reply within one business day.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Section surface="paper" eyebrow="What happens next" heading="How a first conversation goes.">
+    <ol class="border-t border-line max-w-2xl">
+      <li class="grid grid-cols-[auto_1fr] gap-4 py-5 border-b border-line">
+        <span class="font-mono text-mineral">01</span>
+        <span class="text-steel leading-relaxed">
+          You tell us roughly where you're at — team size, what's working, what
+          isn't.
+        </span>
+      </li>
+      <li class="grid grid-cols-[auto_1fr] gap-4 py-5 border-b border-line">
+        <span class="font-mono text-mineral">02</span>
+        <span class="text-steel leading-relaxed">
+          We recommend a starting point and a fixed price, with the scope
+          written down.
+        </span>
+      </li>
+      <li class="grid grid-cols-[auto_1fr] gap-4 py-5 border-b border-line">
+        <span class="font-mono text-mineral">03</span>
+        <span class="text-steel leading-relaxed">
+          If it's a fit, we get you onboarded. If it isn't, we'll tell you that
+          too.
+        </span>
+      </li>
+    </ol>
+  </Section>
+</BaseLayout>

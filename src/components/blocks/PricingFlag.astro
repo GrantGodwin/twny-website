@@ -1,0 +1,16 @@
+---
+// Draft-pricing notice. Keeps prototype prices clearly pre-sign-off.
+interface Props {
+  text: string;
+  class?: string;
+}
+const { text, class: className = "" } = Astro.props;
+---
+
+<p
+  class={`font-mono text-xs text-ember border border-ember/40 bg-ember/5 rounded-sm px-3 py-2 inline-flex items-start gap-2 ${className}`}
+  role="note"
+>
+  <span aria-hidden="true">▲</span>
+  <span>{text}</span>
+</p>

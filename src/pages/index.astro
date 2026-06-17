@@ -1,17 +1,80 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/blocks/Hero.astro";
+import Section from "../components/ui/Section.astro";
+import SurfaceNeedList from "../components/blocks/SurfaceNeedList.astro";
+import LoopStrip from "../components/blocks/LoopStrip.astro";
+import OfferClusters from "../components/blocks/OfferClusters.astro";
+import PrincipleGrid from "../components/blocks/PrincipleGrid.astro";
+import CTABand from "../components/blocks/CTABand.astro";
+import Button from "../components/ui/Button.astro";
+import GstLine from "../components/blocks/GstLine.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="TWNY — We run the cloud and the website">
+  {/* Position */}
+  <Hero
+    heading="We run the cloud and the website so you can run the business."
+    sub="Modern cloud operations and digital presence for small business. One operator, one managed tenancy, honest edges. Not an MSP. Not a reseller. A capable operator who makes the technology problem disappear."
+    ctaLabel="Tell us what you need"
+    ctaHref="/contact"
+    secondaryLabel="See pricing"
+    secondaryHref="/pricing"
+  />
+
+  {/* Prove — what you actually get */}
+  <Section
+    surface="paper"
+    eyebrow="What you actually get"
+    heading="You're not buying software. You're buying the problem going away."
+  >
+    <SurfaceNeedList />
+  </Section>
+
+  {/* Prove — how we work (the loop) */}
+  <Section
+    surface="sand"
+    eyebrow="How we work"
+    heading="One operating loop, every time."
+    lede="The same six steps run every engagement. It's how the work stays predictable and the price stays honest."
+  >
+    <LoopStrip />
+  </Section>
+
+  {/* The offer */}
+  <Section
+    surface="paper"
+    eyebrow="The offer"
+    heading="Two clusters, one managed tenancy."
+    lede="Everything sits on one tenant we own and look after — not four disconnected services."
+  >
+    <OfferClusters />
+  </Section>
+
+  {/* Why we're different */}
+  <Section
+    surface="sand"
+    eyebrow="Why we're different"
+    heading="Clarity is the premium."
+  >
+    <PrincipleGrid />
+  </Section>
+
+  {/* Pricing posture */}
+  <Section surface="paper" eyebrow="Pricing posture" heading="Priced in the open.">
+    <p class="text-steel leading-relaxed max-w-2xl">
+      Two ways to pay: annual commitment (two months free) or monthly flex (no
+      lock-in). Every price is published — nothing hidden behind a sales call.
+    </p>
+    <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+      <Button href="/pricing" variant="ember">See pricing</Button>
+      <Button href="/productivity" variant="mineral">Explore Productivity</Button>
+    </div>
+    <div class="mt-6">
+      <GstLine />
+    </div>
+  </Section>
+
+  {/* Point */}
+  <CTABand />
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+// The operational loop as a structural Mineral lane (Direction A spine).
+// Horizontal on desktop, vertical on mobile. Not decoration — the "how".
+import { loop } from "../../data/loop";
+---
+
+<ol class="grid gap-px bg-line border border-line rounded-sm overflow-hidden sm:grid-cols-2 lg:grid-cols-6">
+  {
+    loop.map((step, i) => (
+      <li class="bg-paper p-5 flex flex-col">
+        <span class="font-mono text-xs text-mineral mb-2">
+          0{i + 1}
+        </span>
+        <span class="font-display font-semibold text-ink">{step.name}</span>
+        <span class="mt-1.5 text-sm text-steel leading-relaxed">
+          {step.blurb}
+        </span>
+      </li>
+    ))
+  }
+</ol>

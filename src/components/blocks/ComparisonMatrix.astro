@@ -1,0 +1,67 @@
+---
+// Honest comparison table — capabilities x tiers. No glossy cards.
+import { tiers, matrix } from "../../data/productivity";
+
+const notes = matrix.filter((r) => r.note);
+---
+
+<div class="overflow-x-auto border border-line rounded-sm">
+  <table class="w-full border-collapse text-sm min-w-[40rem]">
+    <caption class="sr-only">
+      Microsoft 365 managed tiers — what each tier includes
+    </caption>
+    <thead>
+      <tr class="bg-band">
+        <th scope="col" class="text-left font-display font-semibold text-ink p-4 w-[40%]">
+          Capability
+        </th>
+        {
+          tiers.map((tier) => (
+            <th scope="col" class="text-left font-display font-semibold text-ink p-4">
+              {tier.name}
+            </th>
+          ))
+        }
+      </tr>
+    </thead>
+    <tbody>
+      {
+        matrix.map((row) => (
+          <tr class="border-t border-line">
+            <th scope="row" class="text-left font-normal text-ink p-4">
+              {row.capability}
+              {row.note && (
+                <sup class="text-mineral ml-0.5 font-mono">*</sup>
+              )}
+            </th>
+            {row.included.map((on, i) => (
+              <td class="p-4">
+                {on ? (
+                  <span class="text-mineral" aria-label={`${tiers[i].name}: included`}>
+                    ✓
+                  </span>
+                ) : (
+                  <span class="text-steel" aria-label={`${tiers[i].name}: not included`}>
+                    —
+                  </span>
+                )}
+              </td>
+            ))}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+{
+  notes.length > 0 && (
+    <ul class="mt-3 space-y-1">
+      {notes.map((row) => (
+        <li class="font-mono text-xs text-steel">
+          <span class="text-mineral">*</span> {row.note}
+        </li>
+      ))}
+    </ul>
+  )
+}

@@ -1,0 +1,40 @@
+---
+// Direction B hero — reassurance-led, no imagery. Single Ember CTA.
+import Button from "../ui/Button.astro";
+
+interface Props {
+  heading: string;
+  sub: string;
+  ctaLabel: string;
+  ctaHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+const { heading, sub, ctaLabel, ctaHref, secondaryLabel, secondaryHref } =
+  Astro.props;
+---
+
+<section class="bg-sand">
+  <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
+    <div class="max-w-3xl">
+      <h1
+        class="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-ink leading-[1.05] text-balance"
+      >
+        {heading}
+      </h1>
+      <p class="mt-6 text-lg text-steel leading-relaxed max-w-2xl text-pretty">
+        {sub}
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <Button href={ctaHref} variant="ember">{ctaLabel}</Button>
+        {
+          secondaryLabel && secondaryHref && (
+            <Button href={secondaryHref} variant="mineral">
+              {secondaryLabel}
+            </Button>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>

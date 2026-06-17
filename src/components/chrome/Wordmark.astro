@@ -1,0 +1,15 @@
+---
+// Wordmark-only identity. No badge, monogram, or favicon device.
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<a
+  href="/"
+  class={`font-display italic font-semibold lowercase tracking-tight text-ink hover:text-mineral transition-colors ${className}`}
+  aria-label="twny — home"
+>
+  twny
+</a>

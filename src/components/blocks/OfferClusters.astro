@@ -1,0 +1,43 @@
+---
+// The offer: two clusters on one managed tenancy, with consulting beside.
+import { clusters, consultingAside } from "../../data/offer";
+---
+
+<div class="grid gap-6 lg:grid-cols-2">
+  {
+    clusters.map((cluster) => (
+      <div class="bg-paper border border-line rounded-sm p-6 sm:p-8">
+        <h3 class="font-display text-xl font-semibold text-ink">
+          {cluster.title}
+        </h3>
+        <p class="mt-2 text-steel leading-relaxed">{cluster.blurb}</p>
+        <ul class="mt-5 space-y-2">
+          {cluster.items.map((item) => (
+            <li class="flex items-start gap-2.5 text-ink">
+              <span class="mt-2 size-1.5 shrink-0 rounded-full bg-mineral" aria-hidden="true" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>
+
+<div class="mt-6 bg-band rounded-sm p-6 sm:p-8 border border-line">
+  <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-2">
+    Beside them
+  </p>
+  <h3 class="font-display text-lg font-semibold text-ink">
+    {consultingAside.title}
+  </h3>
+  <p class="mt-2 text-steel leading-relaxed max-w-2xl">
+    {consultingAside.blurb}
+  </p>
+</div>
+
+<p class="mt-6 text-steel leading-relaxed max-w-2xl">
+  It all sits on one tenant we own and look after — your email, files, identity,
+  backup, domain and, where applicable, the website, with one source of truth
+  and clean ownership you can always take with you.
+</p>

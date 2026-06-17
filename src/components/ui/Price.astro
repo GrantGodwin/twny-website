@@ -1,0 +1,35 @@
+---
+// Renders both billing faces; global.css reveals one based on
+// <html data-billing>. Used wherever a recurring tier price appears.
+interface Props {
+  monthly: number; // per unit / month (Monthly Flex)
+  annualTotal: number; // per unit / year (Annual Commitment = 10x monthly)
+  effectiveMonthly: number; // annualTotal / 12
+  unit?: string; // e.g. "/user"
+}
+const { monthly, annualTotal, effectiveMonthly, unit = "/user" } = Astro.props;
+
+const fmt = (n: number) =>
+  Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`;
+---
+
+<div class="price">
+  <span class="price-annual block">
+    <span class="font-display text-3xl font-semibold text-ink"
+      >{fmt(annualTotal)}</span
+    >
+    <span class="font-mono text-xs text-steel">{unit}/yr</span>
+    <span class="block font-mono text-xs text-steel mt-1"
+      >{fmt(effectiveMonthly)}{unit}/mo effective · two months free</span
+    >
+  </span>
+  <span class="price-monthly block">
+    <span class="font-display text-3xl font-semibold text-ink"
+      >{fmt(monthly)}</span
+    >
+    <span class="font-mono text-xs text-steel">{unit}/mo</span>
+    <span class="block font-mono text-xs text-steel mt-1"
+      >billed monthly · no lock-in</span
+    >
+  </span>
+</div>

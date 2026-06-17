@@ -1,0 +1,15 @@
+---
+// Why we're different — four principles. Restrained, no icons.
+import { principles } from "../../data/offer";
+---
+
+<div class="grid gap-px bg-line border border-line rounded-sm overflow-hidden sm:grid-cols-2">
+  {
+    principles.map((p) => (
+      <div class="bg-paper p-6 sm:p-7">
+        <h3 class="font-display font-semibold text-ink">{p.title}</h3>
+        <p class="mt-2 text-sm text-steel leading-relaxed">{p.blurb}</p>
+      </div>
+    ))
+  }
+</div>

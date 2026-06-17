@@ -1,0 +1,51 @@
+---
+// Band wrapper controlling region surface (Sand canvas / Paper / Steel band)
+// and consistent vertical rhythm. Optional eyebrow + heading + lede.
+interface Props {
+  surface?: "sand" | "paper" | "band";
+  eyebrow?: string;
+  heading?: string;
+  lede?: string;
+  id?: string;
+  class?: string;
+}
+const {
+  surface = "sand",
+  eyebrow,
+  heading,
+  lede,
+  id,
+  class: className = "",
+} = Astro.props;
+
+const surfaces = {
+  sand: "bg-sand",
+  paper: "bg-paper border-y border-line",
+  band: "bg-band",
+};
+---
+
+<section id={id} class={`${surfaces[surface]} ${className}`}>
+  <div class="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20">
+    {
+      (eyebrow || heading || lede) && (
+        <div class="max-w-2xl mb-10">
+          {eyebrow && (
+            <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-3">
+              {eyebrow}
+            </p>
+          )}
+          {heading && (
+            <h2 class="text-2xl sm:text-3xl font-semibold text-ink text-balance">
+              {heading}
+            </h2>
+          )}
+          {lede && (
+            <p class="mt-3 text-steel leading-relaxed text-pretty">{lede}</p>
+          )}
+        </div>
+      )
+    }
+    <slot />
+  </div>
+</section>
