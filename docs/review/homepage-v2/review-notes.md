@@ -1,120 +1,75 @@
 # Homepage V2 — Review Notes
 
 **Date:** 2026-06-18
-**Scope:** Homepage re-art-direction + conversion to **dark-only** for this phase.
-**Status:** Built and screenshotted with flagged placeholder imagery. Not final art.
+**Status:** Rebuilt from scratch. Dark-only. Real photography. Built, **not committed.**
 
 ---
 
-## What changed
+## The creative concept — "Everything in its place"
 
-### Dark-only conversion (this round)
-- The public site now renders **dark-only**. `.dark` is set statically on `<html>`
-  in [BaseLayout.astro](../../../src/layouts/BaseLayout.astro); `color-scheme` is
-  `dark` in [global.css](../../../src/styles/global.css).
-- **Public theme toggle removed.** `ThemeToggle.astro` deleted and removed from the
-  shared [SiteHeader.astro](../../../src/components/chrome/SiteHeader.astro). No UI
-  affordance suggests theme switching anywhere (homepage or any other page).
-- The pre-paint inline script no longer reads/writes a theme preference; it only
-  arms reveal animations. No `twny-theme` localStorage usage remains.
-- **Colour-token system kept intact.** Both light and dark palettes still exist in
-  `global.css`; only dark is shipped. A future decision can reintroduce light
-  without rebuilding the system.
-- **Creative Direction updated:** §9 previously said "light and dark are both
-  first-class." It now states the site is **dark-first / dark-only for this phase**,
-  explicitly noting this is a design choice, not an accessibility shortcut, and that
-  AA contrast must be maintained.
+A **dark, cinematic, gallery-like** homepage that sells the *feeling* of a calm,
+well-run business before it explains anything. Large, warm photographs of real
+considered spaces and craft hang on a near-black ground; oversized type and vast
+quiet space do the rest. The experience is meant to feel like stepping into a
+beautifully lit, quiet room — so the visitor thinks *"I want my business to feel
+like this,"* then, only after that feeling lands, learns what we do.
 
-### Homepage V2 art direction (carried from the prior round)
-- **Immersive hero** — near-full-height (`88svh`) full-bleed image, floating
-  transparent header, oversized headline, one Ember CTA, one quiet link.
-- **Header behaviour** — floats over the hero with a subtle top scrim, resolves to
-  the solid sand bar after 24px scroll (`.is-scrolled`). Other pages keep the solid
-  bar (opt-in via `heroHeader`/`overHero`).
-- **Editorial rhythm** — asymmetric surface→need spread, full-bleed atmosphere band,
-  the operating loop as a numbered editorial sequence (not an icon strip), the offer
-  as one-tenancy spread, principles as a **dark cinematic image band**, and a calm
-  conversation-led close. Pricing-posture section removed.
-- **Depth/motion** — scrims for contrast; restrained reveal-on-scroll, armed
-  pre-paint, fully disabled under `prefers-reduced-motion` and without JS.
-- **Ember discipline** held: Ember is used only for primary CTAs.
+**Sequence (feeling → thesis → evidence → invitation):**
+1. **Hero** — full-bleed café at dusk, near-invisible floating nav, one line:
+   *"Everything in its place."* + *Start a conversation* / *Step inside ↓*.
+2. **Manifesto** — type only, two-tone, huge margins: the emotional thesis.
+3. **Divider** — one full-bleed image, one line: *"This is the feeling we protect."*
+4. **Three chapters** — alternating image/text spreads, outcomes not mechanics:
+   *The everyday* / *The presence* / *The person*.
+5. **Close** — light arriving in a quiet room: *"Let's make your business feel
+   handled."* + *Start a conversation*.
 
-### Files touched this round
-- `src/layouts/BaseLayout.astro` — static `.dark`, theme script removed.
-- `src/components/chrome/SiteHeader.astro` — toggle removed.
-- `src/components/chrome/ThemeToggle.astro` — **deleted.**
-- `src/styles/global.css` — `color-scheme: dark`, dead `#theme-toggle` rules
-  removed, header top scrim added.
-- `docs/governance/creative-direction.md` — §9 light/dark line revised.
+## Why it no longer resembles Atlas / an MSP / a SaaS page
+- **No grids, no cards, no tables, no icon strips, no "loop".** The page is
+  composed as magazine spreads, not an information architecture.
+- **Photography leads; type follows.** Emotion arrives before comprehension.
+- **Copy persuades instead of explaining.** No "managed tenancy", "operating
+  loop", "honest edges", "what you actually get". Short, confident, human.
+- **Navigation is almost invisible**, borderless, floating — resolves to a clean
+  blurred dark surface on scroll (no separator line).
+- **Outcomes, not machinery** — "a day that doesn't fight you", not "Microsoft 365
+  operations".
+
+## Files
+- New: `src/components/home/{Photo,Hero,Manifesto,Divider,Chapter,Close}.astro`,
+  `src/pages/index.astro` (rewritten from blank), `public/images/*.webp`.
+- Removed: all V1 homepage blocks + SVG placeholders + `PlaceholderImage`.
+- Touched (shared, minimal): `SiteHeader.astro` (CTA label + borderless float),
+  `global.css` (header behaviour, removed placeholder flag). Other pages untouched.
 
 ---
 
-## Do any light/dark assumptions remain?
+## Photography (real, royalty-free — Pexels License)
 
-**No light-mode assumptions remain in the rendered public UI.**
+All optimised to WebP into `public/images/`. Pexels License: free for commercial
+use, no attribution required (recorded here as good practice). **Note:** these are
+strong stand-ins chosen to the Creative Direction; swap for genuine TWNY/AU client
+photography when available.
 
-- No theme toggle, no `prefers-color-scheme` branching driving the live UI, no
-  persisted theme preference.
-- The homepage's bespoke sections use light type on dark surfaces / scrimmed
-  imagery throughout; nothing assumes a light background.
-- **Intentionally retained (does not affect the public UI):** the light-palette
-  CSS variables under `:root` and the `@custom-variant dark` mapping. These are the
-  technically-useful token definitions the brief allowed us to keep; they are inert
-  while `.dark` is forced. Removing them is the only step left to make the codebase
-  *light-incapable*, and it was deliberately not taken so a future light decision
-  stays cheap.
-- Other pages (Productivity, Pricing, Contact) inherit the same dark-only shell and
-  no longer expose a toggle. They were otherwise not redesigned (out of scope).
-
----
-
-## Screenshots captured
-
-All in `docs/review/homepage-v2/`, rendered dark-only (no light-mode captures), at
-the deterministic resting state (reveal animations forced visible):
-
-| File | What it shows | Viewport |
+| File | Source | Subject |
 | --- | --- | --- |
-| `home-desktop.png` | Home, first screen | 1440×900 |
-| `hero-first-viewport.png` | Hero opening view | 1440×900 |
-| `header-after-scroll.png` | Header resolved to solid bar after scroll | 1440×900 @ y=1300 |
-| `home-full-page.png` | Entire homepage, top to footer | 1440 wide, full height |
-| `home-mobile.png` | Home, first screen | 390×844 |
-
-Captured via headless Chrome over the DevTools Protocol against `npm run preview`.
+| `hero.webp` | pexels.com/photo/11439366 | Deep-toned café interior, evening light |
+| `chapter-calm.webp` | pexels.com/photo/18622213 | Warm light through timber blinds |
+| `chapter-presence.webp` | pexels.com/photo/17731822 | Characterful independent café |
+| `chapter-craft.webp` | pexels.com/photo/3853199 | Maker at a sunlit bench |
+| `close.webp` | pexels.com/photo/20180326 | Daylight reaching a quiet corner |
+| `divider.webp` | pexels.com/photo/37323048 | Light and shadow on a plain wall |
 
 ---
 
-## Accessibility concerns
+## Screenshots (dark-only, this build)
+`home-desktop.png`, `hero-first-viewport.png`, `header-after-scroll.png`,
+`home-full-page.png`, `home-mobile.png` — all in this folder.
 
-Dark-only is **not** treated as an a11y excuse. Findings:
-
-### Passing (verified by contrast calculation on the dark palette)
-- **Body text** — Steel `#97a2ac` on Sand `#0e1216` ≈ **7.2:1**; on Paper
-  `#161b21` ≈ **6.7:1**. Passes AA (and AAA for normal text).
-- **Headings** — Ink `#e7ebee` on dark surfaces ≈ **13–14:1**. Passes.
-- **Eyebrows** — Mineral `#3aa6c9` on Sand ≈ **6.7:1**. Passes AA.
-- **Text over imagery** — hero/band/principles all carry heavy scrims; white and
-  white/80 read well above AA over the scrimmed regions.
-- **Floating nav** — a top scrim was added so nav links clear AA over any hero
-  region (the lighter upper-right of the hero was the risk; now mitigated).
-- **Motion** — `prefers-reduced-motion` fully disables reveal + header transitions;
-  content is shown immediately without JS. Skip link and `:focus-visible` intact.
-
-### Needs a decision — **Ember CTA contrast** ⚠️
-- White text on the dark-mode Ember fill `#e0703f` is ≈ **3.2:1**. The button label
-  is normal-weight ~16px, so this **fails WCAG AA (needs 4.5:1)** for normal text.
-- This is a **pre-existing brand-token choice**, not introduced by V2, but it now
-  matters because Ember is the only CTA colour and appears on every page — so the
-  fix touches the shared [Button.astro](../../../src/components/ui/Button.astro) /
-  token, beyond the homepage scope.
-- **Recommended fix (your call):** darken the Ember *fill used behind white text*
-  to ~`#c2521f` or darker (≈4.5:1 with white), while keeping a lighter Ember for
-  non-text accents if desired. Alternatively, use a darker text colour on Ember.
-  I did not change the brand token unilaterally — flagging for sign-off.
-
-### Other notes
-- Placeholder imagery is clearly flagged in-frame and is **not final**; real
-  environmental photography must preserve the scrim contrast relationships above.
-- The dark Principles band forces dark regardless of palette (intended cinematic
-  beat). It is consistent with dark-only and needs no change.
+## Accessibility
+- Body Steel ≈7:1, Ink headings ≈13:1 on the dark ground — pass AA.
+- All photo text carries scrims; floating nav has a faint top veil for legibility.
+- Reduced-motion fully disables reveals; content shows immediately without JS.
+- **Open item (unchanged):** white-on-Ember CTA ≈3.2:1 fails AA for normal text.
+  Pre-existing shared `Button` token; recommend darkening the Ember fill behind
+  white text (~`#c2521f`). Flagged for sign-off, not changed unilaterally.

@@ -1,0 +1,45 @@
+---
+// Hero — feeling first. A cinematic room you'd want your own business to feel
+// like. No product, no jargon; one confident line, one invitation. The header
+// floats invisibly over it (see SiteHeader / global.css).
+import Button from "../ui/Button.astro";
+import Photo from "./Photo.astro";
+---
+
+<section class="relative">
+  <Photo
+    src="/images/hero.webp"
+    alt="A warm, considered café interior at the close of day — deep tones, soft light, everything in its place."
+    eager={true}
+    class="relative min-h-[100svh]"
+    scrimClass="bg-gradient-to-t from-black/85 via-black/40 to-black/35"
+  >
+    <div class="mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-6 pb-24 pt-32 sm:px-10 lg:pb-32">
+      <div class="max-w-4xl">
+        <h1
+          data-animate
+          class="font-display font-semibold tracking-tight text-white leading-[0.98] text-balance text-6xl sm:text-7xl lg:text-8xl"
+        >
+          Everything in&nbsp;its place.
+        </h1>
+        <p
+          data-animate
+          class="mt-8 max-w-xl text-lg leading-relaxed text-white/80 text-pretty sm:text-xl"
+        >
+          We quietly run the technology behind your business — so the day just
+          works, and your attention stays where it belongs.
+        </p>
+        <div data-animate class="mt-11 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <Button href="/contact" variant="ember">Start a conversation</Button>
+          <a
+            href="#everyday"
+            class="group inline-flex items-center gap-2 text-sm font-medium text-white/85 transition-colors hover:text-white"
+          >
+            Step inside
+            <span class="transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </Photo>
+</section>

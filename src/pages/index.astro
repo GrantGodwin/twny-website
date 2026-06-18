@@ -1,59 +1,63 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Hero from "../components/blocks/Hero.astro";
-import SurfaceNeedList from "../components/blocks/SurfaceNeedList.astro";
-import ImageBand from "../components/blocks/ImageBand.astro";
-import LoopStrip from "../components/blocks/LoopStrip.astro";
-import OfferClusters from "../components/blocks/OfferClusters.astro";
-import PrincipleGrid from "../components/blocks/PrincipleGrid.astro";
-import HomeClose from "../components/blocks/HomeClose.astro";
+import Hero from "../components/home/Hero.astro";
+import Manifesto from "../components/home/Manifesto.astro";
+import Divider from "../components/home/Divider.astro";
+import Chapter from "../components/home/Chapter.astro";
+import Close from "../components/home/Close.astro";
 ---
 
 <BaseLayout
-  title="TWNY — We run the cloud and the website"
+  title="TWNY — Everything in its place"
+  description="We quietly run the technology behind Australian small businesses — the cloud, the website, the things that must never go down — so the day just works."
   heroHeader={true}
 >
-  {/* Position — immersive hero, mood before message */}
-  <Hero
-    eyebrow="Australian small business"
-    heading="We run the cloud and the website so you can run the business."
-    sub="Modern cloud operations and digital presence — one operator, one managed tenancy, honest edges."
-    ctaLabel="Tell us what you need"
-    ctaHref="/contact"
-    secondaryLabel="See how we work"
-    secondaryHref="#how-we-work"
+  {/* Feeling */}
+  <Hero />
+
+  {/* Thesis */}
+  <Manifesto />
+
+  {/* A breath */}
+  <Divider />
+
+  {/* Evidence — three chapters, outcomes not mechanics */}
+  <Chapter
+    id="everyday"
+    idx="01"
+    kicker="The everyday"
+    heading="A day that doesn't fight you."
+    body="Email that simply arrives. Files where you left them. A business that opens in the morning and works — without you thinking about a single part of it."
+    src="/images/chapter-calm.webp"
+    alt="Warm afternoon light falling through timber blinds across a quiet room."
   />
 
-  {/* Prove — what you actually get (need beneath the surface) */}
-  <SurfaceNeedList />
-
-  {/* Breath — atmosphere band */}
-  <ImageBand
-    src="/placeholders/workshop.svg"
-    alt="Hands at work on a workbench in natural light."
-    note="Atmosphere band — maker workshop bench, natural side light, hands at work"
-    kicker="The same hand on every part"
-    line="One operator who knows your whole setup — not a queue, not a reseller."
+  <Chapter
+    flip={true}
+    idx="02"
+    kicker="The presence"
+    heading="The face your customers meet first."
+    body="Your website, your name, the address people find you by — looked after, kept current, kept yours, and always quietly up. The version of you the world sees."
+    src="/images/chapter-presence.webp"
+    alt="A characterful, warmly lit independent café — considered down to the last detail."
   />
 
-  {/* Prove — how we work (the operating loop) */}
-  <div id="how-we-work" class="scroll-mt-20">
-    <LoopStrip />
-  </div>
+  <Chapter
+    idx="03"
+    kicker="The person"
+    heading="Someone who already knows how it all fits."
+    body="Not a queue. Not a ticket number. One person who knows your setup and picks up when it matters — the way the best tradespeople always have."
+    src="/images/chapter-craft.webp"
+    alt="A maker at a sunlit bench, working with calm, practised focus."
+  />
 
-  {/* Prove — the offer as one coherent operation */}
-  <OfferClusters />
-
-  {/* Differentiate — the dark, cinematic beat */}
-  <PrincipleGrid />
-
-  {/* Point — conversation, not funnel */}
-  <HomeClose />
+  {/* Invitation */}
+  <Close />
 </BaseLayout>
 
 <script>
-  // Restrained reveal-on-scroll. Only armed when JS runs and motion is allowed;
-  // otherwise content is shown immediately and fully (CD §10, §16).
+  // Slow, physics-like reveal as content enters. Armed pre-paint in BaseLayout;
+  // fully disabled under reduced-motion / no-JS (content shown immediately).
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const targets = document.querySelectorAll<HTMLElement>("[data-animate]");
   if (!reduce && "IntersectionObserver" in window && targets.length) {

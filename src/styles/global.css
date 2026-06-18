@@ -89,44 +89,48 @@ html[data-billing="monthly"] .price-annual { display: none; }
 /* ---------------------------------------------------------------------------
    Site header.
    Default: solid, legible bar (every page except the homepage hero).
-   Over-hero: floats transparent over the immersive hero with light type, then
-   resolves to the solid state once scrolled (Creative Direction §10).
+   Over-hero: floats almost invisibly over the immersive hero — no bar, no
+   border, just light type and the faintest top veil for legibility — then
+   resolves elegantly to a solid, blurred surface once scrolled (CD §10).
 --------------------------------------------------------------------------- */
 .site-header {
-  transition: background-color 0.35s ease, border-color 0.35s ease,
-    backdrop-filter 0.35s ease;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease,
+    backdrop-filter 0.5s ease, border-color 0.5s ease;
 }
 
 .site-header--over-hero {
   position: fixed;
   left: 0;
   right: 0;
-  /* Subtle top scrim guarantees nav contrast over any hero region (AA), without
-     reading as a solid bar. Replaced by the solid surface once scrolled. */
+  /* Borderless, barely-there. A whisper of a top veil keeps nav legible over
+     any hero region without reading as a bar. */
   background-color: transparent;
   background-image: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.32),
     rgba(0, 0, 0, 0)
   );
   border-bottom-color: transparent;
   backdrop-filter: none;
+  box-shadow: none;
 }
 .site-header--over-hero .site-wordmark,
 .site-header--over-hero .site-link {
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, 0.9);
 }
 .site-header--over-hero .site-wordmark:hover,
 .site-header--over-hero .site-link:hover {
   color: #fff;
 }
 
-/* Resolved (scrolled) state returns to the standard legible bar. */
+/* Resolved (scrolled) state — a clean, dark, blurred surface with a soft lift
+   instead of a hard separator line. */
 .site-header--over-hero.is-scrolled {
   background-image: none;
-  background-color: color-mix(in srgb, var(--sand) 92%, transparent);
-  border-bottom-color: var(--line);
-  backdrop-filter: blur(8px);
+  background-color: color-mix(in srgb, var(--sand) 82%, transparent);
+  border-bottom-color: transparent;
+  backdrop-filter: blur(14px) saturate(1.1);
+  box-shadow: 0 12px 34px -24px rgba(0, 0, 0, 0.75);
 }
 .site-header--over-hero.is-scrolled .site-wordmark {
   color: var(--ink);
@@ -137,28 +141,6 @@ html[data-billing="monthly"] .price-annual { display: none; }
 .site-header--over-hero.is-scrolled .site-wordmark:hover,
 .site-header--over-hero.is-scrolled .site-link:hover {
   color: var(--ink);
-}
-
-/* ---------------------------------------------------------------------------
-   Placeholder imagery flag. Keeps non-final art honestly labelled.
---------------------------------------------------------------------------- */
-.placeholder-flag {
-  position: absolute;
-  bottom: 0.75rem;
-  right: 0.75rem;
-  z-index: 20;
-  max-width: 70%;
-  padding: 0.25rem 0.5rem;
-  border-radius: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  line-height: 1.2;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.92);
 }
 
 /* ---------------------------------------------------------------------------

@@ -1,0 +1,33 @@
+---
+// Clean full-bleed photograph. The image is the subject; an optional scrim
+// holds text contrast over it. Positioning is set by the caller via `class`
+// (e.g. "relative min-h-[100svh]" for a hero, "absolute inset-0" to fill a cell).
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  imgClass?: string;
+  scrimClass?: string;
+  eager?: boolean;
+}
+const {
+  src,
+  alt,
+  class: className = "",
+  imgClass = "",
+  scrimClass = "",
+  eager = false,
+} = Astro.props;
+---
+
+<figure class={`overflow-hidden m-0 ${className}`}>
+  <img
+    src={src}
+    alt={alt}
+    loading={eager ? "eager" : "lazy"}
+    decoding="async"
+    class={`absolute inset-0 h-full w-full object-cover ${imgClass}`}
+  />
+  {scrimClass && <div class={`absolute inset-0 ${scrimClass}`} aria-hidden="true"></div>}
+  <div class="relative z-10 h-full"><slot /></div>
+</figure>
