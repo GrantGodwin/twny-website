@@ -81,6 +81,11 @@ The two must not be confused, because their audiences and their jobs are opposit
 - emotional tone,
 - typography, imagery, depth, or motion.
 
+TWNY must not become Atlas in public. Do not lead the homepage with Atlas concepts such
+as the operating loop, managed tenancy, service architecture, internal diagrams, or
+system vocabulary. Those ideas can inform substance after the visitor understands the
+offer, but they must not become the public face of the brand.
+
 The standing temptation is to let the engine room design the showroom — to reach for
 the structural, table-and-rule language of an internal tool because it feels precise
 and safe. Resist it. Precision in an operational system reads as competence; the same
@@ -143,9 +148,11 @@ trusted person you know explaining exactly what they'll do, what it costs, and w
 it stops, in a beautifully made room, in natural light, without raising their voice.
 
 The register is **calm, premium, editorial, modern, trustworthy, human, practical,
-quietly confident** — closer to an architecture practice, a boutique interior studio,
-or an industrial-design house than to any IT company. Confidence expressed through
-restraint and quality, never volume.
+quietly confident**. It can borrow composure from architecture, interiors, and
+industrial design, but it must not become a lifestyle or interiors magazine. The public
+site should communicate modern business first and technology second; within the first
+few seconds, it must still be unmistakably clear that TWNY is a premium technology
+practice. Confidence is expressed through restraint and quality, never volume.
 
 Premium is not the absence of feeling; it is feeling, controlled. So *cold and
 clinical* is as wrong as *loud and salesy*. The personality is the differentiator
@@ -190,7 +197,7 @@ presence.
 
 - **Colour.** *Ink* anchors text; *Steel* structures; *Mineral* (`#1379A0`) carries movement — links, navigation, interactive accents; *Sand* and *Paper* are quiet ground tones; *Ember* (`#D05E2E`) is the **decision colour, and the only one** — every primary call to action is Ember, and Ember is nothing else. This one discipline does more for clarity than any other rule; keep it absolutely, because the moment everything is a CTA colour, nothing is. Beyond these anchors, photographic colour and tonal atmosphere are welcome — a site can be rich and warm without inventing new brand colours.
 - **Typography is the primary instrument.** Hierarchy, scale, weight, and spacing do most of the work. Use a wide, confident scale: large, quietly dramatic display; comfortable, readable body; restrained fine labels. Type sets the tone before a word is read.
-- **The public website is dark-first, and dark-only for this phase.** A single, intentional dark visual direction — rich and atmospheric, never a flat slab. The dark surface is the canvas; photography and warm light supply the contrast and life. There is no public theme toggle and no light-mode rendering of the live site (the underlying colour-token system still defines both palettes, so a future decision can reintroduce light, but until that decision is made deliberately, dark is the only thing we ship). Dark-only is a design choice, not an accessibility shortcut: maintain WCAG 2.1 AA contrast throughout.
+- **The public website can be dark-first, but dark-only is not a permanent brand rule.** A dark opening can be rich and atmospheric, never a flat slab, but the site still needs tonal contrast and operational clarity. Use lighter or quieter surfaces where comprehension, pricing, scope, or service evidence needs relief. There is no public theme toggle unless deliberately introduced, and any dark-first execution must maintain WCAG 2.1 AA contrast throughout.
 - **The identity is the wordmark only.** Lowercase `twny`. No monogram, badge, circular device, or favicon mark — a single confident wordmark is more premium than any emblem.
 
 What is genuinely off-limits is not any technique but *genericness*: equal-card
@@ -204,7 +211,7 @@ The website should feel art-directed — composed, intentional, editorial — th
 good magazine, an architecture practice's site, or a luxury product page feels.
 Premium visuals don't shout; they glide.
 
-- **Immersive hero imagery.** Key pages open with a strong, full-bleed photograph or a richly composed image space — an authentic environment, natural light, a sense of place. The hero is a *beginning, not a summary*: it sets mood and direction, it does not explain the offer.
+- **Immersive hero imagery, with category clarity.** Key pages may open with a strong, full-bleed photograph or a richly composed image space — an authentic business environment, natural light, a sense of place. The hero is a *beginning, not a summary*, but it must still make TWNY legible as a technology practice within seconds.
 - **Full-height opening sections.** Let the first view own the screen: image, one strong headline, one supporting line, one Ember invitation. A confident opening communicates quality instantly; cramming three messages above the fold communicates anxiety.
 - **Transparent navigation over imagery.** The header sits *over* the hero — transparent or lightly veiled — then resolves to a solid, legible state on scroll. It's a premium signal, and it must never cost legibility (hold contrast; add a subtle scrim where needed).
 - **Oversized typography.** Scale is our cheapest, most powerful tool for presence. Pair large display type with restrained body copy so the size reads as confidence, not noise.
@@ -225,8 +232,8 @@ Photography is a core part of how the site creates emotion, confidence, and cont
 The right image does what no paragraph can: it makes a cautious owner feel *this is for
 people like me.*
 
-- **Photograph emotion and context, not product.** Show the world our clients live in — real Australian small businesses, workplaces and workshops, considered interiors, architecture, craftsmanship, hands at work, natural light, authentic environments. Evoke *calm competence and human warmth.*
-- **Technology should rarely be shown.** Almost never screens, devices, server rooms, code, or "people pointing at monitors." We sell the calm *around* the technology, not the technology.
+- **Photograph business context, not just beautiful rooms.** Show the world our clients work in — real Australian small businesses, workplaces and workshops, craftsmanship, hands at work, natural light, authentic environments, and the operational details that make the setting feel lived-in. Evoke *calm competence and human warmth* without letting interiors become the subject.
+- **Technology should appear as operational evidence, not cliche.** Show restrained glimpses of the systems TWNY actually looks after when they clarify the offer: Microsoft 365, websites, domains, backup, automation, AI readiness, or ownership/continuity cues. Avoid server rooms, code walls, app-logo collages, clouds, robots, cyber shields, and "people pointing at monitors." We sell the calm created by handled technology, not generic technology imagery.
 - **Editorial stills, not stock.** Images should look authored — intentional light, a clear focal point, honest moments. If an image could appear on a competitor's site, it's the wrong image.
 - **Natural light and a timeless treatment.** Prefer soft, real light and a calm, slightly restrained grade over saturated, trend-driven looks. The photography's palette should feel of a piece with the brand's quiet tones.
 - **Truth over polish.** No fabricated "clients," no staged offices passed off as ours. Where genuine, specific imagery doesn't exist, choose authentic environmental photography that is clearly atmospheric in spirit — never a staged claim.
@@ -256,6 +263,7 @@ The homepage does one job — **position, prove, point** — as an *experience*,
 document.
 
 - **Open with presence.** An immersive, near-full-height hero: a strong environmental image, transparent navigation over it, one confident headline, one supporting line, one Ember invitation. Mood and trust first; the full offer can wait a few scrolls.
+- **Balance atmosphere with category clarity.** The first viewport should feel premium and modern, but it must also answer what kind of business TWNY is. Do not open with abstract lifestyle copy or a beautiful room that could belong to an architect, cafe, or interiors studio.
 - **Prove with calm structure, beautifully composed.** Reveal what they get (the surface→need truths), then *how* we work (the operational loop as a refined, well-spaced sequence — editorial, not an icon strip), then the offer as one coherent operation. Editorial rhythm and depth keep proving from feeling like a manual.
 - **Establish the wrapper before the price.** Let the value of the managed operation land *before* linking to pricing, so the number reads as "fair for all that," not "expensive."
 - **Close as an invitation, not a funnel.** "Tell us what you need; we'll recommend a starting point." One Ember CTA, framed conversationally, surrounded by space. No urgency, no pop-ups, no countdowns.

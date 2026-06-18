@@ -45,17 +45,20 @@ day-to-day instructions. All dated 2026-06-17 and treated as point-in-time.
 
 ## The governing source of truth (Governance)
 
-- [`governance/creative-direction.md`](./governance/creative-direction.md) — **the document that governs every design and content decision on this site.** Treat it as primary. It translates all of the research into practical, durable principles and explains the reasoning behind each one.
+- [`governance/creative-direction.md`](./governance/creative-direction.md) — **the broad creative governance for every design and content decision on this site.** Treat it as the durable creative standard. It translates the research into practical principles and explains the reasoning behind each one.
+- [`governance/art-direction.md`](./governance/art-direction.md) — **the specific visual authority for Homepage V3 and the current public art direction.** Use it when designing or implementing the Homepage V3 visual system, imagery, pacing, composition, and implementation guardrails.
 
 ## Reading order
 
 Read in this order. Stop when you have what you need — most tasks only require
-the first two or three.
+the first few.
 
-1. **[`README.md`](./README.md)** — this file. Orientation and the rules of the road.
-2. **[`governance/creative-direction.md`](./governance/creative-direction.md)** — the principles you must build to. This is the one that binds you.
-3. **[`research/creative-strategy-brief.md`](./research/creative-strategy-brief.md)** — the *why* behind the Creative Direction, in one place.
-4. **Any additional research documents as required** — pull in the specific
+1. **[`../README.md`](../README.md)** — repository-level orientation.
+2. **[`README.md`](./README.md)** — this file. Documentation orientation and the rules of the road.
+3. **[`governance/creative-direction.md`](./governance/creative-direction.md)** — broad creative governance. This is the durable standard for the site.
+4. **[`governance/art-direction.md`](./governance/art-direction.md)** — specific visual authority for Homepage V3. Use it for art direction, visual hierarchy, imagery, pacing, and implementation guardrails.
+5. **[`research/creative-strategy-brief.md`](./research/creative-strategy-brief.md)** — the *why* behind the Creative Direction, in one place.
+6. **Any additional research documents as required** — pull in the specific
    research file (competitor, discovery, visual, positioning) only when a task
    needs that depth.
 
