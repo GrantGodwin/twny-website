@@ -22,22 +22,22 @@ import Photo from "./Photo.astro";
     alt=""
     eager={true}
     class="absolute inset-0 h-full w-full"
-    imgClass="object-[92%_24%] sm:object-[86%_32%] lg:object-right"
+    imgClass="object-[97%_18%] sm:object-[92%_30%] lg:object-right"
     scrimClass="hero-edge-scrim"
   />
 
   {/* soft local scrim behind the headline/body, just enough to lift contrast */}
   <div
-    class="hero-text-scrim absolute inset-y-0 left-0 w-[58%] opacity-85 sm:w-[52%] sm:opacity-70 lg:w-[46%] lg:opacity-55"
+    class="hero-text-scrim absolute inset-y-0 left-0 w-[58%] opacity-60 sm:w-[52%] sm:opacity-50 lg:w-[46%] lg:opacity-40"
     aria-hidden="true"
   >
   </div>
 
   <div
-    class="relative z-10 mx-auto grid min-h-[100svh] max-w-6xl items-center gap-10 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-2 lg:gap-12 lg:pb-20"
+    class="relative z-10 mx-auto grid min-h-[100svh] max-w-6xl items-center gap-10 px-5 pb-20 pt-32 sm:px-8 lg:grid-cols-2 lg:gap-12 lg:pb-24"
   >
     {/* left: headline, body, actions */}
-    <div class="max-w-xl">
+    <div class="max-w-[510px]">
       <h1
         data-animate
         class="font-display text-5xl font-semibold leading-[0.98] text-balance sm:text-6xl lg:text-[4.4rem]"
@@ -46,7 +46,7 @@ import Photo from "./Photo.astro";
       </h1>
       <p
         data-animate
-        class="mt-7 max-w-md text-base leading-relaxed text-steel text-pretty"
+        class="mt-7 max-w-md text-base leading-relaxed text-white/[0.84] text-pretty"
       >
         We take responsibility for the technology behind your business, bringing
         Microsoft 365, your website, domains, backup and AI together under one
@@ -54,7 +54,7 @@ import Photo from "./Photo.astro";
       </p>
       <p
         data-animate
-        class="mt-4 max-w-md text-base leading-relaxed text-steel text-pretty"
+        class="mt-4 max-w-md text-base leading-relaxed text-white/[0.84] text-pretty"
       >
         So everything works together, quietly, and you always know who's
         responsible.
