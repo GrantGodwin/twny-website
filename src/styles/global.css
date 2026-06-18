@@ -4,36 +4,33 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---------------------------------------------------------------------------
-   TWNY six-colour system, three jobs.
-   Semantic variables swap by theme; @theme inline maps them to utilities
-   (bg-sand, text-ink, text-mineral, bg-ember, border-line, font-display ...).
-   Ink = anchor/text · Steel = structure/bands · Mineral = movement/links/loop
-   Sand = canvas · Paper = content surface · Ember = decision/CTA only.
+   TWNY visual system — ONE continuous Ink-first environment (locked).
+   No white, no Paper sections, no light theme, no public toggle.
+   Surfaces are a tonal ladder *within* Ink; relief is a lifted surface, never
+   a light one. The existing utility names are kept and repurposed:
+
+     Surface ladder (darkest -> lifted):
+       --sand  = base canvas
+       --paper = lifted section / footer
+       --band  = raised panel / evidence surface
+     Roles:
+       --ink     = primary text (authority)
+       --steel   = structure, labels, metadata, supporting copy
+       --line    = hairlines
+       --mineral = the technology current — links, emphasis, connection
+       --ember   = the decision colour, and the only one
 --------------------------------------------------------------------------- */
 :root {
-  --ink: #16191d;
-  --steel: #5a6470;
-  --line: #d7dde2;          /* hairlines / borders */
-  --band: #e6eaee;          /* subtle structural band */
-  --mineral: #1379a0;
-  --mineral-strong: #0f6585;
-  --sand: #eef1f3;          /* cool off-white canvas, never beige */
-  --paper: #ffffff;         /* content surface */
-  --ember: #d05e2e;
-  --ember-strong: #b94e22;
-}
-
-.dark {
-  --ink: #e7ebee;
-  --steel: #97a2ac;
-  --line: #2a3037;
-  --band: #1c222a;
+  --ink: #e8ecef;           /* primary text */
+  --steel: #93a0ab;         /* supporting copy, labels, metadata */
+  --line: #283039;          /* hairlines / borders */
+  --band: #161d26;          /* raised panel / evidence surface */
   --mineral: #3aa6c9;
-  --mineral-strong: #5bbbda;
-  --sand: #0e1216;          /* dark-native canvas */
-  --paper: #161b21;         /* dark content surface */
-  --ember: #e0703f;
-  --ember-strong: #ec8155;
+  --mineral-strong: #62bcdb;
+  --sand: #0a0d11;          /* base canvas (darkest) */
+  --paper: #0f151b;         /* lifted section / footer */
+  --ember: #d8602f;         /* decision / CTA only */
+  --ember-strong: #c4521f;
 }
 
 @theme inline {

@@ -1,62 +1,15 @@
-// Homepage content: surface -> need pairs, the two clusters, and the
-// "why we're different" principles. Public-only language.
+// Homepage content. Public-only language — plain, customer-subject, no slogans.
 
-export interface SurfaceNeed {
-  surface: string;
-  need: string;
-}
-
-// What the customer actually buys (surface) vs the underlying need.
-export const surfaceNeeds: SurfaceNeed[] = [
-  {
-    surface: "A managed mailbox",
-    need: "Someone to call when it breaks, who already knows your tenant.",
-  },
-  {
-    surface: "A website",
-    need: "A presence that reflects the business and stays up.",
-  },
-  {
-    surface: "Backup",
-    need: "Insurance against the day you delete the wrong folder or get phished.",
-  },
-  {
-    surface: "Domain management",
-    need: "Certainty the domain you've owned for years won't lapse or get hijacked.",
-  },
-  {
-    surface: "Consulting",
-    need: "A pragmatic technologist who understands small-business reality.",
-  },
+// The hidden technology layer — the systems a business quietly depends on,
+// named for recognition (purpose 2). Not a sales list; the visitor's own world.
+export const hiddenLayer: string[] = [
+  "The email, files and accounts your team works in every day.",
+  "The website and domain people find you through.",
+  "The backup you hope you'll never need — until you do.",
+  "The small fixes and changes nobody has time for.",
 ];
 
-export interface OfferCluster {
-  title: string;
-  blurb: string;
-  items: string[];
-}
-
-// Two clusters on one managed tenancy.
-export const clusters: OfferCluster[] = [
-  {
-    title: "Run your business",
-    blurb: "Microsoft 365 operations — email, files, identity and security.",
-    items: ["Productivity (4 managed tiers)", "Backup as managed recovery", "Copilot / AI, readiness-first"],
-  },
-  {
-    title: "Run your web presence",
-    blurb: "The site and the addresses people find you by.",
-    items: ["Web hosting & care", "Domains & DNS, always portable"],
-  },
-];
-
-// Consulting sits beside the clusters as the named "safety valve".
-export const consultingAside = {
-  title: "Projects & advisory",
-  blurb:
-    "Migrations, rebuilds, security uplift, AI implementation — scoped and quoted separately so the recurring service stays clean.",
-};
-
+// Trust principles (purpose 4) — plain promises, the customer as the subject.
 export interface Principle {
   title: string;
   blurb: string;
@@ -64,19 +17,18 @@ export interface Principle {
 
 export const principles: Principle[] = [
   {
-    title: "Boundaries protect quality",
-    blurb: "We say what we do and what we don't. Clear scope is why the service stays good.",
+    title: "You own everything",
+    blurb:
+      "Your domain, your data, your backups. You can leave any time and take all of it with you.",
   },
   {
-    title: "Modern by default",
-    blurb: "One tenant, one source of truth — set up the way it should be, not bolted together.",
+    title: "We say where it stops",
+    blurb:
+      "Clear scope, written down. Knowing what we don't do is what keeps the work good.",
   },
   {
-    title: "Portability always",
-    blurb: "You own your domain, data and backups. You can leave with everything, any time.",
-  },
-  {
-    title: "Premium is clarity",
-    blurb: "You can understand what you're paying for at a glance. That legibility is the product.",
+    title: "Set up properly",
+    blurb:
+      "One tenant, one source of truth — built the modern way, not bolted together over the years.",
   },
 ];

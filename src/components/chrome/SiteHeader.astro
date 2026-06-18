@@ -9,7 +9,7 @@ interface Props {
 const { overHero = false } = Astro.props;
 
 const nav = [
-  { label: "Services", href: "/#services" },
+  { label: "Productivity", href: "/productivity" },
   { label: "Pricing", href: "/pricing" },
   { label: "Contact", href: "/contact" },
 ];
@@ -50,7 +50,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
         href="/contact"
         class="hidden sm:inline-flex items-center bg-ember hover:bg-ember-strong text-white text-sm font-medium px-3.5 py-2 rounded-sm transition-colors"
       >
-        Start a conversation
+        Tell us what you need
       </a>
     </nav>
   </div>

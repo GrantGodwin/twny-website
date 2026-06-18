@@ -12,26 +12,91 @@ Read it the way you'd take direction from a creative director. The *why* matters
 much as the *what*, because the why is what lets you make the right call in a
 situation this document didn't predict.
 
-## North Star
+## Creative North Star
 
-> **The TWNY website should feel like the digital presence of a business people
-> aspire to work with — not a business trying to convince people to buy from it.**
+> **TWNY exists to make the technology behind a modern business feel simple.**
+>
+> Technology is the medium. Simplicity is the outcome. Competence is how we get there.
 
-This is the lens for every decision. Aspiration attracts the buyer we want;
-persuasion repels them. A site that *sells* signals it needs to; a site that simply
-*is* — composed, confident, quietly excellent — makes people lean in. We are building
-the second kind.
+We are not, at heart, selling Microsoft 365, websites, or backup. We sell the feeling
+that somebody competent has quietly taken responsibility for the technology a business
+depends on — and that, as a result, the whole thing feels *simpler*. A visitor should
+leave thinking *"technology feels simpler here,"* not *"they sell Microsoft 365."*
 
-Two ideas follow from it and govern everything below:
+That feeling *is* the product, and the website must deliver it before it explains
+anything. A visitor should feel handed over to someone capable — relieved, not sold to.
 
-- **The website exists to help the right small-business owner feel confident enough
-  to start a conversation.** Everything else is secondary.
-- **The website is an emotional and commercial experience, not an operational system.**
-  It expresses TWNY's personality, confidence, and taste — it does not document its
-  machinery.
+**The website should feel exactly like the service:**
 
-If a choice serves the North Star, it belongs. If it's there to convince, impress, or
-explain for its own sake, cut it.
+> calm · current · capable · considered · modern · human —
+> never loud, never complicated, never trying too hard.
+
+If the experience itself feels that way, the visitor trusts the work will too. The site
+is the first proof of the service.
+
+This has a commercial twin that follows directly from it:
+
+> **The website should feel like the digital presence of a business people aspire to
+> work with — not a business trying to convince people to buy from it.**
+
+Aspiration attracts the buyer we want; persuasion repels them. Two rules follow and
+govern everything below:
+
+- **The website exists to help the right small-business owner feel confident enough to
+  start a conversation.** Everything else is secondary.
+- **Every page should leave technology feeling simpler than the visitor expected.**
+  Reducing apparent complexity is the work — on the page and in the offer.
+
+If a choice serves the North Star, it belongs. If it adds complexity, or is there to
+convince, impress, or explain for its own sake, cut it.
+
+## Brand language
+
+**Every public sentence has one job.** If a sentence is trying to be the brand statement,
+the page headline, the positioning, the service description and the call to action all at
+once, it is doing none of them well — rewrite it. The brand should not try to carry the
+homepage; the homepage should not try to carry the brand.
+
+The system has six layers. Keep them distinct.
+
+| Layer | The line | Its one job | Where it lives | Must not |
+| --- | --- | --- | --- | --- |
+| **1. Brand** | `twny` / TWNY | Identity only | Wordmark, masthead, legal | Carry messaging or become a sentence |
+| **2. Canonical brand statement** | **Simplifying the technology behind your business.** | Say what we do — durably and portably | Footer, email signature, LinkedIn, proposal covers, metadata, business cards, invoices, future marketing | Become a page H1; list services |
+| **3. Service descriptor** | "Microsoft 365, websites, domains, backup, AI and automation — looked after by one accountable operator." | Name the concrete category where clarity is required | Supporting line under an H1, footer, About, OG body | Pretend to be the brand statement (it is descriptive, not aspirational); it may evolve over time |
+| **4. Page headline (H1)** | Page-specific — each page owns its own | Answer "what is this page about?" | The top of each page | Repeat the brand statement; Homepage, Pricing, Contact, About and Services may all differ |
+| **5. Brand philosophy** *(internal only)* | Technology is the medium. Simplicity is the outcome. Competence is how. | Guide design, writing, and product decisions | Governance only | Ever be used as public copy |
+| **6. Call to action** | **Tell us what you need.** | Offer the single, low-pressure next step | Buttons | Become a slogan or a funnel, or carry urgency |
+
+### The canonical brand statement
+
+> **Simplifying the technology behind your business.**
+
+This is the one sentence TWNY repeats everywhere off-page. **It is locked.**
+
+We chose it over "Simplifying technology *for* your business" deliberately. Both are clear,
+portable, honest, and durable — but "*the technology behind your business*" is the truer
+description of what TWNY sells: we look after the operating layer a business already runs
+on; we are not a shop selling technology *to* you. "For your business" leans, however
+slightly, toward reseller / IT-for-hire. "Behind your business" names the hidden operating
+layer — the same language this governance already uses — and gives the statement a
+concrete, ownable image without narrowing the offer: Microsoft 365, websites, domains,
+backup, AI and automation all sit *behind* the business, kept working as one.
+
+It is **not** a homepage H1 (that is layer 4) and **not** a slogan. It is a calm, true
+descriptor — the sentence that should read equally well on an invoice and a LinkedIn
+profile.
+
+### The brand philosophy is internal
+
+The [Creative North Star](#creative-north-star) above — *technology is the medium,
+simplicity is the outcome, competence is how* — is the brand philosophy. It governs every
+decision but is **never** public copy. Its public expression is the canonical brand
+statement; the philosophy itself stays behind the curtain.
+
+*"Technology, simplified." is retired as a public-facing line.* It was a useful waypoint,
+but it duplicated the job of the canonical statement and read more like advertising. Its
+meaning now lives in layer 2 (public) and layer 5 (internal) — one job each.
 
 ---
 
@@ -49,7 +114,8 @@ way a beautifully made object justifies its cost before you've read a word about
 So we design for **feeling first, then comprehension**. A visitor should sense quality
 before they grasp the offer, trust the operator before they read the pricing, and want
 the conversation before they've finished scrolling. Atmosphere earns the attention;
-clarity earns the decision. Both matter, in that order.
+clarity earns the decision. Both matter, in that order — but *what kind of business this
+is* must be legible within seconds. Feeling-first never means category-later.
 
 Success looks like: the right visitor books a call feeling calm and confident; the
 wrong visitor (price-shopper, break-fix, "unlimited support") leaves without
@@ -127,8 +193,8 @@ they're for. Never water down a boundary to keep a wrong-fit lead.
 ## 5. What TWNY is really selling
 
 We are not selling mailboxes, hosting, gigabytes, or licences. **We are selling the
-problem going away, reliably, under one accountable operator — and the calm that comes
-with it.**
+problem going away — the technology made simple, handled reliably under one accountable
+operator, and the calm that comes with it.**
 
 Always lead with the need, not the surface:
 
@@ -182,6 +248,7 @@ promise. Hold the line on words:
 - **Decision + evidence + action.** Say the thing, back it, point somewhere.
 - **Specific true things beat claims.** "We run the Microsoft 365 tenant, the DNS, the backup and the website — one source of truth" beats "Made Easy." Specificity *is* credibility.
 - **Headlines can be confident and human.** Write a real sentence worth setting large, not a tagline. Editorial presence comes from a strong idea in big type, not from a slogan.
+- **Every sentence has one job.** A line trying to be the brand statement, the headline, the positioning *and* the CTA at once is doing none of them well — split it. Respect the six layers in [Brand language](#brand-language).
 - **Gloss every technical term immediately** — "the tenant, the account that holds your whole organisation." Never assume knowledge; never condescend.
 - **Boundaries are content.** Saying what we don't do builds more trust than another benefit would.
 - **"We", never "TWNY", in body copy.** The brand name lives in the masthead.
@@ -191,14 +258,31 @@ promise. Hold the line on words:
 
 ## 9. The visual system
 
-The palette and type are the brand's foundation — a foundation to build on, not a cage.
-They give the site a consistent voice; art direction, photography, and depth give it
-presence.
+The palette and type are the brand's foundation — built on, not boxed in. Typography and
+art direction give the site presence; the colour system keeps it coherent. The *specific,
+locked* visual behaviour — surface levels, colour roles, the signature element — lives in
+the [Art Direction](./art-direction.md); the durable principles are here.
 
-- **Colour.** *Ink* anchors text; *Steel* structures; *Mineral* (`#1379A0`) carries movement — links, navigation, interactive accents; *Sand* and *Paper* are quiet ground tones; *Ember* (`#D05E2E`) is the **decision colour, and the only one** — every primary call to action is Ember, and Ember is nothing else. This one discipline does more for clarity than any other rule; keep it absolutely, because the moment everything is a CTA colour, nothing is. Beyond these anchors, photographic colour and tonal atmosphere are welcome — a site can be rich and warm without inventing new brand colours.
-- **Typography is the primary instrument.** Hierarchy, scale, weight, and spacing do most of the work. Use a wide, confident scale: large, quietly dramatic display; comfortable, readable body; restrained fine labels. Type sets the tone before a word is read.
-- **The public website can be dark-first, but dark-only is not a permanent brand rule.** A dark opening can be rich and atmospheric, never a flat slab, but the site still needs tonal contrast and operational clarity. Use lighter or quieter surfaces where comprehension, pricing, scope, or service evidence needs relief. There is no public theme toggle unless deliberately introduced, and any dark-first execution must maintain WCAG 2.1 AA contrast throughout.
-- **The identity is the wordmark only.** Lowercase `twny`. No monogram, badge, circular device, or favicon mark — a single confident wordmark is more premium than any emblem.
+- **One continuous Ink-first environment.** The site is dark-grounded and stays in one
+  world — **no white or Paper sections, and no light "relief" theme.** Separation and
+  pacing come from alternating Ink with *lifted* Ink/Steel surfaces, so the page feels like
+  rooms in one building, never two different sites. (Locked; see the Art Direction's
+  *Theme & Surfaces.*)
+- **Colour roles are fixed.** *Ink* is authority and text; *lifted Ink* is separation;
+  *Steel* is structure, labels, and metadata; *Mineral* (`#1379A0`) is the technology
+  current — movement, links, emphasis, and the way the operating layer reads as
+  *connected*; *Ember* (`#D05E2E`) is the **decision colour, and the only one.** Every
+  primary call to action is Ember; Ember is nothing else. Keep this absolutely — the moment
+  everything is a CTA colour, nothing is.
+- **Typography is the primary instrument.** Hierarchy, scale, weight, and spacing do most
+  of the work: large, quietly dramatic display; comfortable, readable body; restrained
+  labels. Type sets the tone before a word is read — and **photography supports type, never
+  the reverse.**
+- **Warmth and contrast come from tone, not new colour.** Warmth is photographic light,
+  real materials, and voice; contrast is tonal shift within the Ink family, type scale, and
+  whitespace — never a second brand hue, never a white page. Hold WCAG 2.1 AA throughout.
+- **The identity is the wordmark only.** Lowercase `twny`. No monogram, badge, circular
+  device, or favicon mark — a single confident wordmark is more premium than any emblem.
 
 What is genuinely off-limits is not any technique but *genericness*: equal-card
 "dashboard" grids as a default layout, clip-art and icon collages, stock "people at
@@ -221,6 +305,7 @@ Premium visuals don't shout; they glide.
 - **Layered depth.** Build atmosphere by layering image, soft overlay, type, and subtle foreground, so the page has a believable sense of space (see §12). Depth supports hierarchy; it is never the feature.
 - **Restrained, purposeful animation.** Motion should feel like physics, not performance: gentle fades and rises as content enters, smooth state transitions, easing that feels expensive. Nothing bouncy, looping, or attention-seeking — and nothing the page depends on.
 - **Premium interaction design.** Hovers, focus, and transitions should feel crafted and consistent — quiet confirmation, never spectacle. Quality is felt in the details.
+- **A signature element, not a template.** The site needs one recognisable visual device of its own that expresses the connected operating layer behind a business — premium, editorial, calm, unmistakably TWNY, and never a fake dashboard, card grid, chip row, or diagram. It must be *discovered before pages are built.* Its role is defined in the Art Direction's [*The Signature Component*](./art-direction.md#the-signature-component).
 
 The test for any art-direction decision: *does this make the visitor feel they've
 arrived somewhere considered and trustworthy?* If yes, it earns its place. If it's
@@ -228,16 +313,27 @@ there to look clever, cut it.
 
 ## 11. Photography and imagery
 
-Photography is a core part of how the site creates emotion, confidence, and context.
-The right image does what no paragraph can: it makes a cautious owner feel *this is for
-people like me.*
+Photography does what no paragraph can: it makes a cautious owner feel *this is for people
+like me.* We are after one thing — **beautifully photographed businesses at work.**
 
-- **Photograph business context, not just beautiful rooms.** Show the world our clients work in — real Australian small businesses, workplaces and workshops, craftsmanship, hands at work, natural light, authentic environments, and the operational details that make the setting feel lived-in. Evoke *calm competence and human warmth* without letting interiors become the subject.
-- **Technology should appear as operational evidence, not cliche.** Show restrained glimpses of the systems TWNY actually looks after when they clarify the offer: Microsoft 365, websites, domains, backup, automation, AI readiness, or ownership/continuity cues. Avoid server rooms, code walls, app-logo collages, clouds, robots, cyber shields, and "people pointing at monitors." We sell the calm created by handled technology, not generic technology imagery.
-- **Editorial stills, not stock.** Images should look authored — intentional light, a clear focal point, honest moments. If an image could appear on a competitor's site, it's the wrong image.
-- **Natural light and a timeless treatment.** Prefer soft, real light and a calm, slightly restrained grade over saturated, trend-driven looks. The photography's palette should feel of a piece with the brand's quiet tones.
-- **Truth over polish.** No fabricated "clients," no staged offices passed off as ours. Where genuine, specific imagery doesn't exist, choose authentic environmental photography that is clearly atmospheric in spirit — never a staged claim.
-- **Restraint still applies.** Fewer, stronger images beat many; one arresting hero beats a gallery. Well-composed empty space remains a premium choice. The goal is never *more* imagery — it is *intentional* imagery.
+- **The business is always the subject.** Real or believable Australian small businesses
+  doing the work — natural light, human scale, lived-in detail. *Not* technology
+  photography, *not* architecture or interiors, *not* lifestyle, *not* stock business
+  people.
+- **Technology lives naturally inside the scene, as quiet evidence** — a laptop mid-task, a
+  website on a screen, job sheets, a booking on a phone. Present, never staged, never the
+  point. (The specific do/don't subjects are in the [Art Direction](./art-direction.md).)
+- **The image supports the story; it never becomes the story.** If a photo only says
+  "beautiful room," it's the wrong photo. If it could sit on a competitor's site, it's the
+  wrong photo.
+- **Authored, not stock; natural light; a calm, restrained grade** of a piece with the
+  brand's Ink tones — never saturated or trend-driven.
+- **Truth over polish.** No fabricated "clients," no staged offices passed off as ours.
+- **Restraint.** Fewer, stronger images; one arresting hero beats a gallery. Well-composed
+  space is a premium choice. The goal is never *more* imagery — it is *intentional* imagery.
+
+The test: *"This is the kind of business TWNY helps keep running,"* not *"This is a
+beautiful room."*
 
 ## 12. Depth, layering and visual effects
 
@@ -257,20 +353,30 @@ Applied:
 If you cannot name the hierarchy or atmosphere an effect serves, remove it. Effects are
 seasoning; the meal is composition, type, and image.
 
-## 13. Homepage principles
+## 13. Homepage philosophy
 
-The homepage does one job — **position, prove, point** — as an *experience*, not a
-document.
+The homepage is an *experience*, not a document. It is defined by the **purpose** of each
+movement, not by any layout. There are five, in order, and the order is the argument:
 
-- **Open with presence.** An immersive, near-full-height hero: a strong environmental image, transparent navigation over it, one confident headline, one supporting line, one Ember invitation. Mood and trust first; the full offer can wait a few scrolls.
-- **Balance atmosphere with category clarity.** The first viewport should feel premium and modern, but it must also answer what kind of business TWNY is. Do not open with abstract lifestyle copy or a beautiful room that could belong to an architect, cafe, or interiors studio.
-- **Prove with calm structure, beautifully composed.** Reveal what they get (the surface→need truths), then *how* we work (the operational loop as a refined, well-spaced sequence — editorial, not an icon strip), then the offer as one coherent operation. Editorial rhythm and depth keep proving from feeling like a manual.
-- **Establish the wrapper before the price.** Let the value of the managed operation land *before* linking to pricing, so the number reads as "fair for all that," not "expensive."
-- **Close as an invitation, not a funnel.** "Tell us what you need; we'll recommend a starting point." One Ember CTA, framed conversationally, surrounded by space. No urgency, no pop-ups, no countdowns.
+1. **Create confidence.** Open with presence and quality, so the visitor feels they've
+   arrived somewhere considered and capable *before* being asked to understand anything.
+2. **Reveal the hidden technology layer.** Name, calmly, the systems a modern business
+   quietly depends on — Microsoft 365, the website, the domain, backup, the everyday
+   changes — so the visitor recognises their own world.
+3. **Show how TWNY simplifies it.** Make the connected operation legible: many moving parts
+   looked after as one, by one accountable operator. This is where the technology visibly
+   gets **simpler** — shown, not claimed.
+4. **Build trust through accountability.** Clear scope, honest boundaries, ownership and
+   portability, and transparent pricing as a trust signal — the value of the wrapper
+   landing *before* the number, so it reads "fair for all that," not "expensive."
+5. **Invite a conversation.** One calm, human next step — "Tell us what you need; we'll
+   recommend a starting point." No funnel, no urgency, no pop-ups.
 
-The sequence is deliberate: reassurance first (or they bounce), differentiation second
-(or they don't see why we cost more), transparency third (or they don't trust the
-number). Reorder it and you lose someone at each step.
+The sequence is deliberate: confidence first (or they bounce), recognition and
+simplification next (or they don't see why we matter), trust third (or they don't believe
+the number). Each movement earns the right to the next. *How* each one looks and paces is
+the [Art Direction](./art-direction.md)'s job; *that* it serves its purpose is this
+document's.
 
 ## 14. Service page principles
 
@@ -320,7 +426,7 @@ becomes a spec sheet.
 Practical guidance for the two technical forces:
 
 - **SEO:** be genuinely the clearest, most specific answer, and let structure be machine-legible as a by-product of being human-legible. Plain titles and meta descriptions a person would actually search; one clear `<h1>` per page; honest heading hierarchy; specific local language ("Australian small business," named services) over "any size, any industry." No keyword stuffing, doorway pages, or fake schema.
-- **Accessibility:** target WCAG 2.1 AA in both light and dark. Semantic structure and landmarks; correct heading order; a skip link; full keyboard operability with a visible, well-styled focus state. Maintain text contrast over imagery (scrims exist for this). Honour reduced-motion — the site must be fully usable, and still feel premium, with motion off. Never rely on colour alone to carry meaning.
+- **Accessibility:** target WCAG 2.1 AA across every surface in the Ink-first system (Ink and lifted Ink alike). Semantic structure and landmarks; correct heading order; a skip link; full keyboard operability with a visible, well-styled focus state. Maintain text contrast over imagery (scrims exist for this). Honour reduced-motion — the site must be fully usable, and still feel premium, with motion off. Never rely on colour alone to carry meaning.
 
 When forces seem to conflict, resolve toward **trust and the human** — they are what
 make this particular sale.
@@ -395,11 +501,12 @@ Before shipping any change, confirm:
 - [ ] It serves the **ideal client** (the small-business operator deciding alone), not a committee or an IT department.
 - [ ] The **copy** is plain, specific, human, free of banned words, and invents no proof.
 - [ ] It is **art-directed**, not defaulted: considered composition, type, space, and — where used — photography and depth.
-- [ ] Any **imagery** creates emotion and context, looks authored not stock, and rarely shows technology.
+- [ ] Any **imagery** is a *business at work* — the business is the subject, looks authored not stock, and shows technology only as quiet evidence inside the scene.
 - [ ] Any **effect** serves hierarchy or atmosphere and is not the feature.
 - [ ] **Ember is the only CTA colour,** used sparingly.
+- [ ] The surface is **Ink-first** — one continuous environment, no white or Paper sections; separation comes from lifted Ink.
 - [ ] **Pricing** (if touched) is transparent, ex-GST, two-mode, beautifully clear, and signed off or flagged draft.
-- [ ] It is **accessible**: semantic, keyboard-operable, AA-contrast over imagery in light and dark, and fully usable with motion off.
+- [ ] It is **accessible**: semantic, keyboard-operable, AA-contrast over imagery and across all Ink surfaces, and fully usable with motion off.
 - [ ] It reflects **Atlas's substance** but not Atlas's surface.
 - [ ] If anything here was a "no," I stopped and reconsidered rather than shipping anyway.
 

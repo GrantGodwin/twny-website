@@ -1,257 +1,129 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/home/Hero.astro";
+import OperatingLayer from "../components/home/OperatingLayer.astro";
 import Button from "../components/ui/Button.astro";
-
-const coverage = [
-  "Microsoft 365",
-  "AI enablement",
-  "websites",
-  "domains",
-  "hosting",
-  "backup",
-  "automation",
-  "ongoing advice",
-];
-
-const evidenceRows = [
-  {
-    label: "The working day",
-    title: "Email, files, calendar and identity stay aligned.",
-    detail:
-      "Microsoft 365 is treated as the daily work surface of the business, not a loose collection of licences.",
-  },
-  {
-    label: "The public presence",
-    title: "The website, domain, DNS and hosting remain connected.",
-    detail:
-      "The things customers find you through are kept current, portable and owned by the business.",
-  },
-  {
-    label: "The safety net",
-    title: "Backup, recovery and careful AI use are handled with context.",
-    detail:
-      "Recovery is planned before it is needed. AI and automation are introduced only where the work is ready for them.",
-  },
-];
-
-const serviceGroups = [
-  {
-    label: "Daily work",
-    items: ["Microsoft 365", "email identity", "shared files", "access settings"],
-  },
-  {
-    label: "Public presence",
-    items: ["websites", "hosting", "domains", "DNS ownership"],
-  },
-  {
-    label: "Continuity",
-    items: ["backup", "restore readiness", "renewals", "handover clarity"],
-  },
-  {
-    label: "Improvement",
-    items: ["AI enablement", "automation", "workflow advice", "scoped projects"],
-  },
-];
-
-const boundaryNotes = [
-  "Defined scope instead of unlimited-sounding support.",
-  "Plain advice when a smaller answer is enough.",
-  "Ownership and portability written into the way the work is done.",
-];
+import { hiddenLayer, principles } from "../data/offer";
 ---
 
 <BaseLayout
-  title="TWNY - Technology behind your business, looked after"
-  description="TWNY looks after Microsoft 365, AI, websites, domains, hosting, backup and automation for modern Australian small businesses."
+  title="twny — Simplifying the technology behind your business"
+  description="Microsoft 365, websites, domains, backup, AI and automation — the technology behind your Australian small business, looked after as one. A boutique technology practice."
   heroHeader={true}
 >
+  {/* 1 — CONFIDENCE */}
   <Hero />
 
-  <section id="services" class="bg-[#eef1f3] text-[#16191d]">
-    <div class="mx-auto grid max-w-6xl gap-12 px-6 py-24 sm:px-10 lg:grid-cols-[0.92fr_1.08fr] lg:py-32">
-      <div data-animate>
-        <p class="font-mono text-xs uppercase tracking-[0.16em] text-mineral">
-          What we look after
-        </p>
-        <h2 class="mt-6 max-w-xl font-display text-4xl font-semibold leading-[1.06] text-balance sm:text-5xl">
-          The everyday technology a modern business depends on.
-        </h2>
-      </div>
-
-      <div data-animate class="space-y-8">
-        <p class="max-w-2xl text-xl leading-relaxed text-[#38434d] text-pretty">
-          TWNY quietly keeps the operating layer behind the business in order:
-          the accounts people work in, the website customers see, the domain the
-          business owns, the backup that makes recovery possible, and the advice
-          that keeps small changes from becoming messy ones.
-        </p>
-
-        <ul class="flex flex-wrap gap-x-3 gap-y-3" aria-label="Services TWNY looks after">
-          {
-            coverage.map((item) => (
-              <li class="border border-[#cbd4da] bg-white/70 px-3 py-2 font-mono text-xs uppercase tracking-[0.12em] text-[#315464]">
-                {item}
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[#10161c] text-white">
-    <div class="mx-auto grid max-w-6xl gap-14 px-6 py-24 sm:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:py-32">
-      <div data-animate class="max-w-md">
-        <p class="font-mono text-xs uppercase tracking-[0.16em] text-mineral">
-          Operational evidence
-        </p>
-        <h2 class="mt-6 font-display text-4xl font-semibold leading-[1.06] text-balance sm:text-5xl">
-          Visible enough to trust. Quiet enough to stay out of the way.
-        </h2>
-        <p class="mt-7 text-lg leading-relaxed text-white/68 text-pretty">
-          Technology appears as proof of care: status, ownership, readiness and
-          context. Not theatre. Not a fake dashboard.
-        </p>
-      </div>
-
-      <div data-animate class="relative">
-        <div class="absolute left-3 top-8 hidden h-[calc(100%-4rem)] w-px bg-mineral/45 sm:block" aria-hidden="true"></div>
-        <div class="space-y-5">
-          {
-            evidenceRows.map((row) => (
-              <article class="relative border border-white/10 bg-white/[0.035] p-6 backdrop-blur-sm sm:ml-10">
-                <span class="absolute -left-[2.72rem] top-8 hidden h-3 w-3 bg-mineral sm:block" aria-hidden="true"></span>
-                <p class="font-mono text-xs uppercase tracking-[0.14em] text-mineral">
-                  {row.label}
-                </p>
-                <h3 class="mt-4 font-display text-2xl font-semibold leading-tight text-white text-balance">
-                  {row.title}
-                </h3>
-                <p class="mt-4 text-base leading-relaxed text-white/66 text-pretty">
-                  {row.detail}
-                </p>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[#f8f9f9] text-[#16191d]">
-    <div class="mx-auto max-w-6xl px-6 py-24 sm:px-10 lg:py-32">
-      <div data-animate class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
-        <div>
-          <p class="font-mono text-xs uppercase tracking-[0.16em] text-mineral">
-            One accountable operator
+  {/* 2 — THE HIDDEN TECHNOLOGY LAYER */}
+  <section class="bg-paper text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 lg:py-32">
+      <div class="grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
+        <div data-animate>
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+            Behind the everyday
           </p>
-          <h2 class="mt-6 max-w-3xl font-display text-4xl font-semibold leading-[1.05] text-balance sm:text-6xl">
-            Services grouped around how the business actually works.
+          <h2 class="mt-6 max-w-md font-display text-4xl font-semibold leading-[1.04] text-balance sm:text-5xl">
+            Every business runs on technology it never thinks about.
           </h2>
         </div>
-        <p class="max-w-xl text-lg leading-relaxed text-[#4d5964] text-pretty lg:justify-self-end">
-          The point is not a bigger menu. It is fewer loose ends: the daily
-          work surface, the public presence, the safety net and the small
-          improvements all understood together.
-        </p>
-      </div>
 
-      <div class="mt-16 divide-y divide-[#cdd6dc] border-y border-[#cdd6dc]">
-        {
-          serviceGroups.map((group) => (
-            <section class="grid gap-5 py-7 sm:grid-cols-[0.4fr_1fr] sm:items-center">
-              <h3 class="font-display text-2xl font-semibold text-[#16191d]">
-                {group.label}
-              </h3>
-              <ul class="flex flex-wrap gap-x-3 gap-y-3">
-                {group.items.map((item) => (
-                  <li class="bg-[#e6eef2] px-3 py-2 font-mono text-xs uppercase tracking-[0.12em] text-[#1a6079]">
+        <div data-animate>
+          <p class="max-w-lg text-lg leading-relaxed text-steel text-pretty">
+            Until something stops. Then it's suddenly all you can think about —
+            and you're calling whoever set it up, hoping they remember how it fits
+            together.
+          </p>
+
+          <ul class="mt-12 border-t border-line">
+            {
+              hiddenLayer.map((item) => (
+                <li class="border-b border-line py-5">
+                  <p class="font-display text-xl font-medium leading-snug text-ink text-pretty sm:text-2xl">
                     {item}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[#0e1216] text-white">
-    <div class="mx-auto grid max-w-6xl gap-12 px-6 py-24 sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:py-32">
-      <div data-animate>
-        <p class="font-mono text-xs uppercase tracking-[0.16em] text-mineral">
-          Trust and boundaries
-        </p>
-        <h2 class="mt-6 font-display text-4xl font-semibold leading-[1.05] text-balance sm:text-6xl">
-          Not an MSP. Not an agency. A defined technology practice.
-        </h2>
-      </div>
-
-      <div data-animate class="space-y-8 lg:pt-16">
-        <p class="text-xl leading-relaxed text-white/74 text-pretty">
-          We are not trying to own every technology problem. We look after a
-          clear modern operating layer and say where the edges are, so the work
-          stays careful.
-        </p>
-        <ul class="space-y-4">
-          {
-            boundaryNotes.map((note) => (
-              <li class="border-l-2 border-mineral pl-5 text-base leading-relaxed text-white/70">
-                {note}
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[#eef1f3] text-[#16191d]">
-    <div class="mx-auto grid max-w-6xl gap-10 px-6 py-24 sm:px-10 lg:grid-cols-[1fr_0.8fr] lg:items-center lg:py-28">
-      <div data-animate>
-        <p class="font-mono text-xs uppercase tracking-[0.16em] text-mineral">
-          Pricing posture
-        </p>
-        <h2 class="mt-6 max-w-3xl font-display text-4xl font-semibold leading-[1.06] text-balance sm:text-5xl">
-          Published pricing is a trust signal, not a discount tactic.
-        </h2>
-      </div>
-      <div data-animate class="max-w-xl lg:justify-self-end">
-        <p class="text-lg leading-relaxed text-[#4d5964] text-pretty">
-          The value is the managed wrapper: one accountable operator, clear
-          scope, honest boundaries and technology that remains portable. Pricing
-          should help you decide whether the conversation is worth having.
-        </p>
-        <div class="mt-8">
-          <Button href="/pricing" variant="mineral">See pricing</Button>
+                  </p>
+                </li>
+              ))
+            }
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="bg-[#111922] text-white">
-    <div class="mx-auto max-w-6xl px-6 py-24 sm:px-10 lg:py-32">
-      <div data-animate class="max-w-3xl">
-        <p class="font-mono text-xs uppercase tracking-[0.16em] text-mineral">
-          The next step
-        </p>
-        <h2 class="mt-6 font-display text-4xl font-semibold leading-[1.05] text-balance sm:text-6xl">
-          Tell us where the technology feels loose.
-        </h2>
-        <p class="mt-7 max-w-2xl text-lg leading-relaxed text-white/72 text-pretty">
-          We will recommend a practical starting point, including the honest
-          answer if you need less than you think.
-        </p>
-        <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-          <Button href="/contact" variant="ember">Start a conversation</Button>
-          <a
-            href="#services"
-            class="text-sm font-medium text-white/78 transition-colors hover:text-white"
-          >
-            Review what we look after
-          </a>
+  {/* 3 — SIMPLIFICATION (signature component) */}
+  <OperatingLayer />
+
+  {/* 4 — TRUST */}
+  <section class="bg-paper text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 lg:py-32">
+      <div class="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+        <div data-animate>
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+            Where you stand
+          </p>
+          <h2 class="mt-6 max-w-md font-display text-4xl font-semibold leading-[1.04] text-balance sm:text-5xl">
+            Handled doesn't mean handed over.
+          </h2>
+          <ul class="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2">
+            {
+              principles.map((p) => (
+                <li class="border-l-2 border-mineral pl-5">
+                  <h3 class="font-display text-lg font-semibold text-ink">
+                    {p.title}
+                  </h3>
+                  <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
+                    {p.blurb}
+                  </p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div data-animate class="lg:border-l lg:border-line lg:pl-16">
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+            Priced in the open
+          </p>
+          <h2 class="mt-6 font-display text-4xl font-semibold leading-[1.04] text-balance sm:text-5xl">
+            You'll see the number first.
+          </h2>
+          <p class="mt-6 max-w-md text-base leading-relaxed text-steel text-pretty">
+            Every price is published — nothing waiting behind a sales call. Pay
+            annually (two months free) or monthly with no lock-in; the service is
+            the same either way. All prices in AUD, ex-GST.
+          </p>
+          <div class="mt-8">
+            <Button href="/pricing" variant="mineral">See pricing</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 5 — INVITATION */}
+  <section class="relative isolate overflow-hidden bg-sand text-ink">
+    <div
+      class="absolute inset-0 bg-[radial-gradient(80%_130%_at_14%_50%,#123440_0%,rgba(10,13,17,0)_60%)]"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 py-24 lg:py-32">
+      <div
+        data-animate
+        class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center"
+      >
+        <div>
+          <h2 class="max-w-2xl font-display text-4xl font-semibold leading-[1.02] text-balance sm:text-5xl lg:text-6xl">
+            Tell us what you need; we'll recommend a starting point.
+          </h2>
+          <p class="mt-6 max-w-md text-lg leading-relaxed text-steel text-pretty">
+            No pressure, no sales funnel — a short conversation, then a clear
+            recommendation. Including the honest answer if you need less than you
+            think.
+          </p>
+        </div>
+        <div class="lg:justify-self-end">
+          <Button href="/contact" variant="ember">Tell us what you need</Button>
         </div>
       </div>
     </div>
