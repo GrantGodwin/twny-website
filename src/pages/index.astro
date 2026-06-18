@@ -1,45 +1,45 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/home/Hero.astro";
-import OperatingLayer from "../components/home/OperatingLayer.astro";
 import Button from "../components/ui/Button.astro";
-import { hiddenLayer, principles } from "../data/offer";
+import { surfaceNeeds, offerCards, principles } from "../data/offer";
+import { loop } from "../data/loop";
 ---
 
 <BaseLayout
   title="twny — Simplifying the technology behind your business"
-  description="Microsoft 365, websites, domains, backup, AI and automation — the technology behind your Australian small business, looked after as one. A boutique technology practice."
+  description="A boutique Australian technology practice. We look after the Microsoft 365, websites, domains, backup and automation behind your business — one accountable operator, fewer moving parts, and clean ownership you keep."
   heroHeader={true}
 >
-  {/* 1 — CONFIDENCE */}
+  {/* HERO */}
   <Hero />
 
-  {/* 2 — THE HIDDEN TECHNOLOGY LAYER */}
+  {/* WHAT YOU'RE REALLY BUYING — heading left, surface→need list right */}
   <section class="bg-paper text-ink">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 lg:py-32">
-      <div class="grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <div class="grid gap-12 lg:grid-cols-[0.36fr_0.64fr] lg:gap-16">
         <div data-animate>
           <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-            Behind the everyday
+            What you're really buying
           </p>
-          <h2 class="mt-6 max-w-md font-display text-4xl font-semibold leading-[1.04] text-balance sm:text-5xl">
-            Every business runs on technology it never thinks about.
+          <h2 class="mt-6 max-w-xs font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+            You're not buying tools. You're buying the problem going away.
           </h2>
         </div>
 
         <div data-animate>
-          <p class="max-w-lg text-lg leading-relaxed text-steel text-pretty">
-            Until something stops. Then it's suddenly all you can think about —
-            and you're calling whoever set it up, hoping they remember how it fits
-            together.
-          </p>
-
-          <ul class="mt-12 border-t border-line">
+          <ul class="border-t border-line">
             {
-              hiddenLayer.map((item) => (
-                <li class="border-b border-line py-5">
-                  <p class="font-display text-xl font-medium leading-snug text-ink text-pretty sm:text-2xl">
-                    {item}
+              surfaceNeeds.map((sn, i) => (
+                <li class="grid grid-cols-[1.75rem_1fr] items-baseline gap-x-3 border-b border-line py-5 sm:grid-cols-[1.75rem_0.36fr_0.64fr] sm:gap-x-6">
+                  <span class="font-mono text-xs text-mineral">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 class="font-display text-lg font-semibold text-ink">
+                    {sn.surface}
+                  </h3>
+                  <p class="col-start-2 mt-1 text-sm leading-relaxed text-steel text-pretty sm:col-start-3 sm:mt-0">
+                    {sn.need}
                   </p>
                 </li>
               ))
@@ -50,79 +50,214 @@ import { hiddenLayer, principles } from "../data/offer";
     </div>
   </section>
 
-  {/* 3 — SIMPLIFICATION (signature component) */}
-  <OperatingLayer />
+  {/* HOW WE WORK — heading left, six-step path right (faint atmosphere behind) */}
+  <section id="how-we-work" class="relative isolate overflow-hidden bg-sand text-ink">
+    <div class="absolute inset-0 opacity-[0.07]" aria-hidden="true">
+      <img
+        src="/images/chapter-calm.webp"
+        alt=""
+        class="h-full w-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <div
+      class="absolute inset-0 bg-[linear-gradient(to_bottom,var(--color-sand),transparent_30%,transparent_70%,var(--color-sand))]"
+      aria-hidden="true"
+    >
+    </div>
 
-  {/* 4 — TRUST */}
-  <section class="bg-paper text-ink">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 lg:py-32">
-      <div class="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <div class="grid gap-12 lg:grid-cols-[0.32fr_0.68fr] lg:gap-16">
         <div data-animate>
           <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-            Where you stand
+            How we work
           </p>
-          <h2 class="mt-6 max-w-md font-display text-4xl font-semibold leading-[1.04] text-balance sm:text-5xl">
-            Handled doesn't mean handed over.
+          <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+            The same path, every time.
           </h2>
-          <ul class="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2">
+          <p class="mt-5 max-w-xs text-sm leading-relaxed text-steel text-pretty">
+            Predictable is part of the service. Every engagement runs the same
+            calm sequence, so the work — and the price — stay honest.
+          </p>
+        </div>
+
+        <div data-animate class="relative">
+          {/* connecting hairline behind the numbered nodes (desktop) */}
+          <div
+            class="absolute inset-x-0 top-[22px] hidden h-px bg-line lg:block"
+            aria-hidden="true"
+          >
+          </div>
+          <ol class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-6 lg:gap-x-3">
             {
-              principles.map((p) => (
-                <li class="border-l-2 border-mineral pl-5">
-                  <h3 class="font-display text-lg font-semibold text-ink">
-                    {p.title}
+              loop.map((step, i) => (
+                <li class="relative flex flex-col items-center text-center lg:items-start lg:text-left">
+                  <span class="relative z-10 flex h-11 w-11 items-center justify-center rounded-full border border-mineral/50 bg-sand font-mono text-xs text-mineral">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 class="mt-4 font-display text-base font-semibold text-ink">
+                    {step.name}
                   </h3>
-                  <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
-                    {p.blurb}
+                  <p class="mt-2 text-xs leading-relaxed text-steel text-pretty">
+                    {step.blurb}
                   </p>
                 </li>
               ))
             }
-          </ul>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* THE OFFER — heading left, three panels right, info bar below (id for footer) */}
+  <section id="services" class="bg-paper text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <div class="grid gap-12 lg:grid-cols-[0.3fr_0.7fr] lg:gap-16">
+        <div data-animate>
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+            The offer
+          </p>
+          <h2 class="mt-6 max-w-xs font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+            Two clusters, one operation.
+          </h2>
+          <p class="mt-5 max-w-xs text-sm leading-relaxed text-steel text-pretty">
+            Everything sits on one setup we own and look after — not four
+            disconnected services.
+          </p>
         </div>
 
-        <div data-animate class="lg:border-l lg:border-line lg:pl-16">
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-            Priced in the open
-          </p>
-          <h2 class="mt-6 font-display text-4xl font-semibold leading-[1.04] text-balance sm:text-5xl">
-            You'll see the number first.
-          </h2>
-          <p class="mt-6 max-w-md text-base leading-relaxed text-steel text-pretty">
-            Every price is published — nothing waiting behind a sales call. Pay
-            annually (two months free) or monthly with no lock-in; the service is
-            the same either way. All prices in AUD, ex-GST.
-          </p>
-          <div class="mt-8">
-            <Button href="/pricing" variant="mineral">See pricing</Button>
+        <div data-animate>
+          <div class="grid gap-4 sm:grid-cols-3">
+            {
+              offerCards.map((card) => (
+                <div class="flex flex-col rounded-sm border border-line bg-band p-6">
+                  <span
+                    class:list={[
+                      "flex h-8 w-8 items-center justify-center rounded-full",
+                      card.accent === "ember" ? "bg-ember/15" : "bg-mineral/15",
+                    ]}
+                  >
+                    <span
+                      class:list={[
+                        "h-2 w-2 rounded-full",
+                        card.accent === "ember" ? "bg-ember" : "bg-mineral",
+                      ]}
+                    />
+                  </span>
+                  <h3 class="mt-4 font-display text-lg font-semibold text-ink">
+                    {card.title}
+                  </h3>
+                  <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
+                    {card.blurb}
+                  </p>
+                  {card.items && (
+                    <ul class="mt-4 space-y-2 border-t border-line pt-4">
+                      {card.items.map((item) => (
+                        <li class="flex gap-2 text-sm leading-snug text-steel">
+                          <span class="text-mineral" aria-hidden="true">
+                            ✓
+                          </span>
+                          <span class="text-pretty">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))
+            }
+          </div>
+
+          <div
+            class="mt-4 rounded-sm border border-line border-l-2 border-l-mineral bg-sand px-5 py-4"
+          >
+            <p class="text-sm leading-relaxed text-steel text-pretty">
+              It all sits on one setup we own and look after — your email, files,
+              identity, backup, domain and, where it applies, the website — with
+              one source of truth and clean ownership you can always take with you.
+            </p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  {/* 5 — INVITATION */}
-  <section class="relative isolate overflow-hidden bg-sand text-ink">
+  {/* WHY WE'RE DIFFERENT + PRICING — split dark band */}
+  <section class="bg-sand text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <div class="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+        <div data-animate>
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+            Why we're different
+          </p>
+          <div class="mt-8 grid gap-x-10 gap-y-9 sm:grid-cols-2">
+            {
+              principles.map((p) => (
+                <div>
+                  <div class="flex items-center gap-2.5">
+                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-mineral/15">
+                      <span class="h-1.5 w-1.5 rounded-full bg-mineral" />
+                    </span>
+                    <h3 class="font-display text-base font-semibold text-ink">
+                      {p.title}
+                    </h3>
+                  </div>
+                  <p class="mt-2.5 text-sm leading-relaxed text-steel text-pretty">
+                    {p.blurb}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div data-animate class="lg:border-l lg:border-line lg:pl-16">
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+            Pricing
+          </p>
+          <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.05] text-balance sm:text-4xl">
+            Priced in the open.
+          </h2>
+          <p class="mt-5 max-w-sm text-sm leading-relaxed text-steel text-pretty">
+            Two ways to pay: annual commitment (two months free) or monthly flex
+            (no lock-in). Every price is published — nothing hidden behind a sales
+            call.
+          </p>
+          <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
+            <Button href="/pricing" variant="mineralSolid">See pricing</Button>
+            <Button href="/productivity" variant="mineral">
+              Explore Productivity
+            </Button>
+          </div>
+          <p class="mt-6 font-mono text-xs text-steel">
+            All prices are in Australian dollars and exclude GST.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* CONVERSION BAND */}
+  <section class="relative isolate overflow-hidden bg-band text-ink">
     <div
-      class="absolute inset-0 bg-[radial-gradient(80%_130%_at_14%_50%,#123440_0%,rgba(10,13,17,0)_60%)]"
+      class="absolute inset-0 bg-[radial-gradient(70%_140%_at_15%_50%,rgba(19,58,71,0.6)_0%,rgba(22,29,38,0)_60%)]"
       aria-hidden="true"
     >
     </div>
-    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 py-24 lg:py-32">
+    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 py-12 lg:py-16">
       <div
         data-animate
-        class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center"
+        class="flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between lg:gap-10"
       >
-        <div>
-          <h2 class="max-w-2xl font-display text-4xl font-semibold leading-[1.02] text-balance sm:text-5xl lg:text-6xl">
-            Tell us what you need; we'll recommend a starting point.
-          </h2>
-          <p class="mt-6 max-w-md text-lg leading-relaxed text-steel text-pretty">
-            No pressure, no sales funnel — a short conversation, then a clear
-            recommendation. Including the honest answer if you need less than you
-            think.
-          </p>
-        </div>
-        <div class="lg:justify-self-end">
+        <h2 class="max-w-md font-display text-2xl font-semibold leading-[1.12] text-balance sm:text-3xl">
+          Tell us what you need; we'll recommend a starting point.
+        </h2>
+        <p class="max-w-xs text-sm leading-relaxed text-steel text-pretty">
+          No pressure, no sales funnel. A short conversation, then a clear
+          recommendation.
+        </p>
+        <div class="shrink-0">
           <Button href="/contact" variant="ember">Tell us what you need</Button>
         </div>
       </div>

@@ -1,10 +1,11 @@
 ---
-// Two intents only:
-//   ember     = primary decision / CTA (the ONLY use of Ember)
-//   mineral   = secondary navigation-style link
+// Variants:
+//   ember        = primary decision / CTA (the warm, primary action)
+//   mineralSolid = filled secondary action (technology current, not a decision)
+//   mineral      = quiet inline link
 interface Props {
   href: string;
-  variant?: "ember" | "mineral";
+  variant?: "ember" | "mineralSolid" | "mineral";
   class?: string;
 }
 const { href, variant = "ember", class: className = "" } = Astro.props;
@@ -12,6 +13,8 @@ const { href, variant = "ember", class: className = "" } = Astro.props;
 const styles = {
   ember:
     "inline-flex items-center justify-center bg-ember hover:bg-ember-strong text-white font-medium px-5 py-2.5 rounded-sm transition-colors",
+  mineralSolid:
+    "inline-flex items-center justify-center bg-mineral hover:bg-mineral-strong text-sand font-medium px-5 py-2.5 rounded-sm transition-colors",
   mineral:
     "inline-flex items-center gap-1 text-mineral hover:text-mineral-strong font-medium transition-colors",
 };

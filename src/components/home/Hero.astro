@@ -1,87 +1,78 @@
 ---
 import Button from "../ui/Button.astro";
 import Photo from "./Photo.astro";
+
+// HERO — type block left, large atmospheric image block right (matches supplied
+// layout). Dark-first; image bleeds to the right edge with a quiet caption.
+//
+// IMAGE: hero-lighthouse.webp — supplied by the project owner / art director.
+// Dark coastal headland at night: lighthouse on the right third, beam projecting
+// left, a long-exposure road light-trail leading up to it, large negative space on
+// the left for the headline, deep Ink-blue tones with restrained warm highlights.
+// Metaphor, not literal technology — guidance, clarity, quiet competence, operating
+// in the background. Provenance/licence: supplied by project owner.
 ---
 
 <section class="relative isolate overflow-hidden bg-sand text-ink">
-  {/* Atmospheric Ink wash — depth, never a loud two-colour gradient. */}
+  {/* large image block on the right, bleeding to the viewport edge */}
   <div
-    class="absolute inset-0 bg-[radial-gradient(120%_95%_at_84%_12%,#163742_0%,rgba(10,13,17,0)_56%),linear-gradient(165deg,#090c10_0%,#0b1117_55%,#0d1b22_100%)]"
+    class="absolute inset-y-0 right-0 hidden w-[52%] lg:block"
     aria-hidden="true"
   >
-  </div>
-  <div
-    class="absolute inset-x-0 bottom-0 h-44 bg-[linear-gradient(to_top,var(--color-sand),transparent)]"
-    aria-hidden="true"
-  >
+    <div class="relative h-full w-full">
+      <Photo
+        src="/images/hero-lighthouse.webp"
+        alt=""
+        eager={true}
+        class="absolute inset-0"
+        imgClass="object-[70%_45%] saturate-[0.95] contrast-[1.03] brightness-[0.96]"
+        scrimClass="bg-[linear-gradient(90deg,var(--color-sand)_0%,rgba(10,13,17,0.6)_18%,rgba(10,13,17,0.12)_50%,rgba(10,13,17,0.04)_100%)]"
+      />
+    </div>
   </div>
 
   <div
-    class="relative mx-auto grid min-h-[100svh] max-w-6xl items-center gap-10 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-[1.06fr_0.94fr] lg:gap-14 lg:pb-20"
+    class="relative z-10 mx-auto grid min-h-[92svh] max-w-6xl items-center gap-10 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-2 lg:gap-12 lg:pb-20"
   >
-    <div class="relative z-10 max-w-2xl">
-      {/* the Mineral thread — quietly foreshadows the operating-layer signature */}
-      <div
-        class="absolute -left-5 top-1.5 hidden h-[calc(100%-0.5rem)] w-px bg-[linear-gradient(to_bottom,var(--color-mineral),rgba(58,166,201,0))] sm:block"
-        aria-hidden="true"
-      >
-      </div>
-
-      <p
-        data-animate
-        class="font-mono text-xs uppercase tracking-[0.18em] text-mineral"
-      >
-        Boutique technology practice · Australian small business
-      </p>
+    {/* left: headline, body, actions */}
+    <div class="max-w-xl">
       <h1
         data-animate
-        class="mt-6 font-display text-5xl font-semibold leading-[0.98] text-balance sm:text-6xl lg:text-[4.6rem]"
+        class="font-display text-5xl font-semibold leading-[0.98] text-balance sm:text-6xl lg:text-[4.4rem]"
       >
-        We look after the <span class="text-mineral">technology</span> your
-        business runs on.
+        Technology, <span class="text-mineral">simplified.</span>
       </h1>
       <p
         data-animate
-        class="mt-7 max-w-xl text-lg leading-relaxed text-steel text-pretty sm:text-xl"
+        class="mt-7 max-w-md text-base leading-relaxed text-steel text-pretty"
       >
-        Microsoft 365, your website, domains, backup, AI and automation — the
-        systems behind a modern business, kept working as one, by people you can
-        actually call.
+        We take responsibility for the technology behind your business, bringing
+        Microsoft 365, your website, domains, backup and AI together under one
+        accountable operator.
+      </p>
+      <p
+        data-animate
+        class="mt-4 max-w-md text-base leading-relaxed text-steel text-pretty"
+      >
+        So everything works together, quietly, and you always know who's
+        responsible.
       </p>
 
-      <div
-        data-animate
-        class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4"
-      >
-        <Button href="/contact" variant="ember">Tell us what you need</Button>
-        <Button href="/pricing" variant="mineral">See pricing</Button>
+      <div data-animate class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+        <Button href="/contact" variant="ember">Let's talk</Button>
+        <Button href="#how-we-work" variant="mineral">How we work</Button>
       </div>
     </div>
 
-    <div data-animate class="relative z-10">
-      <div
-        class="relative min-h-[420px] w-full overflow-hidden border border-line/80 shadow-2xl shadow-black/40 sm:min-h-[560px] lg:ml-auto lg:max-w-md"
-      >
-        <Photo
-          src="/images/chapter-craft.webp"
-          alt="A small-business owner at work in a busy modern workshop, laptop and job sheets in view."
-          eager={true}
-          class="absolute inset-0"
-          imgClass="object-[58%_50%] saturate-[0.92] contrast-[1.03]"
-          scrimClass="bg-[linear-gradient(to_top,rgba(7,10,14,0.92)_0%,rgba(7,10,14,0.32)_52%,rgba(7,10,14,0.12)_100%)]"
-        />
-
-        {/* one quiet operational cue — category clarity, not a dashboard */}
-        <div class="absolute inset-x-5 bottom-5 border-l-2 border-mineral pl-4">
-          <p
-            class="font-mono text-[0.64rem] uppercase tracking-[0.16em] text-mineral"
-          >
-            What we look after
-          </p>
-          <p class="mt-1.5 text-sm leading-snug text-white/90">
-            Microsoft 365 · website · domain · backup · automation — held as one.
-          </p>
-        </div>
+    {/* right: caption sitting over the image, lower edge */}
+    <div class="hidden lg:flex lg:h-full lg:items-end lg:justify-end">
+      <div data-animate class="max-w-xs border-t border-mineral pt-4">
+        <p class="font-display text-lg font-semibold text-mineral">
+          The operating layer.
+        </p>
+        <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
+          One operator.<br />Quietly in the background.
+        </p>
       </div>
     </div>
   </div>
