@@ -9,7 +9,7 @@ interface Props {
 const { overHero = false } = Astro.props;
 
 const nav = [
-  { label: "Productivity", href: "/productivity" },
+  { label: "Services", href: "/#services" },
   { label: "Pricing", href: "/pricing" },
   { label: "Contact", href: "/contact" },
 ];
@@ -26,7 +26,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
   <div
     class="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between gap-6"
   >
-    <Wordmark class="site-wordmark text-2xl" />
+    <Wordmark class="site-wordmark text-3xl" />
 
     <nav aria-label="Primary" class="flex items-center gap-5 sm:gap-7">
       {

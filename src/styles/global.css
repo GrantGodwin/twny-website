@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Dark mode driven by a `.dark` class on <html> (set before paint in BaseLayout). */
+/* Dark-first baseline driven by a `.dark` class on <html>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---------------------------------------------------------------------------
@@ -68,7 +68,7 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
   /* Visible, restrained focus for keyboard users. */
   :focus-visible {
@@ -102,14 +102,10 @@ html[data-billing="monthly"] .price-annual { display: none; }
   position: fixed;
   left: 0;
   right: 0;
-  /* Borderless, barely-there. A whisper of a top veil keeps nav legible over
-     any hero region without reading as a bar. */
+  /* Borderless and transparent over the hero. The hero is dark enough to hold
+     the navigation without needing a visible separator or bar. */
   background-color: transparent;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.32),
-    rgba(0, 0, 0, 0)
-  );
+  background-image: none;
   border-bottom-color: transparent;
   backdrop-filter: none;
   box-shadow: none;
