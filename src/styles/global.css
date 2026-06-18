@@ -66,6 +66,9 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     letter-spacing: 0;
+    /* Turn off ligatures (e.g. the joined "fi") — the CSS equivalent of
+       Photoshop's "Ligatures" toggle. */
+    font-variant-ligatures: none;
   }
   /* Visible, restrained focus for keyboard users. */
   :focus-visible {
@@ -82,6 +85,28 @@
 --------------------------------------------------------------------------- */
 html[data-billing="annual"] .price-monthly { display: none; }
 html[data-billing="monthly"] .price-annual { display: none; }
+
+/* ---------------------------------------------------------------------------
+   Hero readability scrims — applied over the full-bleed hero photo, behind
+   the text content. Both are deliberately soft and resolve well clear of the
+   lighthouse/beam on the right.
+--------------------------------------------------------------------------- */
+.hero-edge-scrim {
+  background-image: linear-gradient(
+    90deg,
+    var(--sand) 0%,
+    rgba(10, 13, 17, 0.85) 20%,
+    transparent 48%
+  );
+}
+.hero-text-scrim {
+  background-image: radial-gradient(
+    60% 65% at 30% 50%,
+    rgba(10, 13, 17, 0.3) 0%,
+    rgba(10, 13, 17, 0.1) 42%,
+    transparent 70%
+  );
+}
 
 /* ---------------------------------------------------------------------------
    Site header.

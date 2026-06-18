@@ -2,8 +2,8 @@
 import Button from "../ui/Button.astro";
 import Photo from "./Photo.astro";
 
-// HERO — type block left, large atmospheric image block right (matches supplied
-// layout). Dark-first; image bleeds to the right edge with a quiet caption.
+// HERO — full-bleed background image across the entire hero, sitting behind
+// the floating header and the type block. Dark-first.
 //
 // IMAGE: hero-lighthouse.webp — supplied by the project owner / art director.
 // Dark coastal headland at night: lighthouse on the right third, beam projecting
@@ -13,26 +13,28 @@ import Photo from "./Photo.astro";
 // in the background. Provenance/licence: supplied by project owner.
 ---
 
-<section class="relative isolate overflow-hidden bg-sand text-ink">
-  {/* large image block on the right, bleeding to the viewport edge */}
+<section class="relative isolate min-h-[100svh] overflow-hidden bg-sand text-ink">
+  {/* full-bleed background layer — covers the entire hero, behind the header
+      and content. object-position keeps the lighthouse/beam in frame at
+      every breakpoint. */}
+  <Photo
+    src="/images/hero-lighthouse.webp"
+    alt=""
+    eager={true}
+    class="absolute inset-0 h-full w-full"
+    imgClass="object-[92%_24%] sm:object-[86%_32%] lg:object-right"
+    scrimClass="hero-edge-scrim"
+  />
+
+  {/* soft local scrim behind the headline/body, just enough to lift contrast */}
   <div
-    class="absolute inset-y-0 right-0 hidden w-[52%] lg:block"
+    class="hero-text-scrim absolute inset-y-0 left-0 w-[58%] opacity-85 sm:w-[52%] sm:opacity-70 lg:w-[46%] lg:opacity-55"
     aria-hidden="true"
   >
-    <div class="relative h-full w-full">
-      <Photo
-        src="/images/hero-lighthouse.webp"
-        alt=""
-        eager={true}
-        class="absolute inset-0"
-        imgClass="object-[70%_45%] saturate-[0.95] contrast-[1.03] brightness-[0.96]"
-        scrimClass="bg-[linear-gradient(90deg,var(--color-sand)_0%,rgba(10,13,17,0.6)_18%,rgba(10,13,17,0.12)_50%,rgba(10,13,17,0.04)_100%)]"
-      />
-    </div>
   </div>
 
   <div
-    class="relative z-10 mx-auto grid min-h-[92svh] max-w-6xl items-center gap-10 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-2 lg:gap-12 lg:pb-20"
+    class="relative z-10 mx-auto grid min-h-[100svh] max-w-6xl items-center gap-10 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-2 lg:gap-12 lg:pb-20"
   >
     {/* left: headline, body, actions */}
     <div class="max-w-xl">
@@ -64,16 +66,5 @@ import Photo from "./Photo.astro";
       </div>
     </div>
 
-    {/* right: caption sitting over the image, lower edge */}
-    <div class="hidden lg:flex lg:h-full lg:items-end lg:justify-end">
-      <div data-animate class="max-w-xs border-t border-mineral pt-4">
-        <p class="font-display text-lg font-semibold text-mineral">
-          The operating layer.
-        </p>
-        <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
-          One operator.<br />Quietly in the background.
-        </p>
-      </div>
-    </div>
   </div>
 </section>
