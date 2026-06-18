@@ -1,0 +1,43 @@
+---
+// Full-bleed atmosphere band. A breath between text sections — one quiet line
+// over an environmental image. Sets mood; never explains (CD §10, §11).
+import PlaceholderImage from "../media/PlaceholderImage.astro";
+
+interface Props {
+  src: string;
+  alt: string;
+  note: string;
+  line: string;
+  kicker?: string;
+}
+const { src, alt, note, line, kicker } = Astro.props;
+---
+
+<section class="relative">
+  <PlaceholderImage
+    src={src}
+    alt={alt}
+    note={note}
+    class="min-h-[52svh]"
+    scrimClass="bg-gradient-to-t from-black/70 via-black/35 to-black/25"
+  >
+    <div class="mx-auto flex h-full min-h-[52svh] max-w-6xl flex-col justify-end px-5 pb-14 pt-20 sm:px-8 sm:pb-20">
+      {
+        kicker && (
+          <p
+            data-animate
+            class="font-mono text-xs uppercase tracking-[0.18em] text-white/70 mb-4"
+          >
+            {kicker}
+          </p>
+        )
+      }
+      <p
+        data-animate
+        class="max-w-2xl font-display text-2xl font-medium leading-snug text-white text-balance sm:text-3xl lg:text-4xl"
+      >
+        {line}
+      </p>
+    </div>
+  </PlaceholderImage>
+</section>

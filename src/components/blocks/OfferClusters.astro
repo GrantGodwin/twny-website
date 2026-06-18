@@ -1,43 +1,64 @@
 ---
-// The offer: two clusters on one managed tenancy, with consulting beside.
+// The offer as one coherent operation, not a menu. A lead statement sets the
+// "one managed tenancy" idea; the two clusters read as editorial columns
+// divided by a hairline; consulting sits beside as a quiet aside (CD §5, §10).
 import { clusters, consultingAside } from "../../data/offer";
 ---
 
-<div class="grid gap-6 lg:grid-cols-2">
-  {
-    clusters.map((cluster) => (
-      <div class="bg-paper border border-line rounded-sm p-6 sm:p-8">
-        <h3 class="font-display text-xl font-semibold text-ink">
-          {cluster.title}
-        </h3>
-        <p class="mt-2 text-steel leading-relaxed">{cluster.blurb}</p>
-        <ul class="mt-5 space-y-2">
-          {cluster.items.map((item) => (
-            <li class="flex items-start gap-2.5 text-ink">
-              <span class="mt-2 size-1.5 shrink-0 rounded-full bg-mineral" aria-hidden="true" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))
-  }
-</div>
+<section class="bg-paper border-y border-line">
+  <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
+    <div class="max-w-3xl">
+      <p
+        data-animate
+        class="font-mono text-xs uppercase tracking-[0.18em] text-mineral mb-5"
+      >
+        The offer
+      </p>
+      <h2
+        data-animate
+        class="font-display text-3xl font-semibold leading-[1.1] text-ink text-balance sm:text-4xl lg:text-5xl"
+      >
+        One managed tenancy — not four disconnected services.
+      </h2>
+      <p
+        data-animate
+        class="mt-6 text-lg text-steel leading-relaxed text-pretty"
+      >
+        Everything sits on one tenant we own and look after: your email, files,
+        identity, backup, domain and, where it applies, the website — one source
+        of truth, and clean ownership you can always take with you.
+      </p>
+    </div>
 
-<div class="mt-6 bg-band rounded-sm p-6 sm:p-8 border border-line">
-  <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-2">
-    Beside them
-  </p>
-  <h3 class="font-display text-lg font-semibold text-ink">
-    {consultingAside.title}
-  </h3>
-  <p class="mt-2 text-steel leading-relaxed max-w-2xl">
-    {consultingAside.blurb}
-  </p>
-</div>
+    <div class="mt-16 grid gap-px overflow-hidden border-y border-line bg-line sm:grid-cols-2">
+      {
+        clusters.map((cluster) => (
+          <div data-animate class="bg-paper py-9 sm:px-9 sm:py-10">
+            <h3 class="font-display text-xl font-semibold text-ink sm:text-2xl">
+              {cluster.title}
+            </h3>
+            <p class="mt-3 max-w-md text-steel leading-relaxed text-pretty">
+              {cluster.blurb}
+            </p>
+            <ul class="mt-6 space-y-3">
+              {cluster.items.map((item) => (
+                <li class="flex items-start gap-3 text-ink">
+                  <span
+                    class="mt-2.5 size-1.5 shrink-0 rounded-full bg-mineral"
+                    aria-hidden="true"
+                  />
+                  <span class="leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
 
-<p class="mt-6 text-steel leading-relaxed max-w-2xl">
-  It all sits on one tenant we own and look after — your email, files, identity,
-  backup, domain and, where applicable, the website, with one source of truth
-  and clean ownership you can always take with you.
-</p>
+    <p data-animate class="mt-10 max-w-2xl text-steel leading-relaxed text-pretty">
+      <span class="font-display font-medium text-ink">{consultingAside.title}.</span>{" "}
+      {consultingAside.blurb}
+    </p>
+  </div>
+</section>

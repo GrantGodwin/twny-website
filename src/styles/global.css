@@ -55,7 +55,8 @@
 
 @layer base {
   html {
-    color-scheme: light dark;
+    /* Public site is dark-only for this phase. */
+    color-scheme: dark;
     scroll-behavior: smooth;
   }
   body {
@@ -84,3 +85,99 @@
 --------------------------------------------------------------------------- */
 html[data-billing="annual"] .price-monthly { display: none; }
 html[data-billing="monthly"] .price-annual { display: none; }
+
+/* ---------------------------------------------------------------------------
+   Site header.
+   Default: solid, legible bar (every page except the homepage hero).
+   Over-hero: floats transparent over the immersive hero with light type, then
+   resolves to the solid state once scrolled (Creative Direction §10).
+--------------------------------------------------------------------------- */
+.site-header {
+  transition: background-color 0.35s ease, border-color 0.35s ease,
+    backdrop-filter 0.35s ease;
+}
+
+.site-header--over-hero {
+  position: fixed;
+  left: 0;
+  right: 0;
+  /* Subtle top scrim guarantees nav contrast over any hero region (AA), without
+     reading as a solid bar. Replaced by the solid surface once scrolled. */
+  background-color: transparent;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0)
+  );
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+.site-header--over-hero .site-wordmark,
+.site-header--over-hero .site-link {
+  color: rgba(255, 255, 255, 0.88);
+}
+.site-header--over-hero .site-wordmark:hover,
+.site-header--over-hero .site-link:hover {
+  color: #fff;
+}
+
+/* Resolved (scrolled) state returns to the standard legible bar. */
+.site-header--over-hero.is-scrolled {
+  background-image: none;
+  background-color: color-mix(in srgb, var(--sand) 92%, transparent);
+  border-bottom-color: var(--line);
+  backdrop-filter: blur(8px);
+}
+.site-header--over-hero.is-scrolled .site-wordmark {
+  color: var(--ink);
+}
+.site-header--over-hero.is-scrolled .site-link {
+  color: var(--steel);
+}
+.site-header--over-hero.is-scrolled .site-wordmark:hover,
+.site-header--over-hero.is-scrolled .site-link:hover {
+  color: var(--ink);
+}
+
+/* ---------------------------------------------------------------------------
+   Placeholder imagery flag. Keeps non-final art honestly labelled.
+--------------------------------------------------------------------------- */
+.placeholder-flag {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  z-index: 20;
+  max-width: 70%;
+  padding: 0.25rem 0.5rem;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* ---------------------------------------------------------------------------
+   Restrained reveal-on-scroll. Opt-in via [data-animate]; only armed when JS
+   runs and motion is allowed, so no-JS / reduced-motion users see content
+   immediately and fully (Creative Direction §10, §16).
+--------------------------------------------------------------------------- */
+.anim-ready [data-animate] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.anim-ready [data-animate].in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .anim-ready [data-animate] {
+    transition: none;
+  }
+}

@@ -1,8 +1,12 @@
 ---
-// Direction B hero — reassurance-led, no imagery. Single Ember CTA.
+// Immersive, near-full-height hero. Image sets mood; the header floats over it.
+// One oversized headline, one supporting line, one Ember invitation, one quiet
+// link. Feeling before comprehension (Creative Direction §1, §10, §13).
 import Button from "../ui/Button.astro";
+import PlaceholderImage from "../media/PlaceholderImage.astro";
 
 interface Props {
+  eyebrow?: string;
   heading: string;
   sub: string;
   ctaLabel: string;
@@ -10,31 +14,67 @@ interface Props {
   secondaryLabel?: string;
   secondaryHref?: string;
 }
-const { heading, sub, ctaLabel, ctaHref, secondaryLabel, secondaryHref } =
-  Astro.props;
+const {
+  eyebrow,
+  heading,
+  sub,
+  ctaLabel,
+  ctaHref,
+  secondaryLabel,
+  secondaryHref,
+} = Astro.props;
 ---
 
-<section class="bg-sand">
-  <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
-    <div class="max-w-3xl">
-      <h1
-        class="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-ink leading-[1.05] text-balance"
-      >
-        {heading}
-      </h1>
-      <p class="mt-6 text-lg text-steel leading-relaxed max-w-2xl text-pretty">
-        {sub}
-      </p>
-      <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <Button href={ctaHref} variant="ember">{ctaLabel}</Button>
+<section class="relative">
+  <PlaceholderImage
+    src="/placeholders/hero.svg"
+    alt="The kind of room our clients work in — an Australian small-business interior in natural light."
+    note="Editorial environmental hero — Melbourne small-business interior, morning light"
+    eager={true}
+    class="min-h-[88svh]"
+    scrimClass="bg-gradient-to-tr from-black/75 via-black/45 to-black/15"
+  >
+    <div class="mx-auto flex h-full min-h-[88svh] max-w-6xl flex-col justify-end px-5 pb-20 pt-28 sm:px-8 sm:pb-28">
+      <div class="max-w-3xl">
         {
-          secondaryLabel && secondaryHref && (
-            <Button href={secondaryHref} variant="mineral">
-              {secondaryLabel}
-            </Button>
+          eyebrow && (
+            <p
+              data-animate
+              class="font-mono text-xs uppercase tracking-[0.18em] text-white/75 mb-5"
+            >
+              {eyebrow}
+            </p>
           )
         }
+        <h1
+          data-animate
+          class="font-display text-4xl font-semibold leading-[1.04] text-white text-balance sm:text-6xl lg:text-7xl"
+        >
+          {heading}
+        </h1>
+        <p
+          data-animate
+          class="mt-7 max-w-xl text-lg leading-relaxed text-white/85 text-pretty"
+        >
+          {sub}
+        </p>
+        <div
+          data-animate
+          class="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3"
+        >
+          <Button href={ctaHref} variant="ember">{ctaLabel}</Button>
+          {
+            secondaryLabel && secondaryHref && (
+              <a
+                href={secondaryHref}
+                class="font-body text-sm text-white/80 underline-offset-4 transition-colors hover:text-white hover:underline"
+              >
+                {secondaryLabel}
+              </a>
+            )
+          }
+        </div>
       </div>
     </div>
-  </div>
+  </PlaceholderImage>
 </section>

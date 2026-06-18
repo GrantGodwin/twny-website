@@ -1,15 +1,49 @@
 ---
-// Why we're different — four principles. Restrained, no icons.
+// Why we're different — the dark, cinematic beat. Editorial statements over an
+// environmental image, not a card grid. Both light and dark are first-class and
+// can be cinematic (CD §9, §10, §12).
 import { principles } from "../../data/offer";
+import PlaceholderImage from "../media/PlaceholderImage.astro";
 ---
 
-<div class="grid gap-px bg-line border border-line rounded-sm overflow-hidden sm:grid-cols-2">
-  {
-    principles.map((p) => (
-      <div class="bg-paper p-6 sm:p-7">
-        <h3 class="font-display font-semibold text-ink">{p.title}</h3>
-        <p class="mt-2 text-sm text-steel leading-relaxed">{p.blurb}</p>
+<section class="relative">
+  <PlaceholderImage
+    src="/placeholders/counter.svg"
+    alt="An independent shopfront in warm daylight — the kind of business we look after."
+    note="Dark editorial band — independent shopfront / counter, warm daylight"
+    class="min-h-[90svh]"
+    scrimClass="bg-gradient-to-tr from-black/85 via-black/65 to-black/45"
+  >
+    <div class="mx-auto flex h-full min-h-[90svh] max-w-6xl flex-col justify-center px-5 py-24 sm:px-8">
+      <div class="max-w-2xl">
+        <p
+          data-animate
+          class="font-mono text-xs uppercase tracking-[0.18em] text-white/70 mb-5"
+        >
+          Why we're different
+        </p>
+        <h2
+          data-animate
+          class="font-display text-3xl font-semibold leading-[1.1] text-white text-balance sm:text-4xl lg:text-5xl"
+        >
+          Clarity is the premium.
+        </h2>
       </div>
-    ))
-  }
-</div>
+
+      <dl class="mt-14 grid gap-px overflow-hidden border-y border-white/15 bg-white/15 sm:grid-cols-2">
+        {
+          principles.map((p) => (
+            <div data-animate class="bg-transparent py-7 backdrop-blur-[1px] sm:px-8 sm:py-9">
+              <dt class="font-display text-lg font-semibold text-white sm:text-xl">
+                {p.title}
+              </dt>
+              <dd class="m-0 mt-2.5 max-w-md leading-relaxed text-white/80 text-pretty">
+                {p.blurb}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </PlaceholderImage>
+</section>

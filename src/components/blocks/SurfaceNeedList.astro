@@ -1,17 +1,52 @@
 ---
-// "What you actually get" — surface (left) -> underlying need (right).
+// "What you actually get" — an asymmetric editorial spread: a calm statement
+// column on the left, the surface -> underlying-need pairs as a generously
+// spaced list on the right. Lead with the need, not the surface (CD §5, §10).
 import { surfaceNeeds } from "../../data/offer";
 ---
 
-<ul class="border-t border-line">
-  {
-    surfaceNeeds.map((pair) => (
-      <li class="grid sm:grid-cols-[minmax(0,14rem)_1fr] gap-1 sm:gap-8 py-5 border-b border-line">
-        <span class="font-display font-medium text-ink">{pair.surface}</span>
-        <span class="text-steel leading-relaxed text-pretty">
-          {pair.need}
-        </span>
-      </li>
-    ))
-  }
-</ul>
+<section class="bg-paper border-y border-line">
+  <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
+    <div class="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <p
+          data-animate
+          class="font-mono text-xs uppercase tracking-[0.18em] text-mineral mb-5"
+        >
+          What you actually get
+        </p>
+        <h2
+          data-animate
+          class="font-display text-3xl font-semibold leading-[1.1] text-ink text-balance sm:text-4xl lg:text-5xl"
+        >
+          You're not buying software. You're buying the problem going away.
+        </h2>
+        <p
+          data-animate
+          class="mt-6 max-w-md text-steel leading-relaxed text-pretty"
+        >
+          Each thing we run answers a need underneath it. The need is the point;
+          the product is just how it's delivered.
+        </p>
+      </div>
+
+      <dl class="border-t border-line">
+        {
+          surfaceNeeds.map((pair) => (
+            <div
+              data-animate
+              class="grid gap-1.5 border-b border-line py-7 sm:grid-cols-[minmax(0,12rem)_1fr] sm:gap-8"
+            >
+              <dt class="font-display text-lg font-medium text-ink">
+                {pair.surface}
+              </dt>
+              <dd class="m-0 text-lg leading-relaxed text-steel text-pretty">
+                {pair.need}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>

@@ -1,6 +1,12 @@
 ---
 import Wordmark from "./Wordmark.astro";
-import ThemeToggle from "./ThemeToggle.astro";
+
+interface Props {
+  // When true the header floats transparently over an immersive hero and
+  // resolves to the solid bar on scroll. Default: solid bar (all other pages).
+  overHero?: boolean;
+}
+const { overHero = false } = Astro.props;
 
 const nav = [
   { label: "Productivity", href: "/productivity" },
@@ -12,12 +18,15 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
 <header
-  class="sticky top-0 z-40 border-b border-line bg-sand/90 backdrop-blur-sm"
+  class:list={[
+    "site-header sticky top-0 z-40 border-b border-line bg-sand/90 backdrop-blur-sm",
+    overHero && "site-header--over-hero",
+  ]}
 >
   <div
     class="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between gap-6"
   >
-    <Wordmark class="text-2xl" />
+    <Wordmark class="site-wordmark text-2xl" />
 
     <nav aria-label="Primary" class="flex items-center gap-5 sm:gap-7">
       {
@@ -27,11 +36,10 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
             <a
               href={item.href}
               aria-current={active ? "page" : undefined}
-              class={`font-body text-sm transition-colors ${
-                active
-                  ? "text-mineral"
-                  : "text-steel hover:text-ink"
-              }`}
+              class:list={[
+                "site-link font-body text-sm transition-colors",
+                active ? "text-mineral" : "text-steel hover:text-ink",
+              ]}
             >
               {item.label}
             </a>
@@ -44,7 +52,20 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
       >
         Tell us what you need
       </a>
-      <ThemeToggle />
     </nav>
   </div>
 </header>
+
+{
+  overHero && (
+    <script>
+      const header = document.querySelector(".site-header--over-hero");
+      if (header) {
+        const sync = () =>
+          header.classList.toggle("is-scrolled", window.scrollY > 24);
+        sync();
+        window.addEventListener("scroll", sync, { passive: true });
+      }
+    </script>
+  )
+}

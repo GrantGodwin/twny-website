@@ -6,16 +6,19 @@ import SiteFooter from "../components/chrome/SiteFooter.astro";
 interface Props {
   title: string;
   description?: string;
+  // Homepage opts in: header floats over the immersive hero, no top spacer.
+  heroHeader?: boolean;
 }
 
 const {
   title,
   description = "Modern cloud operations and digital presence for small business. We run the cloud and the website so you can run the business.",
+  heroHeader = false,
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en-AU" data-billing="annual">
+<html lang="en-AU" class="dark" data-billing="annual">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,17 +26,18 @@ const {
     <meta name="description" content={description} />
     <title>{title}</title>
 
-    {/* Set theme before paint to avoid a flash of the wrong mode. */}
+    {/* The public site is dark-only for this phase (`.dark` is set statically on
+        <html>). This only arms reveal animations before paint, avoiding a flash
+        of un-hidden content. */}
     <script is:inline>
       (function () {
         try {
-          var stored = localStorage.getItem("twny-theme");
-          var theme =
-            stored ||
-            (window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light");
-          if (theme === "dark") document.documentElement.classList.add("dark");
+          if (
+            "IntersectionObserver" in window &&
+            !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ) {
+            document.documentElement.classList.add("anim-ready");
+          }
         } catch (e) {}
       })();
     </script>
@@ -51,7 +55,7 @@ const {
       class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-paper focus:text-ink focus:px-3 focus:py-2 focus:border focus:border-line"
       >Skip to content</a
     >
-    <SiteHeader />
+    <SiteHeader overHero={heroHeader} />
     <main id="main" class="flex-1">
       <slot />
     </main>

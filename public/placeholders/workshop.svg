@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder: maker workshop bench in natural side light, hands at work">
+  <defs>
+    <linearGradient id="wBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d9cdb8"/>
+      <stop offset="55%" stop-color="#9c8d72"/>
+      <stop offset="100%" stop-color="#4b4031"/>
+    </linearGradient>
+    <radialGradient id="wLight" cx="20%" cy="28%" r="68%">
+      <stop offset="0%" stop-color="#f7efdd" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#f7efdd" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="wGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.05"/></feComponentTransfer>
+      <feComposite operator="over" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#wBg)"/>
+  <rect width="1600" height="1000" fill="url(#wLight)"/>
+
+  <!-- bench -->
+  <rect x="0" y="660" width="1600" height="60" fill="#5a4a33"/>
+  <rect x="0" y="720" width="1600" height="280" fill="#3a2f21"/>
+  <g fill="#2a2217" opacity="0.5">
+    <rect x="120" y="660" width="380" height="6"/>
+    <rect x="560" y="660" width="520" height="6"/>
+    <rect x="1130" y="660" width="360" height="6"/>
+  </g>
+
+  <!-- tools / objects on bench -->
+  <rect x="300" y="600" width="180" height="60" rx="6" fill="#241c12" opacity="0.85"/>
+  <circle cx="760" cy="628" r="34" fill="#241c12" opacity="0.8"/>
+  <rect x="980" y="585" width="34" height="75" rx="6" fill="#241c12" opacity="0.8"/>
+  <rect x="1040" y="610" width="120" height="50" rx="4" fill="#241c12" opacity="0.75"/>
+
+  <rect width="1600" height="1000" filter="url(#wGrain)" opacity="0.5"/>
+</svg>
