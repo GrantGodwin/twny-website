@@ -1,82 +1,55 @@
 # TWNY Public Website — Documentation
 
-This folder is the brain of the TWNY public website project. If you are an AI
-assistant or a new contributor about to work on this site, **start here.**
+This folder is deliberately small. The project has been pared back so that Claude Code can
+build without re-reading a library of strategy on every task.
 
-The documentation is deliberately split into two kinds of material, because they
-answer two different questions:
+**Claude Code is the implementation arm, not the creative director.** Creative direction for
+each build comes from the **user's prompt**. These docs hold only the stable brand, colour,
+typography, and implementation rules that should survive between tasks.
 
-| Folder | Question it answers | Status |
-| --- | --- | --- |
-| [`governance/`](./governance/) | *How should we build this site, and why?* | **Binding.** The source of truth. |
-| [`research/`](./research/) | *What did we learn that led to those rules?* | Reference. Evidence, not instructions. |
+## Read first
 
-## Why it's organised this way
+> **[`governance/implementation-brief.md`](./governance/implementation-brief.md)** — the
+> single read-first file. What TWNY is, what must never change, brand language, colour and
+> typography rules, visual boundaries, build rules, and instruction priority. Start and
+> usually finish here.
 
-Research and governance get confused when they live together. Research is a
-*snapshot in time* — what the market looked like, what competitors did, what the
-old site said on the day it was captured. It ages. Governance is the *distilled
-decision* — the principles we hold ourselves to regardless of what any single
-screenshot showed.
+## Active documents
 
-If you mix them, every implementation question turns into a re-reading of 60
-pages of analysis, and people start treating observations ("Atarix uses a purple
-gradient") as if they were rules. So we separated them:
+| File | What it is |
+| --- | --- |
+| [`governance/implementation-brief.md`](./governance/implementation-brief.md) | **The contract.** The single source of truth for building. Read before any change. |
+| [`governance/art-direction.md`](./governance/art-direction.md) | Fixed visual rules — theme/surfaces, colour, typography, photography, the signature device, motion, navigation. Expands the brief's visual specifics. |
+| `README.md` | This file. |
 
-- **Governance tells you what to do.** It is short, opinionated, and stable.
-- **Research tells you why.** It is long, evidential, and frozen.
+That's the whole active set. There is no research folder, concept folder, or screenshot
+index in active context any more.
 
-When the two ever disagree, **governance wins** — because governance is the
-considered conclusion and research is the raw input. If research reveals
-something that *should* change a rule, the rule gets updated in governance on
-purpose; you don't quietly follow the research instead.
+## Instruction priority
 
-## Source material (Research)
+When sources conflict, follow this order (highest first):
 
-These are inputs. Read them when you need the evidence behind a principle, not as
-day-to-day instructions. All dated 2026-06-17 and treated as point-in-time.
+1. **The user's current prompt** — the active creative direction.
+2. **`governance/implementation-brief.md`** — the stable contract.
+3. **`governance/art-direction.md`** — fixed visual rules.
+4. **Source code** (`src/`, especially `src/styles/global.css` for colour/type tokens).
+5. **Archived docs** (`archive/`) — **only if the user explicitly asks for them.**
 
-- [`research/creative-strategy-brief.md`](./research/creative-strategy-brief.md) — the synthesis that ties all research together. The best single research read.
-- [`research/discovery-external.md`](./research/discovery-external.md) — what the current TWNY site and public presence actually say today.
-- [`research/competitor-patterns.md`](./research/competitor-patterns.md) — the market: who does what, and the weak patterns to beat.
-- [`research/visual-reference-notes.md`](./research/visual-reference-notes.md) — visual observations reconciled with the brand system.
-- [`research/website-positioning-notes.md`](./research/website-positioning-notes.md) — positioning, audience, objections, and page-level implications.
-- [`research/screenshot-index.md`](./research/screenshot-index.md) — catalogue of the captures in [`research/screenshots/`](./research/screenshots/).
+A future prompt may override the brief or art direction for its task. It cannot override the
+brief's **"What must never change"** items unless it says so explicitly.
 
-## The governing source of truth (Governance)
+## Archive
 
-- [`governance/creative-direction.md`](./governance/creative-direction.md) — **the broad creative governance for every design and content decision on this site.** Treat it as the durable creative standard. It translates the research into practical principles and explains the reasoning behind each one, and it holds the locked **Brand language** system (the canonical brand statement, page-headline rules, philosophy, and CTA — every sentence with one job).
-- [`governance/art-direction.md`](./governance/art-direction.md) — **the specific visual authority for the public website.** Use it when designing or implementing the visual system, theme and surfaces, colour, typography, photography, the signature component, homepage execution, and pacing. It is the visual execution of the Creative Direction.
+[`archive/`](./archive/) holds the earlier written strategy and research — the Creative
+Direction and the research synthesis (positioning, competitor patterns, discovery, visual
+notes). It is **preserved, not active.** Do not pull it into a build decision unless the user
+explicitly asks. Reference imagery, concept renders, and review screenshots were removed —
+they were exploration and evidence, not rules, and kept causing reinterpretation.
 
-## Reading order
+## Maintenance
 
-Read in this order. Stop when you have what you need — most tasks only require
-the first few.
-
-1. **[`../README.md`](../README.md)** — repository-level orientation.
-2. **[`README.md`](./README.md)** — this file. Documentation orientation and the rules of the road.
-3. **[`governance/creative-direction.md`](./governance/creative-direction.md)** — broad creative governance. This is the durable standard for the site.
-4. **[`governance/art-direction.md`](./governance/art-direction.md)** — specific visual authority for the public website. Use it for theme and surfaces, colour, typography, photography, the signature component, and homepage execution.
-5. **[`research/creative-strategy-brief.md`](./research/creative-strategy-brief.md)** — the *why* behind the Creative Direction, in one place.
-6. **Any additional research documents as required** — pull in the specific
-   research file (competitor, discovery, visual, positioning) only when a task
-   needs that depth.
-
-## Before making implementation changes
-
-Run this checklist before you touch a page, component, or line of copy. If you
-cannot answer "yes" with confidence, re-read the Creative Direction before proceeding.
-
-- [ ] **Have I read the Creative Direction?** Not skimmed — read the sections relevant to this change.
-- [ ] **Does this change improve trust?** Clarity, honesty, and named accountability — or does it erode them?
-- [ ] **Does this help the ideal client?** The small-business owner/operator deciding alone — not a procurement committee or an IT department.
-- [ ] **Does this follow the TWNY personality?** Calm, plain, specific, premium-through-restraint. No slogans, no hype, no banned words.
-- [ ] **Does this reduce complexity rather than increase it?** Fewer, clearer things beat more, busier ones.
-- [ ] **Am I solving a customer problem instead of adding a website feature?** Start from the operator's need, not from "wouldn't it be cool if the site…".
-
----
-
-*Maintenance note:* when a decision changes, change it in the **Creative Direction**,
-not in the research. Research is a record of what we learned; it should not be
-edited to match new decisions. Keep this README's reading order accurate if the
-structure ever changes.
+- When a stable rule changes, change it in the **Implementation Brief** (and the Art
+  Direction if visual). Keep the two in sync.
+- Don't reintroduce concept explorations, reference screenshots, or review material into
+  active context. If a build needs creative direction, it comes from the prompt.
+- Keep this README's active-set list accurate if the structure changes.
