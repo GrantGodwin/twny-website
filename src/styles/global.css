@@ -70,11 +70,12 @@
        Photoshop's "Ligatures" toggle. */
     font-variant-ligatures: none;
   }
-  /* Visible, restrained focus for keyboard users. */
+  /* Visible, restrained focus for keyboard users. Elements keep their own
+     border-radius so shaped controls (e.g. pill buttons) don't get squared
+     off on focus. */
   :focus-visible {
     outline: 2px solid var(--mineral);
     outline-offset: 2px;
-    border-radius: 2px;
   }
 }
 
@@ -133,7 +134,8 @@ html[data-billing="monthly"] .price-annual { display: none; }
   box-shadow: none;
 }
 .site-header--over-hero .site-wordmark,
-.site-header--over-hero .site-link {
+.site-header--over-hero .site-link,
+.site-header--over-hero .site-menu-toggle {
   color: rgba(255, 255, 255, 0.9);
 }
 .site-header--over-hero .site-wordmark:hover,
@@ -160,6 +162,49 @@ html[data-billing="monthly"] .price-annual { display: none; }
 .site-header--over-hero.is-scrolled .site-link:hover {
   color: var(--ink);
 }
+.site-header--over-hero.is-scrolled .site-menu-toggle {
+  color: var(--ink);
+}
+
+/* Desktop/tablet header CTA on the hero — hidden until the hero's own primary
+   CTA has scrolled roughly half out of view, then fades and slides in. */
+.header-cta {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 240ms ease-out, transform 240ms ease-out;
+}
+.header-cta.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Mobile menu toggle — a restrained three-line mark that morphs to a close
+   mark; colour follows .site-menu-toggle via currentColor. */
+.menu-icon {
+  position: relative;
+  display: inline-flex;
+  width: 18px;
+  flex-direction: column;
+  gap: 5px;
+}
+.menu-icon span {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background-color: currentColor;
+  transition: transform 200ms ease-out, opacity 200ms ease-out;
+}
+.site-menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.site-menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(2) {
+  opacity: 0;
+}
+.site-menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
 
 /* ---------------------------------------------------------------------------
    Restrained reveal-on-scroll. Opt-in via [data-animate]; only armed when JS
@@ -177,6 +222,8 @@ html[data-billing="monthly"] .price-annual { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .site-header,
+  .header-cta,
+  .menu-icon span,
   .anim-ready [data-animate] {
     transition: none;
   }

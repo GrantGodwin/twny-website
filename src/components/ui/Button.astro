@@ -1,26 +1,57 @@
 ---
 // Variants:
-//   ember        = primary decision / CTA (the warm, primary action)
+//   ember        = primary decision / CTA — understated Ink pill, soft Ember
+//                  outline, Ember text and a static trailing arrow; fills
+//                  solid Ember on hover/focus with text inverting to Ink.
 //   mineralSolid = filled secondary action (technology current, not a decision)
-//   mineral      = quiet inline link
+//   mineral      = quiet inline link, trailing arrow nudges on hover
+//
+// arrow: only used by the "mineral" variant. "right" implies onward
+// navigation; "down" implies scrolling to the next section on this page.
 interface Props {
   href: string;
   variant?: "ember" | "mineralSolid" | "mineral";
+  arrow?: "right" | "down";
   class?: string;
 }
-const { href, variant = "ember", class: className = "" } = Astro.props;
+const {
+  href,
+  variant = "ember",
+  arrow = "right",
+  class: className = "",
+} = Astro.props;
 
 const styles = {
   ember:
-    "inline-flex items-center justify-center bg-ember hover:bg-ember-strong text-white font-medium px-5 py-2.5 rounded-sm transition-colors",
+    "group inline-flex items-center gap-1.5 rounded-[8px] border border-ember/70 bg-sand px-7 py-1.5 font-semibold text-ember transition-colors duration-200 ease-out hover:bg-ember hover:text-sand focus-visible:bg-ember focus-visible:text-sand motion-reduce:transition-none",
   mineralSolid:
     "inline-flex items-center justify-center bg-mineral hover:bg-mineral-strong text-sand font-medium px-5 py-2.5 rounded-sm transition-colors",
   mineral:
-    "inline-flex items-center gap-1 text-mineral hover:text-mineral-strong font-medium transition-colors",
+    "group inline-flex items-center gap-1 text-mineral hover:text-mineral-strong font-medium transition-colors duration-200 ease-out",
 };
+
+const arrowChar = arrow === "down" ? "↓" : "→";
+const arrowTransform =
+  arrow === "down" ? "group-hover:translate-y-0.5" : "group-hover:translate-x-0.5";
 ---
 
 <a href={href} class={`${styles[variant]} ${className}`}>
   <slot />
-  {variant === "mineral" && <span aria-hidden="true">&rarr;</span>}
+  {
+    variant === "ember" && (
+      <span aria-hidden="true" class="inline-block">
+        →
+      </span>
+    )
+  }
+  {
+    variant === "mineral" && (
+      <span
+        aria-hidden="true"
+        class={`inline-block transition-transform duration-200 ease-out ${arrowTransform}`}
+      >
+        {arrowChar}
+      </span>
+    )
+  }
 </a>

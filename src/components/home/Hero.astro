@@ -13,7 +13,10 @@ import Photo from "./Photo.astro";
 // in the background. Provenance/licence: supplied by project owner.
 ---
 
-<section class="relative isolate min-h-[100svh] overflow-hidden bg-sand text-ink">
+<section
+  data-hero
+  class="relative isolate min-h-[100svh] overflow-hidden bg-sand text-ink"
+>
   {/* full-bleed background layer — covers the entire hero, behind the header
       and content. object-position keeps the lighthouse/beam in frame at
       every breakpoint. */}
@@ -46,23 +49,24 @@ import Photo from "./Photo.astro";
       </h1>
       <p
         data-animate
-        class="mt-7 max-w-md text-base leading-relaxed text-white/[0.84] text-pretty"
+        class="mt-7 max-w-md text-base leading-relaxed text-white/[0.84] text-pretty lg:text-lg"
       >
-        We take responsibility for the technology behind your business, bringing
-        Microsoft 365, your website, domains, backup and AI together under one
-        accountable operator.
+        We look after the technology behind your business, so you don't have
+        to.
       </p>
       <p
         data-animate
-        class="mt-4 max-w-md text-base leading-relaxed text-white/[0.84] text-pretty"
+        class="mt-4 max-w-md text-base leading-relaxed text-white/[0.84] text-pretty lg:text-lg"
       >
-        So everything works together, quietly, and you always know who's
-        responsible.
+        Spend less time thinking about technology, and more time running your
+        business.
       </p>
 
-      <div data-animate class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
-        <Button href="/contact" variant="ember">Let's talk</Button>
-        <Button href="#how-we-work" variant="mineral">How we work</Button>
+      <div data-animate class="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
+        <Button href="/contact" variant="ember">Get in touch</Button>
+        <Button href="#what-we-look-after" variant="mineral" arrow="down">
+          What we look after
+        </Button>
       </div>
     </div>
 
