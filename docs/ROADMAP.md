@@ -7,10 +7,21 @@ outstanding, and what is deliberately deferred. Brand and visual decisions are g
 restate or override either. The implementation brief remains the design and implementation
 contract; this roadmap is the execution backlog.
 
-**Current Phase:** Phase 2 — Homepage
-**Current Sprint:** Homepage section build-out
-**Current Focus:** "What we look after" section
-**Next Review:** On completion of the current focus item, before starting the next roadmap item
+## Current Status Dashboard
+
+**This table is the single source of truth for project state.** Read it before any
+implementation work. Update it only as the last step after the user has approved completed
+work — never ahead of approval, and never as part of proposing work (see
+[`README.md`](./README.md#execution-workflow)).
+
+| Field | Value |
+| --- | --- |
+| **Current Phase** | Phase 2 — Homepage |
+| **Current Sprint** | Homepage section build-out |
+| **Current Work Item** | Item 2 — "What we look after" section |
+| **Repository Status** | Hero (Item 1) is reviewed and complete. Items 2–8 of Phase 2 already have rough or partial implementations in `src/pages/index.astro`, but none besides Hero have been reviewed or approved under this workflow. Item 2's existing `#what-we-look-after` section (surface → need list, in `src/data/offer.ts`) has not yet had its scope confirmed. |
+| **Awaiting Human Direction** | A design discussion on Item 2's scope: does the existing surface → need list satisfy the "problem going away" reframe, or does it need rework or expansion? Also open: the Phase 3 Services IA decision (standalone page vs. homepage section), the Phase 3 Privacy page scope (undefined), and pricing figure sign-off (currently draft per `PricingFlag.astro`). |
+| **Recommended Next Action** | Hold the design discussion on Item 2's scope before any further implementation. Do not begin Item 3 ("How we work") until Item 2 is reviewed and marked complete. |
 
 Work proceeds one roadmap item at a time:
 

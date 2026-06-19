@@ -20,7 +20,7 @@ typography, and implementation rules that should survive between tasks.
 | --- | --- |
 | [`governance/implementation-brief.md`](./governance/implementation-brief.md) | **The contract.** The single source of truth for building. Read before any change. |
 | [`governance/art-direction.md`](./governance/art-direction.md) | Fixed visual rules — theme/surfaces, colour, typography, photography, the signature device, motion, navigation. Expands the brief's visual specifics. |
-| [`ROADMAP.md`](./ROADMAP.md) | **The execution backlog.** Current phase, current sprint, and section-by-section build status. Check before starting any implementation work. |
+| [`ROADMAP.md`](./ROADMAP.md) | **The execution backlog.** Holds the Current Status Dashboard (single source of truth for phase, sprint, and work-item state) plus section-by-section build status. Check before starting any implementation work. |
 | `README.md` | This file. |
 
 That's the whole active set. There is no research folder, concept folder, or screenshot
@@ -29,24 +29,53 @@ index in active context any more.
 ## Execution Workflow
 
 [`ROADMAP.md`](./ROADMAP.md) is the execution backlog. The implementation brief remains the
-design and implementation contract — the roadmap does not replace it.
+design and implementation contract — the roadmap does not replace it. This workflow is
+mandatory: it governs how work starts, proceeds, and finishes, and is not satisfied by
+reading this README alone.
 
-1. Review ROADMAP.md before starting any implementation work.
-2. Confirm the current active phase and current sprint.
-3. Implement only the requested roadmap item.
-4. Build and verify.
-5. Stop for review.
-6. Only mark roadmap items complete after they have been reviewed and approved.
-7. Update ROADMAP.md as work progresses.
+### Before implementation
 
-### Working rules
+Before any implementation work begins:
 
-Implementation always proceeds one roadmap item at a time. Do not begin the next roadmap
-item until the current item has been reviewed and approved.
+1. Read [`governance/implementation-brief.md`](./governance/implementation-brief.md).
+2. Read [`governance/art-direction.md`](./governance/art-direction.md).
+3. Read the **Current Status Dashboard** in [`ROADMAP.md`](./ROADMAP.md).
+4. Read the active roadmap item the dashboard points to.
+5. Report to the user, using the dashboard's fields:
+   - Current Phase
+   - Current Sprint
+   - Current Work Item
+   - Repository Status
+   - Awaiting Human Direction
+   - Recommended Next Action
+6. Wait for approval before implementing anything.
+
+### During implementation
+
+- Only one roadmap item may be in flight at a time.
+- Do not begin the next roadmap item until the current one has been reviewed and approved.
 
 ```
 Roadmap → Design discussion → Implementation → Review → Mark complete → Next roadmap item
 ```
+
+### After implementation
+
+After building:
+
+1. Build and verify (`npm run build` must pass).
+2. Stop for review.
+3. Wait for explicit approval.
+
+Only after approval:
+
+- Mark the roadmap item complete in ROADMAP.md.
+- Update the Current Status Dashboard.
+- Advance the Current Work Item.
+- Update the Recommended Next Action.
+
+**The Current Status Dashboard in ROADMAP.md is the single source of truth for project
+state.** Nothing in this README carries state — only the dashboard does.
 
 ## Instruction priority
 
@@ -76,3 +105,6 @@ they were exploration and evidence, not rules, and kept causing reinterpretation
 - Don't reintroduce concept explorations, reference screenshots, or review material into
   active context. If a build needs creative direction, it comes from the prompt.
 - Keep this README's active-set list accurate if the structure changes.
+- Keep the **Current Status Dashboard** in ROADMAP.md accurate. Update it only as the last
+  step of an approved roadmap item — never ahead of approval, never as part of proposing
+  work.
