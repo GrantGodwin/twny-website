@@ -63,53 +63,37 @@ export const offerCards: OfferCard[] = [
   },
 ];
 
-// "How we work" — three enduring statements about the relationship itself,
-// not the delivery process. No sequence, no stages.
-export interface ConsistencyPoint {
-  heading: string;
+// "Why TWNY" — the homepage's emotional centre. Demonstrates the philosophy
+// (we carry the complexity so clients don't have to) rather than asserting
+// differentiation as a list of principles. The rotating terms are not the
+// feature — they're a specimen of the complexity being carried.
+export const rotatingTerms: string[] = [
+  "DNS records",
+  "SPF & DMARC",
+  "SharePoint permissions",
+  "Conditional Access",
+  "Microsoft 365 licensing",
+  "Backup retention",
+  "SSL certificates",
+  "Copilot licensing",
+];
+
+export interface PhilosophyPoint {
+  title: string;
   body: string;
 }
 
-export const consistency: ConsistencyPoint[] = [
+export const philosophy: PhilosophyPoint[] = [
   {
-    heading: "You're not starting over.",
-    body: "You'll always deal with someone who already understands your setup — not a new name, a new ticket and a new explanation every time something comes up.",
+    title: "We translate.",
+    body: "We explain technology in plain English, so you can make good decisions without needing to become an IT expert.",
   },
   {
-    heading: "No invoice you didn't see coming.",
-    body: "The price and scope are agreed before work starts. If something changes, we talk about it first.",
+    title: "We take ownership.",
+    body: "When something needs attention, we deal with it. You do not need to coordinate suppliers or chase answers.",
   },
   {
-    heading: "Problems surface early.",
-    body: "Renewals, risks and worthwhile improvements are raised while they're still small, so you're never the last to know.",
-  },
-];
-
-// "Why we're different" — four principles, plain and customer-subject.
-export interface Principle {
-  title: string;
-  blurb: string;
-}
-
-export const principles: Principle[] = [
-  {
-    title: "Boundaries protect quality",
-    blurb:
-      "We say what we do and what we don't. Clear scope is why the service stays good.",
-  },
-  {
-    title: "Modern by default",
-    blurb:
-      "One setup, one source of truth — built the way it should be, not bolted together.",
-  },
-  {
-    title: "Portability always",
-    blurb:
-      "You own your domain, data and backups. You can leave with everything, any time.",
-  },
-  {
-    title: "Clarity you can see",
-    blurb:
-      "You can understand what you're paying for at a glance. That clarity is part of the product.",
+    title: "We stay ahead.",
+    body: "We raise risks, renewals and worthwhile improvements early, while they are still easy to deal with.",
   },
 ];

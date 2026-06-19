@@ -18,10 +18,10 @@ work — never ahead of approval, and never as part of proposing work (see
 | --- | --- |
 | **Current Phase** | Phase 2 — Homepage |
 | **Current Sprint** | Homepage section build-out |
-| **Current Work Item** | Item 3 — "How we work" section |
-| **Repository Status** | Hero (Item 1) and "What we look after" (Item 2) are reviewed and complete. Item 3's `#how-we-work` section was rebuilt as a quiet editorial section (eyebrow, H2, two-line intro, three principle statements: continuity, agreed pricing, early problem surfacing) — no steps, numbering, diagram, icons, cards, or photography. `npm run build` passes. **A design checkpoint has since raised an information-architecture question that supersedes a straightforward content review** — see "Proposed Structural Change" below. Items 4–8 of Phase 2 remain rough/partial and unreviewed. |
-| **Awaiting Human Direction** | Approval (or rejection) of the proposed structural change: merging Item 3 ("How we work") into Item 4 ("Why TWNY") rather than reviewing Item 3 as a standalone section. Also open: the Phase 3 Services IA decision (standalone page vs. homepage section), the Phase 3 Privacy page scope (undefined), and pricing figure sign-off (currently draft per `PricingFlag.astro`). |
-| **Recommended Next Action** | Hold the IA discussion on the proposed Item 3 / Item 4 merge below. Do not implement any further changes to Item 3 or begin Item 4 until this structural question is resolved. |
+| **Current Work Item** | Item 3 — "Why TWNY" (content/treatment refined; awaiting review) |
+| **Repository Status** | Hero (Item 1) and "What we look after" (Item 2) are reviewed and complete. "How we work" and "The offer" are both removed as standalone homepage sections (see Phase 2 list; `offerCards` data preserved in `src/data/offer.ts` for later). "Why TWNY" sits directly after "What we look after" on the `bg-band` lifted-Ink surface. **This pass refines the section's internal treatment**: the headline is now two-tier ("Simple for you." dominant in Ink; "Never simple behind the scenes." smaller and quieter in Steel); the rotating term is now Ember, italic, and set inline as part of one sentence ("You shouldn't need to understand [term].") rather than a separate centred block; the rotation itself is now a vertical reel (the active term centred, faded/blurred previous and next terms peeking above and below) rather than a crossfade; the supporting copy has been reworded and moved to follow the rotating sentence rather than precede it; and a quiet text-link CTA ("See how we make it simple", linked to `/productivity` as a placeholder destination — not specified in this task, needs confirmation) now closes the section. No background texture was added — no on-brief asset exists for one, and a generic "tech texture" risks the art direction's explicit ban on circuit-board/circuitry imagery even at low opacity, so the section continues to rely on the `bg-band` tonal surface alone. `npm run build` passes. **Not yet reviewed or approved under this workflow.** Known regression carried over from the previous pass: the header nav's "Services" link and "What we look after"'s CTA still point to the now-removed `/#services` anchor (see Phase 3). |
+| **Awaiting Human Direction** | Review of the refined Item 3 treatment, including: the `/productivity` destination chosen for the new CTA (unspecified in the task, needs confirmation or a different target), and the decision not to add a background texture. Also open: the dead `/#services` anchor, the Phase 3 Services IA decision, the Phase 3 Privacy page scope (undefined), and pricing figure sign-off (currently draft per `PricingFlag.astro`). |
+| **Recommended Next Action** | Review Item 3's refined treatment (headline hierarchy, the inline rotating sentence and reel motion, content order, and the new CTA). Do not begin Item 4 ("Social proof") until Item 3 is reviewed and marked complete. |
 
 Work proceeds one roadmap item at a time:
 
@@ -30,43 +30,6 @@ Roadmap → Design discussion → Implementation → Review → Mark complete �
 ```
 
 Do not start the next unchecked item until the current one has been reviewed and approved.
-
----
-
-## Proposed Structural Change (pending approval — not yet decided)
-
-**Raised at a design checkpoint following the Item 3 rebuild.** Reviewing the rebuilt "How we
-work" section against the planned "Why TWNY" section surfaced an information-architecture
-problem, not an execution problem: the two sections do the same rhetorical job — giving the
-reader reasons to trust the engagement — using the same format (a short list of plain
-declarative statements). Two of "How we work"'s three principles ("No invoice you didn't see
-coming," "Problems surface early") substantially restate existing Why TWNY principles
-("Clarity you can see," "Boundaries protect quality"). Only one idea — continuity of contact,
-"You're not starting over" — has no equivalent in Why TWNY today.
-
-**Recommendation:** merge "How we work" into "Why TWNY" rather than keeping it as a standalone
-section, removing it outright, or just renaming it. Carry the continuity-of-contact idea
-forward into Why TWNY's content (it has no current equivalent and is a strong fit for the
-brief's "one accountable operator" positioning); the two overlapping principles should not be
-duplicated. The exact resulting principle set is a content decision for whenever Item 4 is
-actually designed, not decided here.
-
-**Effect on Phase 2 build order, if approved** (7 sections instead of 8):
-
-1. Hero
-2. What we look after
-3. **Why TWNY** — expanded scope: differentiation *and* relational confidence (absorbs the
-   intent of the current Item 3).
-4. Social proof
-5. Pricing summary
-6. FAQ
-7. Contact
-
-**This has not been approved.** The Phase 2 checklist below is left as-is — pending the
-outcome of this discussion, "3. How we work" remains listed as its own item and nothing has
-been renumbered, merged, or marked complete. If approved, this section will be updated to
-retire Item 3 and fold its surviving content into Item 4's notes, and the dashboard above will
-be updated to reflect the new Current Work Item.
 
 ---
 
@@ -87,21 +50,19 @@ Build order and status of each section.
 - [x] **1. Hero** — first-screen value proposition and the page's primary decision point (dual CTA).
   - Outstanding: header CTA scroll-to-section behaviour is intentionally not wired yet (placeholder `href="/contact"`).
 - [x] **2. What we look after** — reframed as four outcome-led capability modules (Work smoothly / Look professional / Stay protected / Save time), each a centred icon + heading + body, with an editorial "See how we can help →" link in place of the old surface → need list. Reviewed and approved across several editorial-polish passes (layout, icon weight/size, divider treatment, copy).
-- [ ] **3. How we work** — reduce uncertainty about the relationship, not explain a delivery process (`#how-we-work`).
-  - Rebuilt per the approved "What Stays True" concept: eyebrow, H2 ("What stays the same."), two-line intro, and three editorial principles (continuity, agreed pricing, early problem surfacing) — no steps, numbering, diagram, icons, cards, or photography.
-  - ⚠ **Pending IA decision** — see ["Proposed Structural Change"](#proposed-structural-change-pending-approval--not-yet-decided) above. Recommendation is to merge this item into Item 4 rather than review it standalone. Not yet decided; item left open here.
-- [ ] **4. Why TWNY** — differentiation principles. Currently merged into a single split section with the pricing teaser, not a standalone section.
-  - ⚠ **Pending IA decision** — under review for expanded scope to also absorb Item 3's surviving content (continuity of contact). Not yet decided.
-- [ ] **5. Social proof** — testimonials / partners / credibility. Not started — no testimonials or partner logos exist yet.
-- [ ] **6. Pricing summary** — short, scannable pricing teaser driving to `/pricing`. Currently a teaser inside the combined "Why TWNY + Pricing" split section.
-- [ ] **7. FAQ** — resolve common objections before contact. A reusable `FAQ.astro` block exists and is currently used only on `/pricing`.
-- [ ] **8. Contact** — closing conversion point. Homepage currently ends in a closing CTA band linking to `/contact`, not a full on-page contact section.
+- [x] ~~3. How we work~~ — **removed as a standalone section** (was: relational-trust statements at `#how-we-work`). Decided to substantially overlap with Why TWNY's purpose; absorbed there. See Product Backlog for the one surviving idea not yet carried forward.
+- [x] ~~The offer~~ — **removed from the homepage for now** (was: "Two clusters, one operation." with three cards and an info bar at `#services`). Conflicted with the new homepage structure once Why TWNY was rebuilt directly beneath "What we look after." `offerCards` data preserved in `src/data/offer.ts`, not deleted. **Leaves `/#services` as a dead anchor** (header nav "Services" link, and "What we look after"'s CTA button) — see the Services IA decision in Phase 3.
+- [ ] **3. Why TWNY** — *(current focus)* the homepage's emotional centre: a philosophy demonstration (technology is complicated; TWNY carries that complexity so the client doesn't have to), not a values/methodology/about-us/principles section. Positioned directly after "What we look after" with nothing between them, on the `bg-band` lifted-Ink surface (`#why-twny`). Two-tier headline ("Simple for you." dominant / "Never simple behind the scenes." quieter, in Steel); one inline rotating sentence ("You shouldn't need to understand [term].") with the term in Ember italic, rotating via a restrained vertical reel (faded/blurred prev/next slivers, no crossfade, no carousel chrome); reworded supporting copy; three philosophy-in-practice statements as a compact row beneath a hairline; a quiet text-link CTA ("See how we make it simple," currently pointed at `/productivity` as an unconfirmed placeholder). No cards, icons, diagram, photography, or process steps; no background texture (none added — no on-brief asset exists, and a generic texture risked the art direction's circuit-board/circuitry ban). Awaiting review and approval to mark complete.
+- [ ] **4. Social proof** — testimonials / partners / credibility. Not started — no testimonials or partner logos exist yet.
+- [ ] **5. Pricing summary** — short, scannable pricing teaser driving to `/pricing`. Its own standalone homepage section, positioned directly after Why TWNY.
+- [ ] **6. FAQ** — resolve common objections before contact. A reusable `FAQ.astro` block exists and is currently used only on `/pricing`.
+- [ ] **7. Contact** — closing conversion point. Homepage currently ends in a closing CTA band linking to `/contact`, not a full on-page contact section.
 
 ---
 
 ## Phase 3 — Supporting Pages
 
-- [ ] Services — not built as a standalone page; equivalent content currently lives in the homepage's "offer" section (`#services`). **Open IA decision:** keep as a homepage section only, or split into a standalone `/services` page.
+- [ ] Services — not built as a standalone page, and **no longer exists as a homepage section either** as of the Why TWNY restructure (the old "offer" section at `#services` was removed from the homepage; its data is preserved in `src/data/offer.ts`). **Open IA decision, now more pressing:** rebuild as a homepage section, split into a standalone `/services` page, or something else — and what to do about the header nav "Services" link and "What we look after"'s CTA, which currently point to the now-missing `/#services` anchor.
 - [ ] Pricing — `/pricing` exists (toggle, tier ladder, comparison matrix, FAQ, CTA band) but is unreviewed under this workflow; figures are explicitly draft / pre-sign-off.
 - [ ] Contact — `/contact` exists as a placeholder only; no form backend, no guided recommendation flow.
 - [ ] Privacy — not started. **Open IA decision:** no privacy page exists yet; legal content and scope are undefined.
@@ -156,3 +117,4 @@ Ideas intentionally deferred, not forgotten.
 - [ ] Pricing sign-off (current figures are draft, per `PricingFlag.astro`)
 - [ ] Bespoke TWNY icon library — "What we look after" currently uses placeholder line icons (`CapabilityIcon.astro`: envelope, browser window, padlock, loop-arrows); commission/design a proper icon set once the brand's icon language is defined.
 - [ ] Final editorial copy review — a full top-to-bottom copy pass across the homepage once every section is built, to check voice, rhythm and consistency holistically rather than section-by-section.
+- [ ] Continuity-of-contact idea from the retired "How we work" section — not yet incorporated anywhere. Drafted statement: *"You're not starting over."* / *"You'll always deal with someone who already understands your setup — not a new name, a new ticket and a new explanation every time something comes up."* Identified as having no equivalent in Why TWNY's current principle set and a strong fit for the brief's "one accountable operator" positioning. The other two retired principles ("No invoice you didn't see coming," "Problems surface early") were judged to substantially restate existing Why TWNY content and were not carried forward. Incorporate only if and when it earns a place in the new Why TWNY design — do not re-add mechanically.

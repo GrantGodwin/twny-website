@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/home/Hero.astro";
 import CapabilityIcon from "../components/home/CapabilityIcon.astro";
 import Button from "../components/ui/Button.astro";
-import { capabilities, consistency, offerCards, principles } from "../data/offer";
+import { capabilities, philosophy, rotatingTerms } from "../data/offer";
 ---
 
 <BaseLayout
@@ -60,167 +60,123 @@ import { capabilities, consistency, offerCards, principles } from "../data/offer
     </div>
   </section>
 
-  {/* HOW WE WORK — quiet editorial section. Not a process: no steps, no
-      sequence, no diagram. Three enduring statements about what it feels
-      like to be a client, set with whitespace and type hierarchy alone. */}
-  <section id="how-we-work" class="bg-sand text-ink">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
-      <div class="max-w-2xl">
+  {/* WHY TWNY — the homepage's emotional centre. Demonstrates the
+      philosophy (we carry the complexity so clients don't have to) rather
+      than asserting differentiation as a principles list. No cards, no
+      icons, no diagram — typography and one restrained vertical-reel motion
+      carry the section. The rotating term is not the feature; it's a
+      specimen of the complexity being carried, so its meaning survives
+      entirely intact with motion off or JS disabled (the markup's initial
+      term is simply what's shown, statically). */}
+  <section id="why-twny" class="bg-band text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-16 lg:py-20">
+      <div data-animate class="mx-auto max-w-2xl text-center">
         <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-          How we work
+          Why TWNY
         </p>
-        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
-          What stays the same.
+        <h2 class="mt-5 font-display text-balance">
+          <span class="block text-3xl font-semibold leading-[1.05] text-ink sm:text-4xl lg:text-5xl">
+            Simple for you.
+          </span>
+          <span class="mt-2 block text-lg font-medium leading-snug text-steel sm:text-xl lg:text-2xl">
+            Never simple behind the scenes.
+          </span>
         </h2>
-        <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
-          Every business we work with is different.
-        </p>
-        <p class="mt-4 max-w-xl text-sm leading-relaxed text-steel text-pretty">
-          What we bring to each one isn't: clear ownership, honest pricing and
-          early conversations before small issues become big ones.
-        </p>
       </div>
 
-      <div class="mt-16 max-w-2xl lg:mt-20">
+      <p
+        data-animate
+        data-rotating-term-wrapper
+        class="mx-auto mt-8 max-w-xl text-center font-display text-lg leading-snug text-ink sm:text-xl lg:mt-9 lg:text-2xl"
+      >
+        <span aria-hidden="true">
+          You shouldn't need to understand
+          <span class="term-reel">
+            <span class="term-reel__track" data-rotating-track>
+              <span
+                class="term-reel__item term-reel__item--edge text-ember italic font-medium opacity-[0.35] blur-[1.5px]"
+                data-reel-prev
+              >
+                {rotatingTerms[rotatingTerms.length - 1]}
+              </span>
+              <span class="term-reel__item text-ember italic font-medium" data-reel-current>
+                {rotatingTerms[0]}
+              </span>
+              <span
+                class="term-reel__item term-reel__item--edge text-ember italic font-medium opacity-[0.35] blur-[1.5px]"
+                data-reel-next
+              >
+                {rotatingTerms[1]}
+              </span>
+            </span>
+          </span>.
+        </span>
+        <span class="sr-only">
+          You shouldn't need to understand {rotatingTerms.join(", ")}.
+        </span>
+      </p>
+
+      <p
+        data-animate
+        class="mx-auto mt-6 max-w-md text-center text-sm leading-relaxed text-steel text-pretty sm:text-base"
+      >
+        Technology keeps changing. The jargon, the platforms and the security
+        requirements never stop. We stay across it so you don't have to.
+      </p>
+
+      <div
+        data-animate
+        class="mx-auto mt-10 max-w-3xl border-t border-line pt-8 grid gap-x-8 gap-y-6 text-center sm:grid-cols-3 sm:text-left lg:mt-12"
+      >
         {
-          consistency.map((point, i) => (
-            <div class:list={["py-8", i > 0 && "border-t border-line"]}>
-              <h3 class="font-display text-xl font-semibold leading-snug text-ink sm:text-2xl">
-                {point.heading}
+          philosophy.map((point) => (
+            <div>
+              <h3 class="font-display text-base font-semibold text-ink">
+                {point.title}
               </h3>
-              <p class="mt-3 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+              <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
                 {point.body}
               </p>
             </div>
           ))
         }
       </div>
-    </div>
-  </section>
 
-  {/* THE OFFER — heading left, three panels right, info bar below (id for footer) */}
-  <section id="services" class="bg-paper text-ink">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
-      <div class="grid gap-12 lg:grid-cols-[0.3fr_0.7fr] lg:gap-16">
-        <div data-animate>
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-            The offer
-          </p>
-          <h2 class="mt-6 max-w-xs font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
-            Two clusters, one operation.
-          </h2>
-          <p class="mt-5 max-w-xs text-sm leading-relaxed text-steel text-pretty">
-            Everything sits on one setup we own and look after — not four
-            disconnected services.
-          </p>
-        </div>
-
-        <div data-animate>
-          <div class="grid gap-4 sm:grid-cols-3">
-            {
-              offerCards.map((card) => (
-                <div class="flex flex-col rounded-sm border border-line bg-band p-6">
-                  <span
-                    class:list={[
-                      "flex h-8 w-8 items-center justify-center rounded-full",
-                      card.accent === "ember" ? "bg-ember/15" : "bg-mineral/15",
-                    ]}
-                  >
-                    <span
-                      class:list={[
-                        "h-2 w-2 rounded-full",
-                        card.accent === "ember" ? "bg-ember" : "bg-mineral",
-                      ]}
-                    />
-                  </span>
-                  <h3 class="mt-4 font-display text-lg font-semibold text-ink">
-                    {card.title}
-                  </h3>
-                  <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
-                    {card.blurb}
-                  </p>
-                  {card.items && (
-                    <ul class="mt-4 space-y-2 border-t border-line pt-4">
-                      {card.items.map((item) => (
-                        <li class="flex gap-2 text-sm leading-snug text-steel">
-                          <span class="text-mineral" aria-hidden="true">
-                            ✓
-                          </span>
-                          <span class="text-pretty">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))
-            }
-          </div>
-
-          <div
-            class="mt-4 rounded-sm border border-line border-l-2 border-l-mineral bg-sand px-5 py-4"
-          >
-            <p class="text-sm leading-relaxed text-steel text-pretty">
-              It all sits on one setup we own and look after — your email, files,
-              identity, backup, domain and, where it applies, the website — with
-              one source of truth and clean ownership you can always take with you.
-            </p>
-          </div>
-        </div>
+      <div data-animate class="mt-9 text-center lg:mt-10">
+        <Button href="/productivity" variant="mineral">
+          See how we make it simple
+        </Button>
       </div>
     </div>
   </section>
 
-  {/* WHY WE'RE DIFFERENT + PRICING — split dark band */}
-  <section class="bg-sand text-ink">
+  {/* PRICING — kept as its own section, decoupled from Why TWNY, so the
+      homepage never goes without a visible pricing teaser regardless of how
+      Why TWNY's content evolves (art direction: hidden pricing is a hard
+      "never"). Content/copy unchanged from the previous combined section. */}
+  <section class="bg-paper text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
-      <div class="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
-        <div data-animate>
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-            Why we're different
-          </p>
-          <div class="mt-8 grid gap-x-10 gap-y-9 sm:grid-cols-2">
-            {
-              principles.map((p) => (
-                <div>
-                  <div class="flex items-center gap-2.5">
-                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-mineral/15">
-                      <span class="h-1.5 w-1.5 rounded-full bg-mineral" />
-                    </span>
-                    <h3 class="font-display text-base font-semibold text-ink">
-                      {p.title}
-                    </h3>
-                  </div>
-                  <p class="mt-2.5 text-sm leading-relaxed text-steel text-pretty">
-                    {p.blurb}
-                  </p>
-                </div>
-              ))
-            }
-          </div>
+      <div data-animate class="max-w-2xl">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+          Pricing
+        </p>
+        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.05] text-balance sm:text-4xl">
+          Priced in the open.
+        </h2>
+        <p class="mt-5 max-w-sm text-sm leading-relaxed text-steel text-pretty">
+          Two ways to pay: annual commitment (two months free) or monthly flex
+          (no lock-in). Every price is published — nothing hidden behind a sales
+          call.
+        </p>
+        <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <Button href="/pricing" variant="mineralSolid">See pricing</Button>
+          <Button href="/productivity" variant="mineral">
+            Explore Productivity
+          </Button>
         </div>
-
-        <div data-animate class="lg:border-l lg:border-line lg:pl-16">
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-            Pricing
-          </p>
-          <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.05] text-balance sm:text-4xl">
-            Priced in the open.
-          </h2>
-          <p class="mt-5 max-w-sm text-sm leading-relaxed text-steel text-pretty">
-            Two ways to pay: annual commitment (two months free) or monthly flex
-            (no lock-in). Every price is published — nothing hidden behind a sales
-            call.
-          </p>
-          <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <Button href="/pricing" variant="mineralSolid">See pricing</Button>
-            <Button href="/productivity" variant="mineral">
-              Explore Productivity
-            </Button>
-          </div>
-          <p class="mt-6 font-mono text-xs text-steel">
-            All prices are in Australian dollars and exclude GST.
-          </p>
-        </div>
+        <p class="mt-6 font-mono text-xs text-steel">
+          All prices are in Australian dollars and exclude GST.
+        </p>
       </div>
     </div>
   </section>
@@ -337,6 +293,53 @@ import { capabilities, consistency, offerCards, principles } from "../data/offer
       );
     }
   }
+
+  /* "Why TWNY" rotating term — a vertical reel, not a crossfade. The active
+     term sits on the centre line of a clipped window; the previous and next
+     terms show as faded, blurred slivers just above and below (via the
+     opacity/blur utility classes in the markup). A fixed minimum width
+     holds the longest term, so the surrounding sentence never reflows as
+     shorter or longer terms rotate through. */
+  .term-reel {
+    position: relative;
+    display: inline-block;
+    height: 1.3em;
+    min-width: 14rem;
+    overflow: hidden;
+    vertical-align: -0.24em;
+  }
+  .term-reel__track {
+    display: block;
+    transform: translateY(-33.3333%);
+    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .term-reel__item {
+    display: block;
+    height: 1.3em;
+    line-height: 1.3em;
+    white-space: nowrap;
+    text-align: center;
+  }
+  @media (min-width: 640px) {
+    .term-reel {
+      min-width: 16rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .term-reel {
+      height: auto;
+      min-width: 0;
+      overflow: visible;
+      vertical-align: baseline;
+    }
+    .term-reel__track {
+      transform: none !important;
+      transition: none;
+    }
+    .term-reel__item--edge {
+      display: none;
+    }
+  }
 </style>
 
 <script>
@@ -355,5 +358,70 @@ import { capabilities, consistency, offerCards, principles } from "../data/offer
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
     targets.forEach((el) => io.observe(el));
+  }
+</script>
+
+<script define:vars={{ terms: rotatingTerms }}>
+  // "Why TWNY" rotating term — a vertical reel (translateY on a 3-item
+  // track), not a crossfade, carousel or typing effect. ~3.8s dwell, one
+  // smooth scroll per advance. Pauses on hover/focus and when scrolled out
+  // of view. Under prefers-reduced-motion the CSS above hides the edge
+  // slivers and strips the transform/transition entirely, so this script
+  // does nothing and the markup's initial static term is simply what shows.
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const track = document.querySelector("[data-rotating-track]");
+  const prevEl = document.querySelector("[data-reel-prev]");
+  const currentEl = document.querySelector("[data-reel-current]");
+  const nextEl = document.querySelector("[data-reel-next]");
+  const wrapper = document.querySelector("[data-rotating-term-wrapper]");
+
+  if (track && prevEl && currentEl && nextEl && !reduceMotion && terms.length > 1) {
+    let index = 0;
+    let hoverPaused = false;
+    let outOfView = false;
+
+    const render = () => {
+      prevEl.textContent = terms[(index - 1 + terms.length) % terms.length];
+      currentEl.textContent = terms[index];
+      nextEl.textContent = terms[(index + 1) % terms.length];
+    };
+    render();
+
+    const advance = () => {
+      if (hoverPaused || outOfView) return;
+      track.style.transform = "translateY(-66.6667%)";
+      track.addEventListener(
+        "transitionend",
+        () => {
+          index = (index + 1) % terms.length;
+          track.style.transition = "none";
+          track.style.transform = "translateY(-33.3333%)";
+          render();
+          track.getBoundingClientRect();
+          requestAnimationFrame(() => {
+            track.style.transition = "";
+          });
+        },
+        { once: true }
+      );
+    };
+
+    setInterval(advance, 3800);
+
+    wrapper?.addEventListener("mouseenter", () => (hoverPaused = true));
+    wrapper?.addEventListener("mouseleave", () => (hoverPaused = false));
+    wrapper?.addEventListener("focusin", () => (hoverPaused = true));
+    wrapper?.addEventListener("focusout", () => (hoverPaused = false));
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) outOfView = !entry.isIntersecting;
+        },
+        { threshold: 0.2 }
+      );
+      const section = document.getElementById("why-twny");
+      if (section) io.observe(section);
+    }
   }
 </script>
