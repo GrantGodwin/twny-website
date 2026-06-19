@@ -85,15 +85,15 @@ export interface PhilosophyPoint {
 
 export const philosophy: PhilosophyPoint[] = [
   {
-    title: "We translate.",
-    body: "We explain technology in plain English, so you can make good decisions without needing to become an IT expert.",
+    title: "The jargon stops with us.",
+    body: "DNS records, licensing tiers, security settings — we carry the detail, so you only ever need the plain answer.",
   },
   {
-    title: "We take ownership.",
-    body: "When something needs attention, we deal with it. You do not need to coordinate suppliers or chase answers.",
+    title: "We own the problem.",
+    body: "When something needs fixing, we fix it. No supplier to chase, no ticket to escalate, no one else to call.",
   },
   {
-    title: "We stay ahead.",
-    body: "We raise risks, renewals and worthwhile improvements early, while they are still easy to deal with.",
+    title: "We notice before you do.",
+    body: "Renewals, risks and the small things worth doing — we raise them early, while they're still easy to deal with.",
   },
 ];

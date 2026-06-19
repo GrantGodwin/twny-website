@@ -70,7 +70,7 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
       term is simply what's shown, statically). */}
   <section id="why-twny" class="bg-band text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-16 lg:py-20">
-      <div data-animate class="mx-auto max-w-2xl text-center">
+      <div data-animate class="max-w-[63rem]">
         <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
           Why TWNY
         </p>
@@ -78,55 +78,56 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
           <span class="block text-3xl font-semibold leading-[1.05] text-ink sm:text-4xl lg:text-5xl">
             Simple for you.
           </span>
-          <span class="mt-2 block text-lg font-medium leading-snug text-steel sm:text-xl lg:text-2xl">
+          <span class="headline-secondary mt-[0.35rem] block text-[1.24rem] font-medium leading-snug sm:text-[1.375rem] lg:text-[1.65rem]">
             Never simple behind the scenes.
           </span>
         </h2>
-      </div>
 
-      <p
-        data-animate
-        data-rotating-term-wrapper
-        class="mx-auto mt-8 max-w-xl text-center font-display text-lg leading-snug text-ink sm:text-xl lg:mt-9 lg:text-2xl"
-      >
-        <span aria-hidden="true">
-          You shouldn't need to understand
-          <span class="term-reel">
-            <span class="term-reel__track" data-rotating-track>
-              <span
-                class="term-reel__item term-reel__item--edge text-ember italic font-medium opacity-[0.35] blur-[1.5px]"
-                data-reel-prev
-              >
-                {rotatingTerms[rotatingTerms.length - 1]}
-              </span>
-              <span class="term-reel__item text-ember italic font-medium" data-reel-current>
-                {rotatingTerms[0]}
-              </span>
-              <span
-                class="term-reel__item term-reel__item--edge text-ember italic font-medium opacity-[0.35] blur-[1.5px]"
-                data-reel-next
-              >
-                {rotatingTerms[1]}
+        <p
+          data-animate
+          data-rotating-term-wrapper
+          class="mt-3 font-display text-base leading-snug text-ink sm:text-lg lg:mt-4 lg:text-xl"
+        >
+          <span aria-hidden="true">
+            You shouldn't need to understand
+            <span class="term-reel">
+              <span class="term-reel__track" data-rotating-track>
+                <span
+                  class="term-reel__item term-reel__item--edge font-bold italic text-ember"
+                  data-reel-prev
+                >
+                  {rotatingTerms[rotatingTerms.length - 1]}
+                </span>
+                <span class="term-reel__item font-bold italic text-ember" data-reel-current>
+                  {rotatingTerms[0]}
+                </span>
+                <span
+                  class="term-reel__item term-reel__item--edge font-bold italic text-ember"
+                  data-reel-next
+                >
+                  {rotatingTerms[1]}
+                </span>
               </span>
             </span>
-          </span>.
-        </span>
-        <span class="sr-only">
-          You shouldn't need to understand {rotatingTerms.join(", ")}.
-        </span>
-      </p>
+          </span>
+          <span class="sr-only">
+            You shouldn't need to understand {rotatingTerms.join(", ")}
+          </span>
+        </p>
 
-      <p
-        data-animate
-        class="mx-auto mt-6 max-w-md text-center text-sm leading-relaxed text-steel text-pretty sm:text-base"
-      >
-        Technology keeps changing. The jargon, the platforms and the security
-        requirements never stop. We stay across it so you don't have to.
-      </p>
+        <p
+          data-animate
+          class="mt-3 max-w-[548px] text-sm leading-relaxed text-steel text-pretty sm:mt-4 sm:text-base"
+        >
+          Technology is complicated. The jargon, the platforms and the
+          security requirements keep changing. We stay across it, so you
+          don't have to.
+        </p>
+      </div>
 
       <div
         data-animate
-        class="mx-auto mt-10 max-w-3xl border-t border-line pt-8 grid gap-x-8 gap-y-6 text-center sm:grid-cols-3 sm:text-left lg:mt-12"
+        class="divider-fade relative mt-10 max-w-[54rem] pt-8 grid gap-x-8 gap-y-6 sm:grid-cols-3 lg:mt-12"
       >
         {
           philosophy.map((point) => (
@@ -142,7 +143,7 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
         }
       </div>
 
-      <div data-animate class="mt-9 text-center lg:mt-10">
+      <div data-animate class="mt-9 lg:mt-10">
         <Button href="/productivity" variant="mineral">
           See how we make it simple
         </Button>
@@ -294,35 +295,72 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
     }
   }
 
-  /* "Why TWNY" rotating term — a vertical reel, not a crossfade. The active
-     term sits on the centre line of a clipped window; the previous and next
-     terms show as faded, blurred slivers just above and below (via the
-     opacity/blur utility classes in the markup). A fixed minimum width
-     holds the longest term, so the surrounding sentence never reflows as
-     shorter or longer terms rotate through. */
+  /* "Why TWNY" philosophy row divider — the same fade-edged hairline used
+     between "What we look after"'s capability columns, widened and lightened
+     slightly for this wider, lower-contrast context. */
+  .divider-fade::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--line) 38%, transparent) 30%,
+      color-mix(in srgb, var(--line) 38%, transparent) 70%,
+      transparent
+    );
+  }
+
+  /* "Why TWNY" headline — second line reads as a quieter continuation of
+     the first, not a caption: a touch warmer than pure Steel, without
+     reaching the full contrast of the dominant line. */
+  .headline-secondary {
+    color: color-mix(in srgb, var(--steel) 58%, var(--ink) 42%);
+  }
+
+  /* "Why TWNY" rotating term — sits inline immediately after "understand",
+     not as a centred chip: text is left-aligned within the reel so the word
+     starts right where the sentence leaves off, with any reserved width
+     trailing harmlessly after it instead of opening a gap before it. The
+     clipping window is exactly one line tall, so only the active term is
+     ever visible at rest — no permanently-visible neighbouring terms above
+     or below. The previous/next terms only become momentarily visible,
+     in full pure Ember, while one slides out and the next slides into
+     place; nothing fades or dims, the track itself transitions. A generous fixed
+     minimum width holds the longest term, so the surrounding sentence never
+     reflows as shorter or longer terms rotate through. */
   .term-reel {
     position: relative;
     display: inline-block;
     height: 1.3em;
-    min-width: 14rem;
+    min-width: 18rem;
+    margin-left: -0.025em;
     overflow: hidden;
-    vertical-align: -0.24em;
+    vertical-align: -0.33375em;
   }
   .term-reel__track {
     display: block;
     transform: translateY(-33.3333%);
-    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .term-reel__item {
     display: block;
     height: 1.3em;
     line-height: 1.3em;
     white-space: nowrap;
-    text-align: center;
+    text-align: left;
   }
   @media (min-width: 640px) {
     .term-reel {
-      min-width: 16rem;
+      min-width: 20rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .term-reel {
+      min-width: 22rem;
     }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -389,11 +427,11 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
 
     const advance = () => {
       if (hoverPaused || outOfView) return;
-      track.style.transform = "translateY(-66.6667%)";
+      track.style.transform = "translateY(0%)";
       track.addEventListener(
         "transitionend",
         () => {
-          index = (index + 1) % terms.length;
+          index = (index - 1 + terms.length) % terms.length;
           track.style.transition = "none";
           track.style.transform = "translateY(-33.3333%)";
           render();
