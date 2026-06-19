@@ -20,10 +20,33 @@ typography, and implementation rules that should survive between tasks.
 | --- | --- |
 | [`governance/implementation-brief.md`](./governance/implementation-brief.md) | **The contract.** The single source of truth for building. Read before any change. |
 | [`governance/art-direction.md`](./governance/art-direction.md) | Fixed visual rules — theme/surfaces, colour, typography, photography, the signature device, motion, navigation. Expands the brief's visual specifics. |
+| [`ROADMAP.md`](./ROADMAP.md) | **The execution backlog.** Current phase, current sprint, and section-by-section build status. Check before starting any implementation work. |
 | `README.md` | This file. |
 
 That's the whole active set. There is no research folder, concept folder, or screenshot
 index in active context any more.
+
+## Execution Workflow
+
+[`ROADMAP.md`](./ROADMAP.md) is the execution backlog. The implementation brief remains the
+design and implementation contract — the roadmap does not replace it.
+
+1. Review ROADMAP.md before starting any implementation work.
+2. Confirm the current active phase and current sprint.
+3. Implement only the requested roadmap item.
+4. Build and verify.
+5. Stop for review.
+6. Only mark roadmap items complete after they have been reviewed and approved.
+7. Update ROADMAP.md as work progresses.
+
+### Working rules
+
+Implementation always proceeds one roadmap item at a time. Do not begin the next roadmap
+item until the current item has been reviewed and approved.
+
+```
+Roadmap → Design discussion → Implementation → Review → Mark complete → Next roadmap item
+```
 
 ## Instruction priority
 
