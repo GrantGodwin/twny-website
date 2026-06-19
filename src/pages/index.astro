@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/home/Hero.astro";
 import CapabilityIcon from "../components/home/CapabilityIcon.astro";
 import Button from "../components/ui/Button.astro";
-import { capabilities, philosophy, rotatingTerms } from "../data/offer";
+import { capabilities, philosophy, rotatingTerms, snapshots } from "../data/offer";
 ---
 
 <BaseLayout
@@ -147,6 +147,72 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
         <Button href="/productivity" variant="mineral">
           See how we make it simple
         </Button>
+      </div>
+    </div>
+  </section>
+
+  {/* HELPING BUSINESSES LIKE YOURS — the former "Social proof" item, rebuilt
+      as recognition first, evidence second. A quiet editorial spread of small
+      business snapshots (type → what we quietly look after → one plain
+      outcome), so a reader thinks "that's my kind of business." A genuine
+      one-line testimonial sits beneath a snapshot only where one really
+      exists; the layout reads completely with or without it. No cards, icons,
+      photography, carousel, or rotating reel — typography, hairlines and
+      whitespace carry it. On bg-sand (the base canvas) so it recesses between
+      the lifted Why TWNY band above and the lifted Pricing surface below. */}
+  <section id="businesses-like-yours" class="bg-sand text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <div data-animate class="max-w-2xl">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+          In practice
+        </p>
+        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+          Helping businesses like yours.
+        </h2>
+        <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+          A few of the businesses we look after, and what that quietly involves.
+          Different work, the same handful of things kept running underneath.
+        </p>
+      </div>
+
+      <div class="snapshot-list mt-10 lg:mt-14">
+        {
+          snapshots.map((s) => (
+            <article
+              data-animate
+              class="snapshot grid gap-x-10 gap-y-5 py-9 lg:grid-cols-12 lg:py-11"
+            >
+              <h3 class="font-display text-2xl font-semibold leading-tight text-ink lg:col-span-4 lg:text-[1.75rem]">
+                {s.type}
+              </h3>
+
+              <div class="lg:col-span-8">
+                <ul class="flex flex-col gap-1.5">
+                  {s.lookedAfter.map((item) => (
+                    <li class="font-mono text-xs uppercase tracking-[0.16em] text-steel">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                <p class="mt-5 max-w-md text-base leading-relaxed text-ink text-pretty">
+                  {s.outcome}
+                </p>
+
+                {s.testimonial && (
+                  <figure class="mt-5 max-w-md border-l border-line pl-4">
+                    <blockquote class="text-sm italic leading-relaxed text-steel text-pretty">
+                      “{s.testimonial.quote}”
+                    </blockquote>
+                    <figcaption class="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-steel/70">
+                      {s.testimonial.attribution}
+                    </figcaption>
+                  </figure>
+                )}
+              </div>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -299,6 +365,30 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
      between "What we look after"'s capability columns, widened and lightened
      slightly for this wider, lower-contrast context. */
   .divider-fade::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--line) 80%, transparent) 30%,
+      color-mix(in srgb, var(--line) 80%, transparent) 70%,
+      transparent
+    );
+  }
+
+  /* "Helping businesses like yours" snapshots — a quiet fade-edged hairline
+     between each snapshot, the same divider language used in "What we look
+     after" and "Why TWNY". The first snapshot has no rule above it; every
+     subsequent one carries a top hairline that sits in the gap created by the
+     even vertical padding on each snapshot. */
+  .snapshot + .snapshot {
+    position: relative;
+  }
+  .snapshot + .snapshot::before {
     content: "";
     position: absolute;
     top: 0;

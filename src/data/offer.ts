@@ -97,3 +97,50 @@ export const philosophy: PhilosophyPoint[] = [
     body: "Renewals, risks and the small things worth doing — we raise them early, while they're still easy to deal with.",
   },
 ];
+
+// "Helping businesses like yours" — recognisable business snapshots, not case
+// studies. Each is deliberately small: a business type, the few things we
+// quietly look after for it, and one plain outcome. A genuine one-line
+// testimonial may sit beneath as supporting evidence — never the headline, and
+// always optional. Where no real testimonial exists yet, the field is simply
+// omitted and the snapshot still reads completely. Do NOT invent testimonials,
+// outcomes, or business types to fill this list; it grows only as real ones
+// become available.
+export interface Snapshot {
+  type: string;
+  lookedAfter: string[];
+  outcome: string;
+  testimonial?: { quote: string; attribution: string };
+}
+
+export const snapshots: Snapshot[] = [
+  {
+    type: "Construction",
+    lookedAfter: ["Website", "Microsoft 365", "Ongoing support"],
+    outcome: "So builders can focus on building.",
+    testimonial: {
+      quote: "Grant just gets it done. We don't think about IT anymore.",
+      attribution: "Dean, Deller Constructions",
+    },
+  },
+  {
+    type: "Financial Advice",
+    lookedAfter: ["Security", "Devices", "Microsoft 365"],
+    outcome: "So advisers can focus on clients.",
+    testimonial: {
+      quote: "Genuinely easy to work with.",
+      attribution: "Craig, First Finance",
+    },
+  },
+  {
+    type: "Speech Pathology",
+    lookedAfter: ["AI", "Microsoft 365", "Practice systems"],
+    outcome: "So clinicians spend more time with people.",
+  },
+  {
+    type: "Conveyancing",
+    lookedAfter: ["Email", "Documents", "Backups"],
+    outcome:
+      "So settlements don't depend on someone remembering where everything lives.",
+  },
+];
