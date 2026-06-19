@@ -10,7 +10,7 @@ interface Props {
 const { overHero = false } = Astro.props;
 
 const nav = [
-  { label: "What we look after", href: "/productivity" },
+  { label: "Services", href: "/#services" },
   { label: "Pricing", href: "/pricing" },
   { label: "Contact", href: "/contact" },
 ];
@@ -31,7 +31,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
     <nav
       aria-label="Primary"
-      class="hidden sm:flex flex-1 items-center justify-center gap-8"
+      class="hidden sm:flex flex-1 items-center justify-center gap-10"
     >
       {
         nav.map((item) => {
@@ -41,7 +41,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
               href={item.href}
               aria-current={active ? "page" : undefined}
               class:list={[
-                "site-link font-body text-sm transition-colors duration-200 ease-out",
+                "site-link font-body text-[0.9375rem] font-medium transition-colors duration-200 ease-out",
                 active ? "text-mineral" : "text-steel hover:text-ink",
               ]}
             >

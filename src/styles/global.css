@@ -134,12 +134,10 @@ html[data-billing="monthly"] .price-annual { display: none; }
   box-shadow: none;
 }
 .site-header--over-hero .site-wordmark,
-.site-header--over-hero .site-link,
 .site-header--over-hero .site-menu-toggle {
   color: rgba(255, 255, 255, 0.9);
 }
-.site-header--over-hero .site-wordmark:hover,
-.site-header--over-hero .site-link:hover {
+.site-header--over-hero .site-wordmark:hover {
   color: #fff;
 }
 
@@ -148,22 +146,28 @@ html[data-billing="monthly"] .price-annual { display: none; }
 .site-header--over-hero.is-scrolled {
   background-image: none;
   background-color: color-mix(in srgb, var(--sand) 82%, transparent);
-  border-bottom-color: transparent;
+  border-bottom-color: color-mix(in srgb, var(--steel) 16%, transparent);
   backdrop-filter: blur(14px) saturate(1.1);
   box-shadow: 0 12px 34px -24px rgba(0, 0, 0, 0.75);
 }
 .site-header--over-hero.is-scrolled .site-wordmark {
   color: var(--ink);
 }
-.site-header--over-hero.is-scrolled .site-link {
-  color: var(--steel);
-}
-.site-header--over-hero.is-scrolled .site-wordmark:hover,
-.site-header--over-hero.is-scrolled .site-link:hover {
+.site-header--over-hero.is-scrolled .site-wordmark:hover {
   color: var(--ink);
 }
 .site-header--over-hero.is-scrolled .site-menu-toggle {
   color: var(--ink);
+}
+/* Nav text stays the same readable off-white in both the floating and
+   scrolled states — only the chrome around it (background, hairline,
+   CTA) changes on scroll. Steel would read as too muted over imagery. */
+.site-header--over-hero .site-link {
+  color: rgba(255, 255, 255, 0.86);
+}
+.site-header--over-hero .site-link:hover,
+.site-header--over-hero .site-link:focus-visible {
+  color: #fff;
 }
 
 /* Desktop/tablet header CTA on the hero — hidden until the hero's own primary
