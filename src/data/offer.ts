@@ -1,31 +1,32 @@
 // Homepage content. Public-only language — plain, customer-subject, no slogans.
 
-// "What you're really buying" — surface the customer sees vs the underlying need.
-export interface SurfaceNeed {
-  surface: string;
-  need: string;
+// "What we look after" — four capability columns, icon + heading + body.
+export interface Capability {
+  icon: "communication" | "presence" | "protection" | "automation";
+  heading: string;
+  body: string;
 }
 
-export const surfaceNeeds: SurfaceNeed[] = [
+export const capabilities: Capability[] = [
   {
-    surface: "A managed mailbox",
-    need: "Someone to call when it breaks, who already knows your setup.",
+    icon: "communication",
+    heading: "Work smoothly.",
+    body: "Email, Microsoft 365, files, calendars and collaboration — all working together, quietly maintained and ready whenever you need them.",
   },
   {
-    surface: "A website",
-    need: "A presence that reflects the business and stays up.",
+    icon: "presence",
+    heading: "Look professional.",
+    body: "A professional presence online that earns trust at first glance — current, reliable, and looked after without you needing to think about it.",
   },
   {
-    surface: "Backup",
-    need: "Insurance against the day you delete the wrong folder or get phished.",
+    icon: "protection",
+    heading: "Stay protected.",
+    body: "Backup, security and recovery planned before you need them, so small problems don't become business problems.",
   },
   {
-    surface: "Domain management",
-    need: "Certainty the domain you've owned for years won't lapse or get hijacked.",
-  },
-  {
-    surface: "Advice",
-    need: "A pragmatic technologist who understands small-business reality.",
+    icon: "automation",
+    heading: "Save time.",
+    body: "Practical AI and automation that take repetitive work off your plate, simplify everyday tasks and help things run more efficiently — without the hype.",
   },
 ];
 
@@ -59,6 +60,28 @@ export const offerCards: OfferCard[] = [
     blurb:
       "Migrations, rebuilds, security uplift, AI implementation — scoped and quoted separately, so the recurring service stays clean.",
     accent: "ember",
+  },
+];
+
+// "How we work" — three enduring statements about the relationship itself,
+// not the delivery process. No sequence, no stages.
+export interface ConsistencyPoint {
+  heading: string;
+  body: string;
+}
+
+export const consistency: ConsistencyPoint[] = [
+  {
+    heading: "You're not starting over.",
+    body: "You'll always deal with someone who already understands your setup — not a new name, a new ticket and a new explanation every time something comes up.",
+  },
+  {
+    heading: "No invoice you didn't see coming.",
+    body: "The price and scope are agreed before work starts. If something changes, we talk about it first.",
+  },
+  {
+    heading: "Problems surface early.",
+    body: "Renewals, risks and worthwhile improvements are raised while they're still small, so you're never the last to know.",
   },
 ];
 

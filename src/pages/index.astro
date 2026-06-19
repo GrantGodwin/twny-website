@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/home/Hero.astro";
+import CapabilityIcon from "../components/home/CapabilityIcon.astro";
 import Button from "../components/ui/Button.astro";
-import { surfaceNeeds, offerCards, principles } from "../data/offer";
-import { loop } from "../data/loop";
+import { capabilities, consistency, offerCards, principles } from "../data/offer";
 ---
 
 <BaseLayout
@@ -14,99 +14,86 @@ import { loop } from "../data/loop";
   {/* HERO */}
   <Hero />
 
-  {/* WHAT YOU'RE REALLY BUYING — heading left, surface→need list right */}
+  {/* WHAT WE LOOK AFTER — full-width editorial header, then four wide
+      capability panels. No relationship band here — that becomes its own
+      "Why TWNY" section later. */}
   <section id="what-we-look-after" class="bg-paper text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
-      <div class="grid gap-12 lg:grid-cols-[0.36fr_0.64fr] lg:gap-16">
-        <div data-animate>
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-            What you're really buying
-          </p>
-          <h2 class="mt-6 max-w-xs font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
-            You're not buying tools. You're buying the problem going away.
-          </h2>
-        </div>
+      <div data-animate class="max-w-2xl">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+          What we look after
+        </p>
+        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+          Technology shouldn't be another job.
+        </h2>
+        <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+          We look after the technology behind your business — so things
+          run smoothly day to day, and you have more time for the work
+          that actually matters.
+        </p>
+      </div>
 
-        <div data-animate>
-          <ul class="border-t border-line">
-            {
-              surfaceNeeds.map((sn, i) => (
-                <li class="grid grid-cols-[1.75rem_1fr] items-baseline gap-x-3 border-b border-line py-5 sm:grid-cols-[1.75rem_0.36fr_0.64fr] sm:gap-x-6">
-                  <span class="font-mono text-xs text-mineral">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 class="font-display text-lg font-semibold text-ink">
-                    {sn.surface}
-                  </h3>
-                  <p class="col-start-2 mt-1 text-sm leading-relaxed text-steel text-pretty sm:col-start-3 sm:mt-0">
-                    {sn.need}
-                  </p>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
+      <div
+        data-animate
+        class="capability-grid mt-5 grid grid-cols-1 sm:grid-cols-2 lg:mt-9 lg:grid-cols-4"
+      >
+        {
+          capabilities.map((c) => (
+            <div class="capability-item flex flex-col items-center text-center">
+              <CapabilityIcon name={c.icon} class="h-16 w-16 text-mineral" />
+              <h3 class="mt-5 font-display text-xl font-semibold leading-snug text-ink whitespace-nowrap lg:text-2xl">
+                {c.heading}
+              </h3>
+              <p class="mt-5 max-w-[15rem] text-[0.9rem] leading-relaxed text-steel/85 text-pretty">
+                {c.body}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div data-animate class="mt-16 lg:mt-20">
+        <Button href="/#services" variant="mineral">
+          See how we can help
+        </Button>
       </div>
     </div>
   </section>
 
-  {/* HOW WE WORK — heading left, six-step path right (faint atmosphere behind) */}
-  <section id="how-we-work" class="relative isolate overflow-hidden bg-sand text-ink">
-    <div class="absolute inset-0 opacity-[0.07]" aria-hidden="true">
-      <img
-        src="/images/chapter-calm.webp"
-        alt=""
-        class="h-full w-full object-cover"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-    <div
-      class="absolute inset-0 bg-[linear-gradient(to_bottom,var(--color-sand),transparent_30%,transparent_70%,var(--color-sand))]"
-      aria-hidden="true"
-    >
-    </div>
+  {/* HOW WE WORK — quiet editorial section. Not a process: no steps, no
+      sequence, no diagram. Three enduring statements about what it feels
+      like to be a client, set with whitespace and type hierarchy alone. */}
+  <section id="how-we-work" class="bg-sand text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <div class="max-w-2xl">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+          How we work
+        </p>
+        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+          What stays the same.
+        </h2>
+        <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+          Every business we work with is different.
+        </p>
+        <p class="mt-4 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+          What we bring to each one isn't: clear ownership, honest pricing and
+          early conversations before small issues become big ones.
+        </p>
+      </div>
 
-    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
-      <div class="grid gap-12 lg:grid-cols-[0.32fr_0.68fr] lg:gap-16">
-        <div data-animate>
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-            How we work
-          </p>
-          <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
-            The same path, every time.
-          </h2>
-          <p class="mt-5 max-w-xs text-sm leading-relaxed text-steel text-pretty">
-            Predictable is part of the service. Every engagement runs the same
-            calm sequence, so the work — and the price — stay honest.
-          </p>
-        </div>
-
-        <div data-animate class="relative">
-          {/* connecting hairline behind the numbered nodes (desktop) */}
-          <div
-            class="absolute inset-x-0 top-[22px] hidden h-px bg-line lg:block"
-            aria-hidden="true"
-          >
-          </div>
-          <ol class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-6 lg:gap-x-3">
-            {
-              loop.map((step, i) => (
-                <li class="relative flex flex-col items-center text-center lg:items-start lg:text-left">
-                  <span class="relative z-10 flex h-11 w-11 items-center justify-center rounded-full border border-mineral/50 bg-sand font-mono text-xs text-mineral">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 class="mt-4 font-display text-base font-semibold text-ink">
-                    {step.name}
-                  </h3>
-                  <p class="mt-2 text-xs leading-relaxed text-steel text-pretty">
-                    {step.blurb}
-                  </p>
-                </li>
-              ))
-            }
-          </ol>
-        </div>
+      <div class="mt-16 max-w-2xl lg:mt-20">
+        {
+          consistency.map((point, i) => (
+            <div class:list={["py-8", i > 0 && "border-t border-line"]}>
+              <h3 class="font-display text-xl font-semibold leading-snug text-ink sm:text-2xl">
+                {point.heading}
+              </h3>
+              <p class="mt-3 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+                {point.body}
+              </p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -264,6 +251,93 @@ import { loop } from "../data/loop";
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* "What we look after" capability columns — quiet separators between
+     columns (vertical) and rows (horizontal) as the grid wraps, without
+     boxed cards. align-items: start keeps each item's own content height,
+     so a divider never stretches taller than the panel it sits beside. */
+  .capability-grid {
+    row-gap: 4rem;
+    column-gap: 2rem;
+    align-items: start;
+  }
+  .capability-item {
+    position: relative;
+  }
+  @media (max-width: 639px) {
+    .capability-item + .capability-item::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        color-mix(in srgb, var(--line) 48%, transparent) 30%,
+        color-mix(in srgb, var(--line) 48%, transparent) 70%,
+        transparent
+      );
+    }
+    .capability-item + .capability-item {
+      padding-top: 2.5rem;
+    }
+  }
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .capability-item:nth-child(n + 3)::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        color-mix(in srgb, var(--line) 48%, transparent) 30%,
+        color-mix(in srgb, var(--line) 48%, transparent) 70%,
+        transparent
+      );
+    }
+    .capability-item:nth-child(n + 3) {
+      padding-top: 2.5rem;
+    }
+    .capability-item:nth-child(even)::before {
+      content: "";
+      position: absolute;
+      top: 16%;
+      bottom: 16%;
+      left: -1rem;
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        color-mix(in srgb, var(--line) 48%, transparent) 30%,
+        color-mix(in srgb, var(--line) 48%, transparent) 70%,
+        transparent
+      );
+    }
+  }
+  @media (min-width: 1024px) {
+    .capability-item:not(:first-child)::before {
+      content: "";
+      position: absolute;
+      top: 16%;
+      bottom: 16%;
+      left: -1rem;
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        color-mix(in srgb, var(--line) 48%, transparent) 30%,
+        color-mix(in srgb, var(--line) 48%, transparent) 70%,
+        transparent
+      );
+    }
+  }
+</style>
 
 <script>
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
