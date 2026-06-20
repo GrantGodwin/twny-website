@@ -38,6 +38,11 @@ const first = stories[0];
       </p>
     </div>
 
+    {/* DESKTOP (lg+) — the cinematic feature: image is the canvas; copy
+        overlaid in the left negative space; journey indicator + roster below.
+        Below lg, this entire block is hidden in favour of the vertical
+        swipeable cards below — see MOBILE/TABLET. */}
+    <div data-cs-desktop class="hidden lg:block">
     {/* FEATURE — image is the canvas; copy overlaid in the left negative space.
         Content (relative, in-flow) drives the height so it never clips; the
         image (absolute) fills behind it. */}
@@ -177,6 +182,108 @@ const first = stories[0];
       <Button href="/contact" variant="ember">
         Let’s talk about your business
       </Button>
+    </div>
+    </div>
+
+    {/* MOBILE/TABLET (below lg) — one vertical card per client, swiped through
+        (native scroll-snap) or paged with arrows (tablet, sm+), with dots
+        showing position. Replaces the desktop's roster + journey indicator,
+        which don't fit a one-card-at-a-time pattern. Same overlay content and
+        hierarchy as the desktop card (company → quote → person + role →
+        outcome → divider → services), just one story per card instead of one
+        story rotating through a shared frame. */}
+    <div data-cs-mobile class="lg:hidden mt-10">
+      <div class="cm-wrap relative">
+        <div class="cm-track" data-cm-track>
+          {
+            stories.map((s, i) => (
+              <div class="cm-slide relative isolate flex flex-col overflow-hidden rounded-xl bg-band" data-cm-slide>
+                <img
+                  src={s.image}
+                  alt={s.imageAlt}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  class="absolute inset-0 h-full w-full object-cover"
+                />
+                <div class="cs-scrim absolute inset-0" aria-hidden="true"></div>
+
+                <div class="relative z-10 flex h-full w-full flex-col justify-end p-6 sm:p-8">
+                  <p class="cs-company-label">{s.name}</p>
+
+                  <blockquote class="cs-quote mt-4 font-display text-2xl italic font-medium leading-[1.18] text-white text-pretty">
+                    <span class="cs-quote__mark" aria-hidden="true">“</span>
+                    {s.quote}
+                    <span class="cs-quote__mark" aria-hidden="true">”</span>
+                  </blockquote>
+
+                  <p class="cs-person mt-6 text-xl">{s.person}</p>
+                  <p class="cs-role mt-1 text-base">{s.role}</p>
+
+                  <p class="mt-6 max-w-md font-body text-lg font-medium leading-snug text-white text-pretty">
+                    {s.outcome}
+                  </p>
+
+                  <div class="cs-divider mt-5" aria-hidden="true"></div>
+
+                  <ul class="cs-looked mt-5">
+                    {s.lookedAfter.map((item) => (
+                      <li class="cs-looked__item">
+                        <ServiceIcon name={item} />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        {/* Arrows — tablet only (sm and up, hidden on phone where swipe is the
+            natural gesture; the whole block disappears at lg anyway). */}
+        <button
+          type="button"
+          data-cm-prev
+          aria-label="Previous client"
+          class="cm-arrow cm-arrow--prev hidden sm:flex"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          data-cm-next
+          aria-label="Next client"
+          class="cm-arrow cm-arrow--next hidden sm:flex"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Dots — the only indicator of how many clients there are and which is
+          showing; doubles as direct navigation. */}
+      <div class="cm-dots mt-5" data-cm-dots role="tablist" aria-label="Client stories">
+        {
+          stories.map((s, i) => (
+            <button
+              type="button"
+              data-cm-dot
+              aria-label={`Go to ${s.name}`}
+              aria-current={i === 0 ? "true" : "false"}
+              class="cm-dot"
+            />
+          ))
+        }
+      </div>
+
+      <div data-animate class="mt-[26px]">
+        <Button href="/contact" variant="ember">
+          Let’s talk about your business
+        </Button>
+      </div>
     </div>
   </div>
 </section>
@@ -437,6 +544,82 @@ const first = stories[0];
     .cs-journey {
       display: none;
     }
+  }
+
+  /* MOBILE/TABLET carousel — one vertical card per client. Native horizontal
+     scroll-snap drives swipe; arrows and dots are equivalent, fully keyboard-
+     operable controls, not just a touch affordance. */
+  .cm-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cm-track::-webkit-scrollbar {
+    display: none;
+  }
+  .cm-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    height: 90vh;
+    max-height: 760px;
+    min-height: 30rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cm-track {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* Arrows — a quiet circular control over the image, tablet only (sm+); the
+     whole carousel is hidden at lg in favour of the desktop feature. */
+  .cm-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 20;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background-color: rgba(10, 13, 17, 0.55);
+    color: #fff;
+    transform: translateY(-50%);
+    transition: background-color 200ms ease;
+  }
+  .cm-arrow:hover,
+  .cm-arrow:focus-visible {
+    background-color: rgba(10, 13, 17, 0.78);
+  }
+  .cm-arrow--prev {
+    left: 0.75rem;
+  }
+  .cm-arrow--next {
+    right: 0.75rem;
+  }
+
+  /* Dots — Mineral when active, dim Steel otherwise; the only count/position
+     indicator. */
+  .cm-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .cm-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--steel);
+    opacity: 0.5;
+    transition: background-color 200ms ease, opacity 200ms ease, transform 200ms ease;
+  }
+  .cm-dot[aria-current="true"] {
+    background-color: var(--mineral);
+    opacity: 1;
+    transform: scale(1.35);
   }
 </style>
 
@@ -709,5 +892,69 @@ const first = stories[0];
     // (already server-rendered as the active story).
     updateNodes(0);
     startSegmentFuse(0);
+  }
+</script>
+
+<script>
+  // MOBILE/TABLET carousel — each story is a fully static, pre-rendered slide
+  // (no content-swapping JS needed, unlike the desktop feature). This script
+  // only keeps the dots in sync with scroll position and wires the arrows; no
+  // auto-rotation — a touch carousel that advances on its own while someone is
+  // mid-swipe is exactly the surprising behaviour to avoid.
+  const mobileRoot = document.querySelector<HTMLElement>("[data-cs-mobile]");
+  if (mobileRoot) {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const track = mobileRoot.querySelector<HTMLElement>("[data-cm-track]");
+    const slides = Array.from(
+      mobileRoot.querySelectorAll<HTMLElement>("[data-cm-slide]")
+    );
+    const dots = Array.from(
+      mobileRoot.querySelectorAll<HTMLButtonElement>("[data-cm-dot]")
+    );
+    const prevBtn = mobileRoot.querySelector<HTMLButtonElement>("[data-cm-prev]");
+    const nextBtn = mobileRoot.querySelector<HTMLButtonElement>("[data-cm-next]");
+
+    let current = 0;
+    let rafId = 0;
+
+    const setActive = (i: number) => {
+      current = i;
+      dots.forEach((d, idx) =>
+        d.setAttribute("aria-current", String(idx === i))
+      );
+    };
+
+    const goTo = (i: number) => {
+      if (!track || !slides.length) return;
+      const idx = ((i % slides.length) + slides.length) % slides.length;
+      track.scrollTo({
+        left: slides[idx].offsetLeft,
+        behavior: reduce ? "auto" : "smooth",
+      });
+      setActive(idx);
+    };
+
+    // Keep dots honest if the visitor swipes by hand rather than using a dot
+    // or arrow.
+    track?.addEventListener(
+      "scroll",
+      () => {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+          rafId = 0;
+          if (!track || !track.clientWidth) return;
+          const idx = Math.round(track.scrollLeft / track.clientWidth);
+          const clamped = Math.min(Math.max(idx, 0), slides.length - 1);
+          if (clamped !== current) setActive(clamped);
+        });
+      },
+      { passive: true }
+    );
+
+    dots.forEach((d, idx) => d.addEventListener("click", () => goTo(idx)));
+    prevBtn?.addEventListener("click", () => goTo(current - 1));
+    nextBtn?.addEventListener("click", () => goTo(current + 1));
+
+    setActive(0);
   }
 </script>
