@@ -197,7 +197,10 @@ const first = stories[0];
         <div class="cm-track" data-cm-track>
           {
             stories.map((s, i) => (
-              <div class="cm-slide relative isolate flex flex-col overflow-hidden rounded-xl bg-band" data-cm-slide>
+              <div
+                class="cm-slide relative isolate flex flex-col justify-end overflow-hidden rounded-xl bg-band"
+                data-cm-slide
+              >
                 <img
                   src={s.image}
                   alt={s.imageAlt}
@@ -207,19 +210,15 @@ const first = stories[0];
                 />
                 <div class="cs-scrim absolute inset-0" aria-hidden="true"></div>
 
-                <div class="relative z-10 flex h-full w-full flex-col justify-end p-6 sm:p-8">
+                <div class="relative z-10 w-full max-w-lg p-7 sm:p-9">
                   <p class="cs-company-label">{s.name}</p>
 
-                  <blockquote class="cs-quote mt-4 font-display text-2xl italic font-medium leading-[1.18] text-white text-pretty">
-                    <span class="cs-quote__mark" aria-hidden="true">“</span>
-                    {s.quote}
-                    <span class="cs-quote__mark" aria-hidden="true">”</span>
-                  </blockquote>
+                  <blockquote class="cs-quote mt-3 font-display text-2xl italic font-medium leading-[1.18] text-white text-pretty"><span class="cs-quote__mark" aria-hidden="true">“</span><span>{s.quote}</span><span class="cs-quote__mark" aria-hidden="true">”</span></blockquote>
 
                   <p class="cs-person mt-6 text-xl">{s.person}</p>
                   <p class="cs-role mt-1 text-base">{s.role}</p>
 
-                  <p class="mt-6 max-w-md font-body text-lg font-medium leading-snug text-white text-pretty">
+                  <p class="mt-6 font-body text-lg font-medium leading-snug text-white text-pretty">
                     {s.outcome}
                   </p>
 
@@ -239,13 +238,13 @@ const first = stories[0];
           }
         </div>
 
-        {/* Arrows — tablet only (sm and up, hidden on phone where swipe is the
-            natural gesture; the whole block disappears at lg anyway). */}
+        {/* Arrows — available at all sub-lg sizes so the loop (last → first) is
+            always one tap away alongside swipe; smaller on phone. */}
         <button
           type="button"
           data-cm-prev
           aria-label="Previous client"
-          class="cm-arrow cm-arrow--prev hidden sm:flex"
+          class="cm-arrow cm-arrow--prev flex"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true">
             <path d="M15 18l-6-6 6-6" />
@@ -255,7 +254,7 @@ const first = stories[0];
           type="button"
           data-cm-next
           aria-label="Next client"
-          class="cm-arrow cm-arrow--next hidden sm:flex"
+          class="cm-arrow cm-arrow--next flex"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true">
             <path d="M9 18l6-6-6-6" />
@@ -548,12 +547,18 @@ const first = stories[0];
 
   /* MOBILE/TABLET carousel — one vertical card per client. Native horizontal
      scroll-snap drives swipe; arrows and dots are equivalent, fully keyboard-
-     operable controls, not just a touch affordance. */
+     operable controls. padding-block (offset by margin-block) gives the card
+     shadow room without being clipped by the scroll container. */
   .cm-track {
     display: flex;
+    align-items: stretch;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
+    /* Asymmetric padding (offset by margin) leaves room below for the card
+       shadow so the scroll container doesn't clip it. */
+    padding-block: 0.5rem 2rem;
+    margin-block: -0.5rem -2rem;
     -webkit-overflow-scrolling: touch;
   }
   .cm-track::-webkit-scrollbar {
@@ -562,9 +567,22 @@ const first = stories[0];
   .cm-slide {
     flex: 0 0 100%;
     scroll-snap-align: center;
-    height: 90vh;
-    max-height: 760px;
-    min-height: 30rem;
+    min-height: 32rem;
+    /* The outline carried over from the desktop card, plus a soft lift. */
+    border: 1px solid color-mix(in srgb, var(--steel) 12%, transparent);
+    box-shadow: 0 16px 34px -24px rgba(0, 0, 0, 0.55);
+  }
+  @media (min-width: 640px) {
+    .cm-slide {
+      min-height: 40rem;
+    }
+  }
+  /* Mobile services breathe: a left-aligned wrap rather than the desktop's
+     fixed 3-column grid, which squeezes labels on narrow cards. */
+  .cm-slide .cs-looked {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.4rem;
   }
   @media (prefers-reduced-motion: reduce) {
     .cm-track {
@@ -572,22 +590,27 @@ const first = stories[0];
     }
   }
 
-  /* Arrows — a quiet circular control over the image, tablet only (sm+); the
-     whole carousel is hidden at lg in favour of the desktop feature. */
+  /* Arrows — quiet circular controls over the image; smaller on phone. */
   .cm-arrow {
     position: absolute;
     top: 50%;
     z-index: 20;
     align-items: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.4rem;
+    height: 2.4rem;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.18);
-    background-color: rgba(10, 13, 17, 0.55);
+    background-color: rgba(10, 13, 17, 0.5);
     color: #fff;
     transform: translateY(-50%);
     transition: background-color 200ms ease;
+  }
+  @media (min-width: 640px) {
+    .cm-arrow {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
   }
   .cm-arrow:hover,
   .cm-arrow:focus-visible {
@@ -927,9 +950,12 @@ const first = stories[0];
     const goTo = (i: number) => {
       if (!track || !slides.length) return;
       const idx = ((i % slides.length) + slides.length) % slides.length;
+      // A wrap (last -> first or first -> last) jumps instantly instead of
+      // animating back across every slide; adjacent moves glide.
+      const wrap = Math.abs(idx - current) > 1;
       track.scrollTo({
         left: slides[idx].offsetLeft,
-        behavior: reduce ? "auto" : "smooth",
+        behavior: reduce || wrap ? "auto" : "smooth",
       });
       setActive(idx);
     };
