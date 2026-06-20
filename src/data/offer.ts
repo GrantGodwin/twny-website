@@ -98,49 +98,85 @@ export const philosophy: PhilosophyPoint[] = [
   },
 ];
 
-// "Helping businesses like yours" — recognisable business snapshots, not case
-// studies. Each is deliberately small: a business type, the few things we
-// quietly look after for it, and one plain outcome. A genuine one-line
-// testimonial may sit beneath as supporting evidence — never the headline, and
-// always optional. Where no real testimonial exists yet, the field is simply
-// omitted and the snapshot still reads completely. Do NOT invent testimonials,
-// outcomes, or business types to fill this list; it grows only as real ones
-// become available.
-export interface Snapshot {
+// "Helping businesses like yours" — a living editorial feature, not a carousel.
+// One client story is featured at a time (the emotional anchor), while the full
+// roster of businesses stays visible and selectable (the recognition anchor).
+// The featured story auto-advances and can be driven from the roster.
+//
+// SCAFFOLD CONTENT. The copy below is placeholder/approved-for-scaffold and the
+// `image` paths point at existing local files reused only as stand-ins — they
+// are NOT the real client photography. Each story carries `image` + `imageAlt`
+// fields built to be swapped for final, approved assets and copy later, without
+// touching the component. Do NOT fabricate claims, quotes, or businesses beyond
+// what is recorded here.
+export interface Story {
+  name: string;
   type: string;
   lookedAfter: string[];
   outcome: string;
-  testimonial?: { quote: string; attribution: string };
+  quote: string;
+  attribution: string;
+  /** Replace with final approved client photography. Subject: the business or
+   *  its work (built environment, workplace, practice, site) — never portraits,
+   *  handshakes, headsets, or generic IT/office stock. */
+  image: string;
+  imageAlt: string;
 }
 
-export const snapshots: Snapshot[] = [
+export const stories: Story[] = [
   {
-    type: "Construction",
+    name: "Deller Constructions",
+    type: "Residential construction",
     lookedAfter: ["Website", "Microsoft 365", "Ongoing support"],
-    outcome: "So builders can focus on building.",
-    testimonial: {
-      quote: "Grant just gets it done. We don't think about IT anymore.",
-      attribution: "Dean, Deller Constructions",
-    },
+    outcome: "So the builders can focus on building.",
+    quote: "Grant just gets it done. We don't think about IT anymore.",
+    attribution: "Dean Deller, Director",
+    image: "/images/chapter-craft.webp",
+    imageAlt:
+      "Scaffold image — a completed residential construction project (placeholder for Deller Constructions).",
   },
   {
-    type: "Financial Advice",
-    lookedAfter: ["Security", "Devices", "Microsoft 365"],
+    name: "First Finance",
+    type: "Financial advice",
+    lookedAfter: ["Microsoft 365", "Security", "Devices"],
     outcome: "So advisers can focus on clients.",
-    testimonial: {
-      quote: "Genuinely easy to work with.",
-      attribution: "Craig, First Finance",
-    },
+    quote: "Genuinely easy to work with.",
+    attribution: "Craig Sturt, Director",
+    image: "/images/chapter-presence.webp",
+    imageAlt:
+      "Scaffold image — a branded financial-advice reception and workplace (placeholder for First Finance).",
   },
   {
-    type: "Speech Pathology",
-    lookedAfter: ["AI", "Microsoft 365", "Practice systems"],
-    outcome: "So clinicians spend more time with people.",
+    name: "Sinclair Brook",
+    type: "Accounting & advisory",
+    lookedAfter: ["Microsoft 365", "Security", "Backup", "Compliance"],
+    outcome: "So the team can focus on advice, not systems.",
+    quote: "Reliable, responsive and always one step ahead.",
+    attribution: "Partner, Sinclair Brook",
+    image: "/images/chapter-calm.webp",
+    imageAlt:
+      "Scaffold image — an accounting and advisory practice at work (placeholder for Sinclair Brook).",
   },
   {
-    type: "Conveyancing",
-    lookedAfter: ["Email", "Documents", "Backups"],
-    outcome:
-      "So settlements don't depend on someone remembering where everything lives.",
+    name: "Baza Property Group",
+    type: "Property advisory",
+    lookedAfter: ["Microsoft 365", "Web presence", "Security"],
+    outcome: "So the business presents professionally and keeps moving.",
+    quote: "Technology feels handled, not handed back to us.",
+    attribution: "Director, Baza Property Group",
+    image: "/images/hero.webp",
+    imageAlt:
+      "Scaffold image — a property advisory business and its environment (placeholder for Baza Property Group).",
+  },
+  {
+    name: "Speech Made Simple",
+    type: "Speech pathology",
+    lookedAfter: ["Microsoft 365", "AI workflows", "Practice systems"],
+    outcome: "So clinicians can spend more time with people.",
+    quote: "Our clinicians get the tech that actually helps.",
+    attribution: "Director, Speech Made Simple",
+    image: "/images/hero-lighthouse.webp",
+    imageAlt:
+      "Scaffold image — a speech pathology practice environment (placeholder for Speech Made Simple).",
   },
 ];

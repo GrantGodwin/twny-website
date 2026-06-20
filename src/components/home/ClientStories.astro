@@ -1,0 +1,510 @@
+---
+// "Helping businesses like yours" — a living, cinematic client-stories feature
+// (the former "Social proof" item). One client story is featured at a time as a
+// full-bleed image with the copy overlaid directly on it AT EVERY BREAKPOINT
+// (Apple/Netflix-style: the image is always the canvas, the copy always lives
+// inside it — never split below). The image is supporting proof, not the hero of
+// the composition; the quote is the emotional focal point.
+//
+// Rotation is driven by a per-client countdown loading bar (full → empty over
+// ~5s); when it empties the next story crossfades in with a subtle zoom. The
+// roster IS the navigation — no arrows, dots, counters, or carousel chrome.
+//
+// Graceful degradation: the first story + full roster render server-side, so the
+// section is complete and legible with JS disabled. Reduced motion disables the
+// zoom, crossfade and auto-rotation (the bar shows a static active state); manual
+// selection still swaps instantly.
+import { stories } from "../../data/offer";
+
+const first = stories[0];
+---
+
+<section
+  id="businesses-like-yours"
+  data-client-stories
+  class="bg-sand text-ink"
+  aria-roledescription="Featured client stories"
+>
+  <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+    <div data-animate class="max-w-2xl">
+      <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+        Client stories
+      </p>
+      <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+        Helping businesses like yours.
+      </h2>
+      <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+        Real businesses we look after — and what changes when the technology is
+        simply handled.
+      </p>
+    </div>
+
+    {/* FEATURE — image is the canvas; copy overlaid at every breakpoint. The
+        content (relative, in-flow) drives the height so the copy never clips;
+        the image (absolute) always fills behind it. */}
+    <div
+      data-animate
+      class="cs-feature relative isolate flex items-end overflow-hidden bg-band min-h-[31rem] sm:min-h-[34rem] lg:min-h-[34rem] lg:items-center xl:min-h-[38rem] mt-10 lg:mt-14"
+      aria-label="Featured client story"
+    >
+      <div class="cs-media absolute inset-0 -z-10">
+        <img
+          data-cs-img-a
+          src={first.image}
+          alt={first.imageAlt}
+          loading="lazy"
+          decoding="async"
+          class="cs-layer is-front is-zoom"
+        />
+        <img
+          data-cs-img-b
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          class="cs-layer"
+        />
+        <div class="cs-scrim absolute inset-0" aria-hidden="true"></div>
+      </div>
+
+      <div
+        data-cs-content
+        class="cs-content relative z-10 w-full p-6 sm:p-10 lg:max-w-[34rem] lg:p-0 lg:pl-12 xl:pl-16"
+      >
+        {/* 1 — business name */}
+        <h3
+          data-cs-name
+          class="font-display text-2xl font-semibold leading-[1.08] text-white text-balance sm:text-3xl lg:text-[2.5rem] lg:leading-[1.04]"
+        >
+          {first.name}
+        </h3>
+
+        {/* 3 — industry */}
+        <p
+          data-cs-type
+          class="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-white/55 sm:text-xs"
+        >
+          {first.type}
+        </p>
+
+        {/* 2 — client quote (emotional focal point) */}
+        <blockquote
+          data-cs-quote
+          class="cs-quote mt-5 font-body text-xl italic leading-snug text-white text-pretty sm:text-2xl lg:mt-6 lg:text-[1.9rem] lg:leading-[1.25]"
+        >
+          {`“${first.quote}”`}
+        </blockquote>
+        <p data-cs-attr class="mt-3 text-sm text-white/70 lg:mt-4">
+          {first.attribution}
+        </p>
+
+        {/* 4 — what we look after · 5 — outcome */}
+        <div class="cs-rule mt-6 pt-6 lg:mt-7">
+          <p class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-white/55">
+            What we look after
+          </p>
+          <ul
+            data-cs-looked
+            class="cs-looked mt-3 flex flex-wrap gap-x-5 gap-y-1.5"
+          >
+            {
+              first.lookedAfter.map((item) => (
+                <li class="cs-looked__item">{item}</li>
+              ))
+            }
+          </ul>
+          <p
+            data-cs-outcome
+            class="mt-5 max-w-md text-[0.95rem] leading-relaxed text-white/85 text-pretty sm:text-base"
+          >
+            {first.outcome}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* ROSTER — the client selector across the bottom; each item carries a
+        countdown loading bar. The roster is the only navigation. */}
+    <div data-animate class="cs-roster-wrap mt-8 pt-8 lg:mt-10">
+      <ul class="cs-roster grid grid-cols-2 gap-x-6 gap-y-7 sm:grid-cols-3 lg:grid-cols-5">
+        {
+          stories.map((s, i) => (
+            <li class="h-full">
+              <button
+                type="button"
+                data-cs-roster
+                data-index={i}
+                aria-pressed={i === 0 ? "true" : "false"}
+                aria-controls="businesses-like-yours"
+                class="cs-roster__item flex h-full w-full flex-col text-left"
+              >
+                <span class="cs-roster__name block font-display text-base font-semibold leading-snug text-pretty">
+                  {s.name}
+                </span>
+                <span class="cs-roster__type mt-1 block font-mono text-[0.7rem] uppercase tracking-[0.14em] text-steel">
+                  {s.type}
+                </span>
+                <span class="cs-roster__track" aria-hidden="true">
+                  <span class="cs-roster__fill" data-cs-fill />
+                </span>
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Crossfade layers — two stacked images; only the front is visible. The swap
+     is a slow, expensive dissolve (never a slide), with a very slight Ken Burns
+     zoom on the active image. */
+  .cs-layer {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .cs-layer.is-front {
+    opacity: 1;
+  }
+  .cs-layer.is-zoom {
+    animation: cs-kenburns 6200ms ease-out forwards;
+  }
+  @keyframes cs-kenburns {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.06);
+    }
+  }
+
+  /* Scrim — bottom-anchored on small/tablet (copy sits lower-left over the
+     image), switching to a left-anchored gradient on desktop (copy sits in the
+     left panel). Strong enough to hold AA over bright bespoke photography. */
+  .cs-scrim {
+    background-image: linear-gradient(
+      to top,
+      rgba(10, 13, 17, 0.93) 0%,
+      rgba(10, 13, 17, 0.78) 26%,
+      rgba(10, 13, 17, 0.4) 52%,
+      rgba(10, 13, 17, 0.12) 74%,
+      transparent 100%
+    );
+  }
+  @media (min-width: 1024px) {
+    .cs-scrim {
+      background-image: linear-gradient(
+        90deg,
+        rgba(10, 13, 17, 0.92) 0%,
+        rgba(10, 13, 17, 0.78) 30%,
+        rgba(10, 13, 17, 0.42) 56%,
+        rgba(10, 13, 17, 0.1) 80%,
+        transparent 100%
+      );
+    }
+  }
+
+  /* Content fade on swap — copy settles quickly while the image keeps
+     dissolving and zooming behind it, so everything changes together. */
+  .cs-content {
+    transition: opacity 300ms ease;
+  }
+  .cs-content.is-swapping {
+    opacity: 0;
+  }
+
+  /* "What we look after" — a fade-edged hairline above (light, for over-image),
+     items as quiet mono labels. */
+  .cs-rule {
+    position: relative;
+  }
+  .cs-rule::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 9rem;
+    max-width: 60%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.5),
+      transparent
+    );
+  }
+  .cs-looked__item {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  /* Roster — the persistent client selector. A fade-edged hairline tops the
+     whole roster; each item carries a countdown loading bar that fills the
+     active client and depletes over the dwell. */
+  .cs-roster-wrap {
+    position: relative;
+  }
+  .cs-roster-wrap::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--line) 80%, transparent) 25%,
+      color-mix(in srgb, var(--line) 80%, transparent) 75%,
+      transparent
+    );
+  }
+  .cs-roster__item {
+    position: relative;
+    cursor: pointer;
+  }
+  .cs-roster__name {
+    color: var(--steel);
+    transition: color 220ms ease;
+  }
+  .cs-roster__item:hover .cs-roster__name,
+  .cs-roster__item:focus-visible .cs-roster__name,
+  .cs-roster__item[aria-pressed="true"] .cs-roster__name {
+    color: var(--ink);
+  }
+  /* Bars sit at the foot of every item (margin-top:auto + equal-height items),
+     so they always line up horizontally regardless of how the client name
+     wraps. The active bar fills left-to-right over the dwell. */
+  .cs-roster__track {
+    display: block;
+    margin-top: auto;
+    padding-top: 0.85rem;
+    height: 2px;
+    box-sizing: content-box;
+    width: 100%;
+    overflow: hidden;
+    background-clip: content-box;
+    background-color: color-mix(in srgb, var(--line) 90%, transparent);
+  }
+  .cs-roster__fill {
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform-origin: left center;
+    transform: scaleX(0);
+    background-color: var(--mineral);
+  }
+  .cs-roster__fill.is-counting {
+    animation: cs-countdown 5000ms linear forwards;
+  }
+  @keyframes cs-countdown {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* Pause everything time-based while the visitor is interacting or the section
+     is offscreen — the countdown bar and the image zoom freeze together. */
+  [data-client-stories].is-paused .cs-roster__fill.is-counting,
+  [data-client-stories].is-paused .cs-layer.is-zoom {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cs-layer,
+    .cs-content,
+    .cs-roster__name {
+      transition: none;
+    }
+    .cs-layer.is-zoom {
+      animation: none;
+      transform: none;
+    }
+    /* No countdown/auto-advance; the active client shows a static full bar. */
+    .cs-roster__fill.is-counting {
+      animation: none;
+      transform: scaleX(1);
+    }
+  }
+</style>
+
+<script>
+  import { stories } from "../../data/offer";
+
+  const root = document.querySelector<HTMLElement>("[data-client-stories]");
+  if (root) {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const imgA = root.querySelector<HTMLImageElement>("[data-cs-img-a]");
+    const imgB = root.querySelector<HTMLImageElement>("[data-cs-img-b]");
+    const content = root.querySelector<HTMLElement>("[data-cs-content]");
+    const typeEl = root.querySelector<HTMLElement>("[data-cs-type]");
+    const nameEl = root.querySelector<HTMLElement>("[data-cs-name]");
+    const quoteEl = root.querySelector<HTMLElement>("[data-cs-quote]");
+    const attrEl = root.querySelector<HTMLElement>("[data-cs-attr]");
+    const outcomeEl = root.querySelector<HTMLElement>("[data-cs-outcome]");
+    const lookedEl = root.querySelector<HTMLElement>("[data-cs-looked]");
+    const rosterItems = Array.from(
+      root.querySelectorAll<HTMLButtonElement>("[data-cs-roster]")
+    );
+    const rosterFills = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-cs-fill]")
+    );
+
+    const SWAP_DELAY = 280;
+    let front: HTMLImageElement | null = imgA;
+    let active = 0;
+    let paused = false;
+    let offscreen = false;
+
+    const syncPlayState = () => {
+      root.classList.toggle("is-paused", paused || offscreen);
+    };
+
+    const setText = (s: (typeof stories)[number]) => {
+      if (typeEl) typeEl.textContent = s.type;
+      if (nameEl) nameEl.textContent = s.name;
+      if (quoteEl) quoteEl.textContent = `“${s.quote}”`;
+      if (attrEl) attrEl.textContent = s.attribution;
+      if (outcomeEl) outcomeEl.textContent = s.outcome;
+      if (lookedEl) {
+        lookedEl.textContent = "";
+        for (const item of s.lookedAfter) {
+          const li = document.createElement("li");
+          li.className = "cs-looked__item";
+          li.textContent = item;
+          lookedEl.appendChild(li);
+        }
+      }
+    };
+
+    const swapImage = (s: (typeof stories)[number]) => {
+      if (!imgA || !imgB || !front) return;
+      const back = front === imgA ? imgB : imgA;
+      const show = () => {
+        if (!front) return;
+        back.alt = s.imageAlt;
+        back.removeAttribute("aria-hidden");
+        back.classList.add("is-front");
+        // Restart the Ken Burns zoom on the incoming image.
+        back.classList.remove("is-zoom");
+        void back.offsetWidth;
+        back.classList.add("is-zoom");
+        front.alt = "";
+        front.setAttribute("aria-hidden", "true");
+        front.classList.remove("is-front", "is-zoom");
+        front = back;
+      };
+      if (back.getAttribute("src") === s.image) {
+        show();
+        return;
+      }
+      back.onload = show;
+      back.onerror = show;
+      back.src = s.image;
+    };
+
+    // Restart the countdown bar on the active client.
+    const startCountdown = (i: number) => {
+      for (const f of rosterFills) {
+        f.classList.remove("is-counting");
+        f.style.animation = "none";
+      }
+      void root.offsetWidth; // reflow so the animation restarts cleanly
+      const f = rosterFills[i];
+      if (f) {
+        f.style.animation = "";
+        f.classList.add("is-counting");
+      }
+    };
+
+    const render = (i: number, animate: boolean) => {
+      const s = stories[i];
+      if (animate && !reduce && content) {
+        content.classList.add("is-swapping");
+        window.setTimeout(() => {
+          setText(s);
+          content.classList.remove("is-swapping");
+        }, SWAP_DELAY);
+      } else {
+        setText(s);
+      }
+      swapImage(s);
+      rosterItems.forEach((b, idx) =>
+        b.setAttribute("aria-pressed", String(idx === i))
+      );
+      active = i;
+      startCountdown(i);
+    };
+
+    const next = () => {
+      if (paused || offscreen) return;
+      render((active + 1) % stories.length, true);
+    };
+
+    // Preload so crossfades don't flash.
+    for (const s of stories) {
+      const im = new Image();
+      im.src = s.image;
+    }
+
+    // Advance when the active client's countdown bar empties. A paused bar
+    // (interaction / offscreen) won't fire animationend until it resumes.
+    rosterFills.forEach((f, idx) => {
+      f.addEventListener("animationend", () => {
+        if (idx === active && !paused && !offscreen) next();
+      });
+    });
+
+    rosterItems.forEach((b, idx) => {
+      const activate = () => {
+        if (idx !== active) render(idx, true);
+      };
+      b.addEventListener("mouseenter", activate);
+      b.addEventListener("focus", activate);
+      b.addEventListener("click", activate);
+    });
+
+    // Hovering / focusing anywhere in the section pauses rotation.
+    root.addEventListener("mouseenter", () => {
+      paused = true;
+      syncPlayState();
+    });
+    root.addEventListener("mouseleave", () => {
+      paused = false;
+      syncPlayState();
+    });
+    root.addEventListener("focusin", () => {
+      paused = true;
+      syncPlayState();
+    });
+    root.addEventListener("focusout", () => {
+      paused = false;
+      syncPlayState();
+    });
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) offscreen = !e.isIntersecting;
+          syncPlayState();
+        },
+        { threshold: 0.25 }
+      );
+      io.observe(root);
+    }
+
+    // Kick off: countdown the first (already server-rendered) story.
+    startCountdown(0);
+  }
+</script>
