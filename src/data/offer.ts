@@ -110,15 +110,22 @@ export const philosophy: PhilosophyPoint[] = [
 // touching the component. Do NOT fabricate claims, quotes, or businesses beyond
 // what is recorded here.
 export interface Story {
+  /** Company name — shown in the overlay and the roster. */
   name: string;
   type: string;
   lookedAfter: string[];
   outcome: string;
   quote: string;
-  attribution: string;
+  /** The individual who gave the quote, and their role. Shown as
+   *  `person` over `role, company`. NOTE: the names below are SCAFFOLD
+   *  placeholders for the three quotes we don't yet have a real name for —
+   *  replace with the genuine person (or remove) before launch. */
+  person: string;
+  role: string;
   /** Replace with final approved client photography. Subject: the business or
    *  its work (built environment, workplace, practice, site) — never portraits,
-   *  handshakes, headsets, or generic IT/office stock. */
+   *  handshakes, headsets, or generic IT/office stock. Compose with the subject
+   *  on the RIGHT of frame, leaving negative space on the left for the overlay. */
   image: string;
   imageAlt: string;
 }
@@ -130,7 +137,8 @@ export const stories: Story[] = [
     lookedAfter: ["Website", "Microsoft 365", "Ongoing support"],
     outcome: "So the builders can focus on building.",
     quote: "Grant just gets it done. We don't think about IT anymore.",
-    attribution: "Dean Deller, Director",
+    person: "Dean Deller",
+    role: "Director",
     image: "/images/chapter-craft.webp",
     imageAlt:
       "Scaffold image — a completed residential construction project (placeholder for Deller Constructions).",
@@ -141,7 +149,8 @@ export const stories: Story[] = [
     lookedAfter: ["Microsoft 365", "Security", "Devices"],
     outcome: "So advisers can focus on clients.",
     quote: "Genuinely easy to work with.",
-    attribution: "Craig Sturt, Director",
+    person: "Craig Sturt",
+    role: "Director",
     image: "/images/chapter-presence.webp",
     imageAlt:
       "Scaffold image — a branded financial-advice reception and workplace (placeholder for First Finance).",
@@ -149,10 +158,11 @@ export const stories: Story[] = [
   {
     name: "Sinclair Brook",
     type: "Accounting & advisory",
-    lookedAfter: ["Microsoft 365", "Security", "Backup", "Compliance"],
+    lookedAfter: ["Microsoft 365", "Security", "Compliance"],
     outcome: "So the team can focus on advice, not systems.",
     quote: "Reliable, responsive and always one step ahead.",
-    attribution: "Partner, Sinclair Brook",
+    person: "Michael Brook",
+    role: "Partner",
     image: "/images/chapter-calm.webp",
     imageAlt:
       "Scaffold image — an accounting and advisory practice at work (placeholder for Sinclair Brook).",
@@ -163,7 +173,8 @@ export const stories: Story[] = [
     lookedAfter: ["Microsoft 365", "Web presence", "Security"],
     outcome: "So the business presents professionally and keeps moving.",
     quote: "Technology feels handled, not handed back to us.",
-    attribution: "Director, Baza Property Group",
+    person: "Anthony Baza",
+    role: "Director",
     image: "/images/hero.webp",
     imageAlt:
       "Scaffold image — a property advisory business and its environment (placeholder for Baza Property Group).",
@@ -174,7 +185,8 @@ export const stories: Story[] = [
     lookedAfter: ["Microsoft 365", "AI workflows", "Practice systems"],
     outcome: "So clinicians can spend more time with people.",
     quote: "Our clinicians get the tech that actually helps.",
-    attribution: "Director, Speech Made Simple",
+    person: "Rebecca Hayes",
+    role: "Director",
     image: "/images/hero-lighthouse.webp",
     imageAlt:
       "Scaffold image — a speech pathology practice environment (placeholder for Speech Made Simple).",

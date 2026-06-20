@@ -1,20 +1,19 @@
 ---
 // "Helping businesses like yours" — a living, cinematic client-stories feature
-// (the former "Social proof" item). One client story is featured at a time as a
-// full-bleed image with the copy overlaid directly on it AT EVERY BREAKPOINT
-// (Apple/Netflix-style: the image is always the canvas, the copy always lives
-// inside it — never split below). The image is supporting proof, not the hero of
-// the composition; the quote is the emotional focal point.
+// (the former "Social proof" item). Architecture (do not redesign): a large
+// rounded image with the copy overlaid on the left, a client selector across
+// the bottom, auto-rotating stories with a slow cross-dissolve.
 //
-// Rotation is driven by a per-client countdown loading bar (full → empty over
-// ~5s); when it empties the next story crossfades in with a subtle zoom. The
-// roster IS the navigation — no arrows, dots, counters, or carousel chrome.
+// Overlay hierarchy: company (anchors the story) → quote (hero) → person +
+// role → outcome → divider → services. The business type lives in the
+// selector, not the overlay.
 //
-// Graceful degradation: the first story + full roster render server-side, so the
-// section is complete and legible with JS disabled. Reduced motion disables the
-// zoom, crossfade and auto-rotation (the bar shows a static active state); manual
-// selection still swaps instantly.
+// Graceful degradation: the first story + roster render server-side, so the
+// section is complete with JS disabled. Reduced motion disables rotation and the
+// cross-dissolve; manual selection still swaps instantly.
 import { stories } from "../../data/offer";
+import ServiceIcon from "./ServiceIcon.astro";
+import Button from "../ui/Button.astro";
 
 const first = stories[0];
 ---
@@ -27,7 +26,7 @@ const first = stories[0];
 >
   <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
     <div data-animate class="max-w-2xl">
-      <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+      <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">
         Client stories
       </p>
       <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
@@ -39,12 +38,12 @@ const first = stories[0];
       </p>
     </div>
 
-    {/* FEATURE — image is the canvas; copy overlaid at every breakpoint. The
-        content (relative, in-flow) drives the height so the copy never clips;
-        the image (absolute) always fills behind it. */}
+    {/* FEATURE — image is the canvas; copy overlaid in the left negative space.
+        Content (relative, in-flow) drives the height so it never clips; the
+        image (absolute) fills behind it. */}
     <div
       data-animate
-      class="cs-feature relative isolate flex items-end overflow-hidden bg-band min-h-[31rem] sm:min-h-[34rem] lg:min-h-[34rem] lg:items-center xl:min-h-[38rem] mt-10 lg:mt-14"
+      class="cs-feature relative isolate flex flex-col overflow-hidden rounded-xl bg-band min-h-[31rem] sm:min-h-[34rem] lg:min-h-[34rem] xl:min-h-[38rem] mt-10 lg:mt-14"
       aria-label="Featured client story"
     >
       <div class="cs-media absolute inset-0 -z-10">
@@ -54,7 +53,7 @@ const first = stories[0];
           alt={first.imageAlt}
           loading="lazy"
           decoding="async"
-          class="cs-layer is-front is-zoom"
+          class="cs-layer is-front"
         />
         <img
           data-cs-img-b
@@ -68,97 +67,130 @@ const first = stories[0];
 
       <div
         data-cs-content
-        class="cs-content relative z-10 w-full p-6 sm:p-10 lg:max-w-[34rem] lg:p-0 lg:pl-12 xl:pl-16"
+        class="cs-content relative z-10 flex w-full flex-1 flex-col justify-end p-6 sm:p-10 lg:max-w-[26rem] lg:justify-between lg:p-0 lg:pt-12 lg:pb-[17px] lg:pl-8 xl:pt-16 xl:pb-[25px] xl:pl-10"
       >
-        {/* 1 — business name */}
-        <h3
-          data-cs-name
-          class="font-display text-2xl font-semibold leading-[1.08] text-white text-balance sm:text-3xl lg:text-[2.5rem] lg:leading-[1.04]"
-        >
-          {first.name}
-        </h3>
+        {/* TOP — company (anchors the story before the quote), then the quote
+            (hero) in a fixed-height well so the name always lands at the same
+            level whether the quote runs two or three lines, then the person
+            and their role */}
+        <div class="cs-top">
+          <p data-cs-company class="cs-company-label">{first.name}</p>
 
-        {/* 3 — industry */}
-        <p
-          data-cs-type
-          class="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-white/55 sm:text-xs"
-        >
-          {first.type}
-        </p>
+          <div class="cs-quote-wrap mt-4 lg:mt-5">
+            <blockquote
+              class="cs-quote font-display text-xl italic font-medium leading-[1.16] text-white text-pretty sm:text-2xl lg:text-[2.2rem]"
+            >
+              <span class="cs-quote__mark" aria-hidden="true">“</span><span
+                data-cs-quote>{first.quote}</span
+              ><span class="cs-quote__mark" aria-hidden="true">”</span>
+            </blockquote>
+          </div>
 
-        {/* 2 — client quote (emotional focal point) */}
-        <blockquote
-          data-cs-quote
-          class="cs-quote mt-5 font-body text-xl italic leading-snug text-white text-pretty sm:text-2xl lg:mt-6 lg:text-[1.9rem] lg:leading-[1.25]"
-        >
-          {`“${first.quote}”`}
-        </blockquote>
-        <p data-cs-attr class="mt-3 text-sm text-white/70 lg:mt-4">
-          {first.attribution}
-        </p>
-
-        {/* 4 — what we look after · 5 — outcome */}
-        <div class="cs-rule mt-6 pt-6 lg:mt-7">
-          <p class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-white/55">
-            What we look after
+          <p data-cs-person class="cs-person mt-7 lg:mt-8 text-xl lg:text-2xl">
+            {first.person}
           </p>
-          <ul
-            data-cs-looked
-            class="cs-looked mt-3 flex flex-wrap gap-x-5 gap-y-1.5"
-          >
-            {
-              first.lookedAfter.map((item) => (
-                <li class="cs-looked__item">{item}</li>
-              ))
-            }
-          </ul>
+          <p data-cs-role class="cs-role mt-1 text-base">{first.role}</p>
+        </div>
+
+        {/* BOTTOM — outcome (closing line), a full-width fade divider, then the
+            services (icon with label beside) beneath it */}
+        <div class="cs-bottom mt-10 lg:mt-0">
           <p
             data-cs-outcome
-            class="mt-5 max-w-md text-[0.95rem] leading-relaxed text-white/85 text-pretty sm:text-base"
+            class="max-w-md font-body text-lg font-medium leading-snug text-white text-pretty sm:text-xl"
           >
             {first.outcome}
           </p>
+
+          <div class="cs-divider mt-6" aria-hidden="true"></div>
+
+          <div data-cs-looked class="mt-6">
+            {
+              stories.map((s, i) => (
+                <ul class="cs-looked" data-looked-idx={i} hidden={i !== 0}>
+                  {s.lookedAfter.map((item) => (
+                    <li class="cs-looked__item">
+                      <ServiceIcon name={item} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ))
+            }
+          </div>
         </div>
       </div>
     </div>
 
-    {/* ROSTER — the client selector across the bottom; each item carries a
-        countdown loading bar. The roster is the only navigation. */}
-    <div data-animate class="cs-roster-wrap mt-8 pt-8 lg:mt-10">
-      <ul class="cs-roster grid grid-cols-2 gap-x-6 gap-y-7 sm:grid-cols-3 lg:grid-cols-5">
-        {
-          stories.map((s, i) => (
-            <li class="h-full">
-              <button
-                type="button"
-                data-cs-roster
+    {/* JOURNEY — a segmented progression indicator between the card and the
+        selector: a thin Steel line, one node per client (aligned with the
+        roster's columns at lg), and a Mineral "fuse" that burns from the
+        active node to the next over the 5s dwell. Communicates progression
+        through the stories, not time remaining. No labels, no countdown. */}
+    <div data-animate class="mt-8 lg:mt-10">
+      <div class="cs-journey" aria-hidden="true">
+        <div class="cs-journey__track"></div>
+        <div class="cs-journey__fuse" data-cs-fuse></div>
+        <div class="cs-journey__fuse" data-cs-fuse-2></div>
+        <div class="cs-journey__row">
+          {
+            stories.map((_s, i) => (
+              <span
+                class:list={["cs-journey__node", i === 0 && "is-active"]}
+                data-cs-node
                 data-index={i}
-                aria-pressed={i === 0 ? "true" : "false"}
-                aria-controls="businesses-like-yours"
-                class="cs-roster__item flex h-full w-full flex-col text-left"
-              >
-                <span class="cs-roster__name block font-display text-base font-semibold leading-snug text-pretty">
-                  {s.name}
-                </span>
-                <span class="cs-roster__type mt-1 block font-mono text-[0.7rem] uppercase tracking-[0.14em] text-steel">
-                  {s.type}
-                </span>
-                <span class="cs-roster__track" aria-hidden="true">
-                  <span class="cs-roster__fill" data-cs-fill />
-                </span>
-              </button>
-            </li>
-          ))
-        }
-      </ul>
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    {/* ROSTER — the client selector; company over business type. The only
+        navigation. */}
+    <ul class="cs-roster mt-3 grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-5">
+      {
+        stories.map((s, i) => (
+          <li>
+            <button
+              type="button"
+              data-cs-roster
+              data-index={i}
+              aria-pressed={i === 0 ? "true" : "false"}
+              aria-controls="businesses-like-yours"
+              class="cs-roster__item w-full text-center"
+            >
+              <span class="cs-roster__name block font-display text-base font-semibold leading-snug text-pretty sm:text-lg">
+                {s.name}
+              </span>
+              <span class="cs-roster__type mt-1 block text-xs leading-snug text-pretty">
+                {s.type}
+              </span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+
+    {/* Primary conversion CTA — Ember, matching every other primary CTA. */}
+    <div data-animate class="mt-[26px] lg:mt-[34px]">
+      <Button href="/contact" variant="ember">
+        Let’s talk about your business
+      </Button>
     </div>
   </div>
 </section>
 
 <style>
-  /* Crossfade layers — two stacked images; only the front is visible. The swap
-     is a slow, expensive dissolve (never a slide), with a very slight Ken Burns
-     zoom on the active image. */
+  /* Feature card — a faint, true 1px Steel border plus a very soft, large-blur
+     shadow. Just enough to lift it off the page; not a floating SaaS card. */
+  .cs-feature {
+    border: 1px solid color-mix(in srgb, var(--steel) 12%, transparent);
+    box-shadow: 0 70px 130px -50px rgba(0, 0, 0, 0.45);
+  }
+
+  /* Crossfade layers — two stacked images; only the front is visible. Slow cross
+     dissolve, no slide, no scale. */
   .cs-layer {
     position: absolute;
     inset: 0;
@@ -166,52 +198,93 @@ const first = stories[0];
     width: 100%;
     object-fit: cover;
     opacity: 0;
-    transform: scale(1);
     transition: opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   .cs-layer.is-front {
     opacity: 1;
   }
-  .cs-layer.is-zoom {
-    animation: cs-kenburns 6200ms ease-out forwards;
-  }
-  @keyframes cs-kenburns {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(1.06);
-    }
-  }
 
-  /* Scrim — bottom-anchored on small/tablet (copy sits lower-left over the
-     image), switching to a left-anchored gradient on desktop (copy sits in the
-     left panel). Strong enough to hold AA over bright bespoke photography. */
+  /* Scrim — a strong LEFT gradient on desktop (the right ~28% stays rich for the
+     photo subject); a contained bottom gradient below lg where copy sits lower.
+     Never darkens the whole image. */
   .cs-scrim {
     background-image: linear-gradient(
       to top,
-      rgba(10, 13, 17, 0.93) 0%,
-      rgba(10, 13, 17, 0.78) 26%,
-      rgba(10, 13, 17, 0.4) 52%,
-      rgba(10, 13, 17, 0.12) 74%,
-      transparent 100%
+      rgba(10, 13, 17, 0.95) 0%,
+      rgba(10, 13, 17, 0.85) 42%,
+      rgba(10, 13, 17, 0.5) 66%,
+      rgba(10, 13, 17, 0.16) 86%,
+      rgba(10, 13, 17, 0) 100%
     );
   }
   @media (min-width: 1024px) {
+    /* Dark behind the text on the left, feathered with many close stops so the
+       falloff is invisible — it simply dissolves into the image. Zero-alpha
+       sand (not `transparent`) keeps the fade from muddying toward black. */
     .cs-scrim {
       background-image: linear-gradient(
         90deg,
-        rgba(10, 13, 17, 0.92) 0%,
-        rgba(10, 13, 17, 0.78) 30%,
-        rgba(10, 13, 17, 0.42) 56%,
-        rgba(10, 13, 17, 0.1) 80%,
-        transparent 100%
+        rgba(10, 13, 17, 0.95) 0%,
+        rgba(10, 13, 17, 0.94) 32%,
+        rgba(10, 13, 17, 0.82) 50%,
+        rgba(10, 13, 17, 0.58) 64%,
+        rgba(10, 13, 17, 0.3) 78%,
+        rgba(10, 13, 17, 0) 92%
       );
     }
   }
 
+  /* Business name — anchors the story before the quote. Mineral, refined but
+     present: a step up in size and weight from a quiet kicker label. */
+  .cs-company-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--mineral);
+  }
+
+  /* Quote well — reserves room for up to three lines and bottom-aligns the
+     quote, so the person/role beneath always sit at the same vertical height
+     regardless of the quote's length. */
+  .cs-quote-wrap {
+    display: flex;
+    align-items: flex-end;
+    min-height: 4.4rem;
+  }
+  @media (min-width: 640px) {
+    .cs-quote-wrap {
+      min-height: 5.4rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .cs-quote-wrap {
+      min-height: 7.7rem;
+    }
+  }
+
+  /* Quote marks — subtle, Mineral; never oversized. */
+  .cs-quote__mark {
+    color: var(--mineral);
+  }
+
+  /* Person (Inter SemiBold White) over their role + company (Inter Regular,
+     Steel). */
+  .cs-person {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: #fff;
+  }
+  .cs-role {
+    font-family: var(--font-body);
+    font-weight: 400;
+    color: var(--steel);
+  }
+
   /* Content fade on swap — copy settles quickly while the image keeps
-     dissolving and zooming behind it, so everything changes together. */
+     dissolving behind it. */
   .cs-content {
     transition: opacity 300ms ease;
   }
@@ -219,122 +292,150 @@ const first = stories[0];
     opacity: 0;
   }
 
-  /* "What we look after" — a fade-edged hairline above (light, for over-image),
-     items as quiet mono labels. */
-  .cs-rule {
-    position: relative;
-  }
-  .cs-rule::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 9rem;
-    max-width: 60%;
+  /* Full-width fade divider — consistent with the homepage divider language
+     (transparent → solid middle → transparent). */
+  .cs-divider {
     height: 1px;
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.5),
-      transparent
-    );
-  }
-  .cs-looked__item {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.82);
-  }
-
-  /* Roster — the persistent client selector. A fade-edged hairline tops the
-     whole roster; each item carries a countdown loading bar that fills the
-     active client and depletes over the dwell. */
-  .cs-roster-wrap {
-    position: relative;
-  }
-  .cs-roster-wrap::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
+    width: 100%;
     background: linear-gradient(
       to right,
       transparent,
-      color-mix(in srgb, var(--line) 80%, transparent) 25%,
-      color-mix(in srgb, var(--line) 80%, transparent) 75%,
+      rgba(255, 255, 255, 0.3) 28%,
+      rgba(255, 255, 255, 0.3) 72%,
       transparent
     );
   }
-  .cs-roster__item {
+
+  /* Services — three across (room for up to six over two rows); icon with a
+     short label beside it; Inter Regular, small, Steel; one consistent outline
+     icon family; a service never wraps. */
+  .cs-looked {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem 1.25rem;
+  }
+  .cs-looked[hidden] {
+    display: none;
+  }
+  .cs-looked__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    font-size: 0.82rem;
+    font-weight: 400;
+    white-space: nowrap;
+    color: var(--steel);
+  }
+  /* Icons read in Mineral; the labels stay Steel. */
+  .cs-looked__item :global(svg) {
+    flex-shrink: 0;
+    color: var(--mineral);
+  }
+
+  /* Journey indicator — a thin Steel line spanning almost the full width, with
+     one node per client. Nodes sit in a 5-column grid matching the roster's
+     lg:grid-cols-5, so each lands directly above its client at that
+     breakpoint. A Mineral "fuse" travels the track in three phases that loop
+     continuously: node→node (normal dwell), last node→right edge (the final
+     client's dwell), then left edge→first node (the loop's re-entry) — never
+     simply stopping at the last node. Duration varies per phase via inline
+     style; only the timing function/fill come from the class. */
+  .cs-journey {
     position: relative;
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+  }
+  .cs-journey__track {
+    position: absolute;
+    left: 2%;
+    right: 2%;
+    top: 50%;
+    height: 1px;
+    background-color: color-mix(in srgb, var(--steel) 32%, transparent);
+    transform: translateY(-50%);
+  }
+  .cs-journey__fuse {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    height: 2px;
+    width: 20%;
+    transform: translateY(-50%) scaleX(0);
+    transform-origin: left center;
+    background-color: var(--mineral);
+  }
+  .cs-journey__fuse.is-burning {
+    animation-name: cs-fuse;
+    animation-duration: 5000ms;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+  @keyframes cs-fuse {
+    from {
+      transform: translateY(-50%) scaleX(0);
+    }
+    to {
+      transform: translateY(-50%) scaleX(1);
+    }
+  }
+  [data-client-stories].is-paused .cs-journey__fuse.is-burning {
+    animation-play-state: paused;
+  }
+  .cs-journey__row {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: 100%;
+  }
+  .cs-journey__node {
+    justify-self: center;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--steel);
+    transition: background-color 220ms ease, transform 220ms ease;
+  }
+  .cs-journey__node.is-active {
+    background-color: var(--mineral);
+    transform: scale(1.25);
+  }
+
+  /* Roster — active: company and industry both white (no Mineral here — the
+     journey indicator already owns Mineral). Inactive: company plain Steel,
+     industry a touch darker than Steel. Hover brightens the company only; no
+     movement or scaling. */
+  .cs-roster__item {
     cursor: pointer;
   }
   .cs-roster__name {
     color: var(--steel);
     transition: color 220ms ease;
   }
+  .cs-roster__type {
+    color: color-mix(in srgb, var(--steel) 65%, var(--sand) 35%);
+    transition: color 220ms ease;
+  }
   .cs-roster__item:hover .cs-roster__name,
-  .cs-roster__item:focus-visible .cs-roster__name,
-  .cs-roster__item[aria-pressed="true"] .cs-roster__name {
+  .cs-roster__item:focus-visible .cs-roster__name {
     color: var(--ink);
   }
-  /* Bars sit at the foot of every item (margin-top:auto + equal-height items),
-     so they always line up horizontally regardless of how the client name
-     wraps. The active bar fills left-to-right over the dwell. */
-  .cs-roster__track {
-    display: block;
-    margin-top: auto;
-    padding-top: 0.85rem;
-    height: 2px;
-    box-sizing: content-box;
-    width: 100%;
-    overflow: hidden;
-    background-clip: content-box;
-    background-color: color-mix(in srgb, var(--line) 90%, transparent);
-  }
-  .cs-roster__fill {
-    display: block;
-    height: 100%;
-    width: 100%;
-    transform-origin: left center;
-    transform: scaleX(0);
-    background-color: var(--mineral);
-  }
-  .cs-roster__fill.is-counting {
-    animation: cs-countdown 5000ms linear forwards;
-  }
-  @keyframes cs-countdown {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
-
-  /* Pause everything time-based while the visitor is interacting or the section
-     is offscreen — the countdown bar and the image zoom freeze together. */
-  [data-client-stories].is-paused .cs-roster__fill.is-counting,
-  [data-client-stories].is-paused .cs-layer.is-zoom {
-    animation-play-state: paused;
+  .cs-roster__item[aria-pressed="true"] .cs-roster__name,
+  .cs-roster__item[aria-pressed="true"] .cs-roster__type {
+    color: var(--ink);
   }
 
   @media (prefers-reduced-motion: reduce) {
     .cs-layer,
     .cs-content,
-    .cs-roster__name {
+    .cs-roster__name,
+    .cs-roster__type {
       transition: none;
     }
-    .cs-layer.is-zoom {
-      animation: none;
-      transform: none;
-    }
-    /* No countdown/auto-advance; the active client shows a static full bar. */
-    .cs-roster__fill.is-counting {
-      animation: none;
-      transform: scaleX(1);
+    .cs-journey {
+      display: none;
     }
   }
 </style>
@@ -345,20 +446,25 @@ const first = stories[0];
   const root = document.querySelector<HTMLElement>("[data-client-stories]");
   if (root) {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
     const imgA = root.querySelector<HTMLImageElement>("[data-cs-img-a]");
     const imgB = root.querySelector<HTMLImageElement>("[data-cs-img-b]");
     const content = root.querySelector<HTMLElement>("[data-cs-content]");
-    const typeEl = root.querySelector<HTMLElement>("[data-cs-type]");
-    const nameEl = root.querySelector<HTMLElement>("[data-cs-name]");
+    const companyEl = root.querySelector<HTMLElement>("[data-cs-company]");
     const quoteEl = root.querySelector<HTMLElement>("[data-cs-quote]");
-    const attrEl = root.querySelector<HTMLElement>("[data-cs-attr]");
+    const personEl = root.querySelector<HTMLElement>("[data-cs-person]");
+    const roleEl = root.querySelector<HTMLElement>("[data-cs-role]");
     const outcomeEl = root.querySelector<HTMLElement>("[data-cs-outcome]");
-    const lookedEl = root.querySelector<HTMLElement>("[data-cs-looked]");
+    const lookedLists = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-looked-idx]")
+    );
+    const fuse = root.querySelector<HTMLElement>("[data-cs-fuse]");
+    const fuseEntrance = root.querySelector<HTMLElement>("[data-cs-fuse-2]");
+    const nodes = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-cs-node]")
+    );
     const rosterItems = Array.from(
       root.querySelectorAll<HTMLButtonElement>("[data-cs-roster]")
-    );
-    const rosterFills = Array.from(
-      root.querySelectorAll<HTMLElement>("[data-cs-fill]")
     );
 
     const SWAP_DELAY = 280;
@@ -366,26 +472,20 @@ const first = stories[0];
     let active = 0;
     let paused = false;
     let offscreen = false;
+    let stopped = false; // touch: auto-rotation ends after first manual tap
 
     const syncPlayState = () => {
       root.classList.toggle("is-paused", paused || offscreen);
     };
 
-    const setText = (s: (typeof stories)[number]) => {
-      if (typeEl) typeEl.textContent = s.type;
-      if (nameEl) nameEl.textContent = s.name;
-      if (quoteEl) quoteEl.textContent = `“${s.quote}”`;
-      if (attrEl) attrEl.textContent = s.attribution;
+    const setContent = (i: number) => {
+      const s = stories[i];
+      if (companyEl) companyEl.textContent = s.name;
+      if (quoteEl) quoteEl.textContent = s.quote;
+      if (personEl) personEl.textContent = s.person;
+      if (roleEl) roleEl.textContent = s.role;
       if (outcomeEl) outcomeEl.textContent = s.outcome;
-      if (lookedEl) {
-        lookedEl.textContent = "";
-        for (const item of s.lookedAfter) {
-          const li = document.createElement("li");
-          li.className = "cs-looked__item";
-          li.textContent = item;
-          lookedEl.appendChild(li);
-        }
-      }
+      lookedLists.forEach((ul, idx) => (ul.hidden = idx !== i));
     };
 
     const swapImage = (s: (typeof stories)[number]) => {
@@ -396,13 +496,9 @@ const first = stories[0];
         back.alt = s.imageAlt;
         back.removeAttribute("aria-hidden");
         back.classList.add("is-front");
-        // Restart the Ken Burns zoom on the incoming image.
-        back.classList.remove("is-zoom");
-        void back.offsetWidth;
-        back.classList.add("is-zoom");
         front.alt = "";
         front.setAttribute("aria-hidden", "true");
-        front.classList.remove("is-front", "is-zoom");
+        front.classList.remove("is-front");
         front = back;
       };
       if (back.getAttribute("src") === s.image) {
@@ -414,42 +510,109 @@ const first = stories[0];
       back.src = s.image;
     };
 
-    // Restart the countdown bar on the active client.
-    const startCountdown = (i: number) => {
-      for (const f of rosterFills) {
-        f.classList.remove("is-counting");
-        f.style.animation = "none";
-      }
-      void root.offsetWidth; // reflow so the animation restarts cleanly
-      const f = rosterFills[i];
-      if (f) {
-        f.style.animation = "";
-        f.classList.add("is-counting");
-      }
+    // Node centres sit at the middle of each of the 5 grid columns: 10%, 30%,
+    // 50%, 70%, 90%, within a track inset 2%–98%. A normal segment (node i ->
+    // node i+1) is a fixed 20% wide, starting at 10 + i*20.
+    const LAST = stories.length - 1;
+    const segmentLeft = (i: number) => 10 + i * 20;
+
+    const updateNodes = (i: number) => {
+      nodes.forEach((n, idx) => n.classList.toggle("is-active", idx === i));
     };
 
-    const render = (i: number, animate: boolean) => {
-      const s = stories[i];
+    // Three fuse phases, looping continuously rather than stopping at the last
+    // node: "segment" (node -> next node, normal dwell), "tail" (last node ->
+    // the track's right edge, the final client's dwell), and "entrance" (the
+    // track's left edge -> the first node, a quick re-entry before the loop's
+    // first normal segment resumes). Duration varies per phase; the CSS class
+    // supplies only the easing/fill.
+    let fuseMode: "segment" | "tail" | "entrance" = "segment";
+
+    const paintFuse = (
+      el: HTMLElement | null,
+      left: number,
+      width: number,
+      durationMs: number
+    ) => {
+      if (!el) return;
+      el.classList.remove("is-burning");
+      el.style.animation = "none";
+      el.style.left = `${left}%`;
+      el.style.width = `${width}%`;
+      el.style.animationDuration = `${durationMs}ms`;
+    };
+
+    const burnFuse = (el: HTMLElement | null) => {
+      if (!el || stopped || reduce) return;
+      void root.offsetWidth; // reflow so the animation restarts cleanly
+      el.style.animation = "";
+      el.classList.add("is-burning");
+    };
+
+    // Fully clears a fuse element back to its inactive (unlit) state.
+    const clearFuse = (el: HTMLElement | null) => {
+      if (!el) return;
+      el.classList.remove("is-burning");
+      el.style.animation = "none";
+    };
+
+    const startSegmentFuse = (i: number) => {
+      fuseMode = "segment";
+      clearFuse(fuseEntrance); // hide the entrance fuse; only used during the wrap
+      paintFuse(fuse, segmentLeft(i), 20, 5000);
+      burnFuse(fuse);
+    };
+    // The final client's dwell is split evenly: 2s for the line to reach the
+    // right edge, then 2s for the entrance fuse to fill in from the left edge
+    // to the first node. The tail fuse is left lit (not reset) while the
+    // entrance fuse runs, so the line is illuminated on both the right and
+    // left simultaneously until the moment it reaches the first node — that's
+    // when the story actually switches.
+    const startTailFuse = () => {
+      fuseMode = "tail";
+      clearFuse(fuseEntrance);
+      paintFuse(fuse, 90, 8, 2000); // last node (90%) to the track's right edge (98%)
+      burnFuse(fuse);
+    };
+    const startEntranceFuse = () => {
+      fuseMode = "entrance";
+      paintFuse(fuseEntrance, 2, 8, 2000); // left edge (2%) into the first node (10%)
+      if (stopped || reduce) {
+        // Motion disabled / stopped: land directly on the first client's
+        // normal segment rather than skipping the loop silently.
+        switchTo(0, true);
+        startSegmentFuse(0);
+        return;
+      }
+      burnFuse(fuseEntrance);
+    };
+
+    // Switches the visible story (content, image, roster, nodes) without
+    // touching the fuse — callers decide which phase to start next.
+    const switchTo = (i: number, animate: boolean) => {
       if (animate && !reduce && content) {
         content.classList.add("is-swapping");
         window.setTimeout(() => {
-          setText(s);
+          setContent(i);
           content.classList.remove("is-swapping");
         }, SWAP_DELAY);
       } else {
-        setText(s);
+        setContent(i);
       }
-      swapImage(s);
+      swapImage(stories[i]);
       rosterItems.forEach((b, idx) =>
         b.setAttribute("aria-pressed", String(idx === i))
       );
       active = i;
-      startCountdown(i);
+      updateNodes(i);
     };
 
-    const next = () => {
-      if (paused || offscreen) return;
-      render((active + 1) % stories.length, true);
+    // Used by the roster (hover/focus/click) and reduced-motion fallbacks:
+    // switch directly to a story and start its ordinary segment/tail fuse.
+    const render = (i: number, animate: boolean) => {
+      switchTo(i, animate);
+      if (i === LAST) startTailFuse();
+      else startSegmentFuse(i);
     };
 
     // Preload so crossfades don't flash.
@@ -458,12 +621,29 @@ const first = stories[0];
       im.src = s.image;
     }
 
-    // Advance when the active client's countdown bar empties. A paused bar
-    // (interaction / offscreen) won't fire animationend until it resumes.
-    rosterFills.forEach((f, idx) => {
-      f.addEventListener("animationend", () => {
-        if (idx === active && !paused && !offscreen) next();
-      });
+    // The primary fuse only ever fires for "segment" and "tail" phases — the
+    // tail intentionally stays lit afterwards (startEntranceFuse below never
+    // clears it), so reaching the right edge starts the entrance fuse without
+    // switching the story yet.
+    fuse?.addEventListener("animationend", () => {
+      if (paused || offscreen || stopped) return;
+      if (fuseMode === "tail") {
+        startEntranceFuse();
+      } else if (fuseMode === "segment") {
+        switchTo(active + 1, true);
+        if (active === LAST) startTailFuse();
+        else startSegmentFuse(active);
+      }
+    });
+
+    // The entrance fuse fires only when the wrap's left-edge fill reaches the
+    // first node — that is the moment the story actually switches.
+    fuseEntrance?.addEventListener("animationend", () => {
+      if (paused || offscreen || stopped) return;
+      if (fuseMode === "entrance") {
+        switchTo(0, true);
+        startSegmentFuse(0);
+      }
     });
 
     rosterItems.forEach((b, idx) => {
@@ -472,25 +652,46 @@ const first = stories[0];
       };
       b.addEventListener("mouseenter", activate);
       b.addEventListener("focus", activate);
-      b.addEventListener("click", activate);
+      b.addEventListener("click", () => {
+        // Touch: a manual tap ends auto-rotation for the session.
+        if (isTouch) stopped = true;
+        activate();
+      });
     });
 
-    // Hovering / focusing anywhere in the section pauses rotation.
-    root.addEventListener("mouseenter", () => {
-      paused = true;
+    // Pause only when hovering the image card or a client name in the roster —
+    // not merely being near the section.
+    const feature = root.querySelector<HTMLElement>(".cs-feature");
+    const roster = root.querySelector<HTMLElement>(".cs-roster");
+    let hoverFeature = false;
+    let hoverRoster = false;
+    const updatePause = () => {
+      paused = hoverFeature || hoverRoster;
       syncPlayState();
+    };
+    feature?.addEventListener("mouseenter", () => {
+      hoverFeature = true;
+      updatePause();
     });
-    root.addEventListener("mouseleave", () => {
-      paused = false;
-      syncPlayState();
+    feature?.addEventListener("mouseleave", () => {
+      hoverFeature = false;
+      updatePause();
     });
-    root.addEventListener("focusin", () => {
-      paused = true;
-      syncPlayState();
+    roster?.addEventListener("mouseenter", () => {
+      hoverRoster = true;
+      updatePause();
     });
-    root.addEventListener("focusout", () => {
-      paused = false;
-      syncPlayState();
+    roster?.addEventListener("mouseleave", () => {
+      hoverRoster = false;
+      updatePause();
+    });
+    roster?.addEventListener("focusin", () => {
+      hoverRoster = true;
+      updatePause();
+    });
+    roster?.addEventListener("focusout", () => {
+      hoverRoster = false;
+      updatePause();
     });
 
     if ("IntersectionObserver" in window) {
@@ -504,7 +705,9 @@ const first = stories[0];
       io.observe(root);
     }
 
-    // Kick off: countdown the first (already server-rendered) story.
-    startCountdown(0);
+    // Kick off: light the first node and start its normal segment fuse
+    // (already server-rendered as the active story).
+    updateNodes(0);
+    startSegmentFuse(0);
   }
 </script>
