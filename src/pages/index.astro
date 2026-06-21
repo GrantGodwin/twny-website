@@ -156,62 +156,51 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
       living, image-led editorial feature (client proof / business stories): one
       featured story at a time with a persistent, selectable roster of all the
       businesses. Self-contained in the ClientStories component (markup, styles,
-      rotation script). On bg-sand to recess between the lifted Why TWNY band
-      above and the lifted Pricing surface below. */}
+      rotation script). On bg-sand — the darkest surface — so the page reaches
+      its deepest tone just before the light closing handshake below. */}
   <ClientStories />
 
-  {/* PRICING — kept as its own section, decoupled from Why TWNY, so the
-      homepage never goes without a visible pricing teaser regardless of how
-      Why TWNY's content evolves (art direction: hidden pricing is a hard
-      "never"). Content/copy unchanged from the previous combined section. */}
-  <section class="bg-paper text-ink">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
-      <div data-animate class="max-w-2xl">
-        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-          Pricing
-        </p>
-        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.05] text-balance sm:text-4xl">
-          Priced in the open.
-        </h2>
-        <p class="mt-5 max-w-sm text-sm leading-relaxed text-steel text-pretty">
-          Two ways to pay: annual commitment (two months free) or monthly flex
-          (no lock-in). Every price is published — nothing hidden behind a sales
-          call.
-        </p>
-        <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
-          <Button href="/pricing" variant="mineralSolid">See pricing</Button>
-          <Button href="/productivity" variant="mineral">
-            Explore Productivity
-          </Button>
-        </div>
-        <p class="mt-6 font-mono text-xs text-steel">
-          All prices are in Australian dollars and exclude GST.
-        </p>
-      </div>
-    </div>
-  </section>
+  {/* CLOSING SECTION — "the handshake". Replaces BOTH the old standalone
+      Pricing section and the old conversion CTA band. Not a feature, pricing,
+      or process section: the homepage's final beat, whose single job is to
+      remove the last hesitation before getting in touch. Resolved in the
+      brand's own voice — "the jargon stops with us" applied to the first
+      conversation: working out what you need is our job.
 
-  {/* CONVERSION BAND */}
-  <section class="relative isolate overflow-hidden bg-band text-ink">
-    <div
-      class="absolute inset-0 bg-[radial-gradient(70%_140%_at_15%_50%,rgba(19,58,71,0.6)_0%,rgba(22,29,38,0)_60%)]"
-      aria-hidden="true"
-    >
-    </div>
-    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 py-12 lg:py-16">
-      <div
-        data-animate
-        class="flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between lg:gap-10"
-      >
-        <h2 class="max-w-md font-display text-2xl font-semibold leading-[1.12] text-balance sm:text-3xl">
-          Tell us what you need; we'll recommend a starting point.
+      Stays inside the locked Ink-first dark system. The sand→band transition
+      is split 50/50 across the seam with the section above: Client Stories
+      fades sand→paper over its bottom 6rem, and this section continues
+      paper→band over its top 6rem (paper sits almost exactly midway between
+      sand and band, so the two halves join seamlessly). The page therefore
+      lifts gently out of its darkest section and then settles into the footer
+      (bg-paper). The emotional exhale is made with space, not colour: this is
+      the most generously padded section on the page. Left-aligned, single
+      column; no cards, icons, diagrams, illustrations, or steps. */}
+  <section
+    id="getting-started"
+    class="bg-[linear-gradient(to_bottom,var(--paper),var(--band)_6rem)] text-ink"
+  >
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-28 sm:py-36 lg:py-48">
+      <div data-animate class="max-w-2xl">
+        <h2 class="font-display text-3xl font-semibold leading-[1.05] text-balance sm:text-4xl lg:text-5xl">
+          You don't have to have all the answers.
         </h2>
-        <p class="max-w-xs text-sm leading-relaxed text-steel text-pretty">
-          No pressure, no sales funnel. A short conversation, then a clear
-          recommendation.
-        </p>
-        <div class="shrink-0">
-          <Button href="/contact" variant="ember">Tell us what you need</Button>
+
+        <div class="mt-8 max-w-xl space-y-5 text-base leading-relaxed text-steel text-pretty sm:text-[1.0625rem]">
+          <p>That's where we come in.</p>
+          <p>
+            Whether you've got one thing in mind or you're not sure where to
+            begin, tell us what's happening in your business.
+          </p>
+          <p>
+            We'll help you work out what matters and where it makes sense to
+            start.
+          </p>
+        </div>
+
+        <div class="mt-20 flex flex-col items-start gap-y-6 gap-x-9 sm:flex-row sm:items-center">
+          <Button href="/contact" variant="ember">Get in touch</Button>
+          <Button href="/#services" variant="mineral">How we can help</Button>
         </div>
       </div>
     </div>
