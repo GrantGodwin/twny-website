@@ -156,8 +156,10 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
       living, image-led editorial feature (client proof / business stories): one
       featured story at a time with a persistent, selectable roster of all the
       businesses. Self-contained in the ClientStories component (markup, styles,
-      rotation script). On bg-sand — the darkest surface — so the page reaches
-      its deepest tone just before the light closing handshake below. */}
+      rotation script). Flat bg-sand — the deepest dark surface — same tone as
+      Hero, so the page's two "Ink" beats bookend the lifted editorial surfaces
+      between them. No gradient transition into the section below; the image
+      card itself carries the visual energy. */}
   <ClientStories />
 
   {/* CLOSING SECTION — "the handshake". Replaces BOTH the old standalone
@@ -165,21 +167,16 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
       or process section: the homepage's final beat, whose single job is to
       remove the last hesitation before getting in touch. Resolved in the
       brand's own voice — "the jargon stops with us" applied to the first
-      conversation: working out what you need is our job.
+      conversation: you don't have to have all the answers.
 
-      Stays inside the locked Ink-first dark system. The sand→band transition
-      is split 50/50 across the seam with the section above: Client Stories
-      fades sand→paper over its bottom 6rem, and this section continues
-      paper→band over its top 6rem (paper sits almost exactly midway between
-      sand and band, so the two halves join seamlessly). The page therefore
-      lifts gently out of its darkest section and then settles into the footer
-      (bg-paper). The emotional exhale is made with space, not colour: this is
-      the most generously padded section on the page. Left-aligned, single
-      column; no cards, icons, diagrams, illustrations, or steps. */}
-  <section
-    id="getting-started"
-    class="bg-[linear-gradient(to_bottom,var(--paper),var(--band)_6rem)] text-ink"
-  >
+      Flat bg-band — a lifted dark editorial surface, the same role Why TWNY
+      uses — stepping up cleanly from Client Stories' flat bg-sand with no
+      gradient blend between them. The exhale is made with space, not colour:
+      this is the most generously padded section on the page. Left-aligned,
+      single column; no cards, icons, diagrams, illustrations, or steps. The
+      footer (bg-paper) sits cleanly beneath, separated by its own top hairline
+      rather than a gradient fade. */}
+  <section id="getting-started" class="bg-band text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-28 sm:py-36 lg:py-48">
       <div data-animate class="max-w-2xl">
         <h2 class="font-display text-3xl font-semibold leading-[1.05] text-balance sm:text-4xl lg:text-5xl">
