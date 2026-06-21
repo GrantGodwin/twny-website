@@ -474,7 +474,7 @@ const first = stories[0];
   }
   .cs-journey__fuse.is-burning {
     animation-name: cs-fuse;
-    animation-duration: 5000ms;
+    animation-duration: var(--fuse-duration, 5000ms);
     animation-timing-function: linear;
     animation-fill-mode: forwards;
   }
@@ -734,6 +734,9 @@ const first = stories[0];
     // supplies only the easing/fill.
     let fuseMode: "segment" | "tail" | "entrance" = "segment";
 
+    // Duration is driven by a CSS custom property (not the inline `animation`
+    // shorthand), so toggling the .is-burning class to restart never wipes it —
+    // each phase keeps its own pace.
     const paintFuse = (
       el: HTMLElement | null,
       left: number,
@@ -742,16 +745,14 @@ const first = stories[0];
     ) => {
       if (!el) return;
       el.classList.remove("is-burning");
-      el.style.animation = "none";
       el.style.left = `${left}%`;
       el.style.width = `${width}%`;
-      el.style.animationDuration = `${durationMs}ms`;
+      el.style.setProperty("--fuse-duration", `${durationMs}ms`);
     };
 
     const burnFuse = (el: HTMLElement | null) => {
       if (!el || stopped || reduce) return;
-      void root.offsetWidth; // reflow so the animation restarts cleanly
-      el.style.animation = "";
+      void el.offsetWidth; // reflow so re-adding the class restarts the animation
       el.classList.add("is-burning");
     };
 
@@ -759,7 +760,6 @@ const first = stories[0];
     const clearFuse = (el: HTMLElement | null) => {
       if (!el) return;
       el.classList.remove("is-burning");
-      el.style.animation = "none";
     };
 
     const startSegmentFuse = (i: number) => {
@@ -768,21 +768,21 @@ const first = stories[0];
       paintFuse(fuse, segmentLeft(i), 20, 5000);
       burnFuse(fuse);
     };
-    // The final client's dwell is split evenly: 2s for the line to reach the
-    // right edge, then 2s for the entrance fuse to fill in from the left edge
-    // to the first node. The tail fuse is left lit (not reset) while the
-    // entrance fuse runs, so the line is illuminated on both the right and
-    // left simultaneously until the moment it reaches the first node — that's
-    // when the story actually switches.
+    // The final client's dwell totals 5s like every other transition, split
+    // evenly: 2.5s for the line to reach the right edge, then 2.5s for the
+    // entrance fuse to fill in from the left edge to the first node. The tail
+    // fuse is left lit (not reset) while the entrance fuse runs, so the line is
+    // illuminated on both the right and left simultaneously until the moment it
+    // reaches the first node — that's when the story actually switches.
     const startTailFuse = () => {
       fuseMode = "tail";
       clearFuse(fuseEntrance);
-      paintFuse(fuse, 90, 8, 2000); // last node (90%) to the track's right edge (98%)
+      paintFuse(fuse, 90, 8, 2500); // last node (90%) to the track's right edge (98%)
       burnFuse(fuse);
     };
     const startEntranceFuse = () => {
       fuseMode = "entrance";
-      paintFuse(fuseEntrance, 2, 8, 2000); // left edge (2%) into the first node (10%)
+      paintFuse(fuseEntrance, 2, 8, 2500); // left edge (2%) into the first node (10%)
       if (stopped || reduce) {
         // Motion disabled / stopped: land directly on the first client's
         // normal segment rather than skipping the loop silently.
