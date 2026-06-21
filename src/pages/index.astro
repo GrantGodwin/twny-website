@@ -16,9 +16,11 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
   <Hero />
 
   {/* WHAT WE LOOK AFTER — full-width editorial header, then four wide
-      capability panels. No relationship band here — that becomes its own
-      "Why TWNY" section later. */}
-  <section id="what-we-look-after" class="bg-paper text-ink">
+      capability panels. Flat bg-band — the shared "editorial band" surface
+      used identically by this section, Why TWNY, and the closing section, so
+      all three read as one consistent surface with clean boundaries between
+      them (no gradients, no lighter/darker variants). */}
+  <section id="what-we-look-after" class="bg-band text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
       <div data-animate class="max-w-2xl">
         <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
@@ -156,10 +158,11 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
       living, image-led editorial feature (client proof / business stories): one
       featured story at a time with a persistent, selectable roster of all the
       businesses. Self-contained in the ClientStories component (markup, styles,
-      rotation script). Flat bg-sand — the deepest dark surface — same tone as
-      Hero, so the page's two "Ink" beats bookend the lifted editorial surfaces
-      between them. No gradient transition into the section below; the image
-      card itself carries the visual energy. */}
+      rotation script). Flat bg-sand — the same Ink surface as Hero — a
+      deliberate visual dip between the editorial band above (What we look
+      after / Why TWNY) and the editorial band below (the closing section). No
+      gradient into the section above or below; the image card itself carries
+      the visual energy. */}
   <ClientStories />
 
   {/* CLOSING SECTION — "the handshake". Replaces BOTH the old standalone
@@ -169,13 +172,14 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
       brand's own voice — "the jargon stops with us" applied to the first
       conversation: you don't have to have all the answers.
 
-      Flat bg-band — a lifted dark editorial surface, the same role Why TWNY
-      uses — stepping up cleanly from Client Stories' flat bg-sand with no
-      gradient blend between them. The exhale is made with space, not colour:
-      this is the most generously padded section on the page. Left-aligned,
-      single column; no cards, icons, diagrams, illustrations, or steps. The
-      footer (bg-paper) sits cleanly beneath, separated by its own top hairline
-      rather than a gradient fade. */}
+      Flat bg-band — the same shared "editorial band" surface token as What we
+      look after and Why TWNY (one token, three sections, no lighter/darker
+      variants between them). Steps up cleanly from Client Stories' flat
+      bg-sand dip with no gradient blend. The exhale is made with space, not
+      colour: this is the most generously padded section on the page.
+      Left-aligned, single column; no cards, icons, diagrams, illustrations, or
+      steps. The footer (bg-paper) sits cleanly beneath as its own utility
+      surface, separated by its own top hairline rather than a gradient fade. */}
   <section id="getting-started" class="bg-band text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-28 sm:py-36 lg:py-48">
       <div data-animate class="max-w-2xl">
