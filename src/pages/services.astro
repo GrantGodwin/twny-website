@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import FAQ from "../components/blocks/FAQ.astro";
+import CapabilityIcon from "../components/home/CapabilityIcon.astro";
 import { serviceCapabilities, engagementShape, serviceFaqs } from "../data/services";
 
 // One considered page, not the homepage's alternating chapters: a single
@@ -26,10 +27,8 @@ const email = "hello@twny.com.au";
         The technology your business runs on.
       </h1>
       <p class="mt-5 text-lg text-steel leading-relaxed max-w-xl text-pretty">
-        Email, your website, backup, security and the everyday time-savers —
-        most of what a small business depends on falls into four places. We
-        look after all of them as one connected operation, with one person
-        who already knows your setup.
+        Email, websites, backup, security and practical AI — looked after as
+        one connected operation, by someone who already knows your setup.
       </p>
       <div class="mt-9">
         <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
@@ -39,33 +38,41 @@ const email = "hello@twny.com.au";
 
   {/* THE FOUR CAPABILITIES — one continuous editorial surface. No section
       eyebrow/heading of its own (that would just repeat the homepage's
-      chapter pattern); the four headings below are the structure. Each row
-      pairs a lead sentence (the dek) with the fuller explanation, a quietly
-      bordered technology line, and — only where it earns its place — an
-      italicised boundary/ownership aside. Lengths and shape deliberately
-      vary row to row rather than repeating the same stack four times. */}
+      chapter pattern); a small Mineral rule marks the start of the zone
+      instead. Each row carries a small Mineral icon (the homepage's
+      restrained line marks, reused small and quiet rather than large and
+      centred), a lead sentence, the fuller explanation, a Mineral-accented
+      technology line, and one closing "moment" — a boundary, an outcome, a
+      scenario or a concrete example, varied by capability so the four rows
+      don't repeat the same rhythm. */}
   <section class="bg-paper border-y border-line">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
+      <div class="h-0.5 w-10 bg-mineral mb-14 lg:mb-16" aria-hidden="true" />
+
       <div class="divide-y divide-line">
         {
           serviceCapabilities.map((c) => (
             <div class="grid gap-5 py-14 first:pt-0 last:pb-0 lg:grid-cols-[260px_1fr] lg:gap-16 lg:py-16">
-              <h2 class="font-display text-3xl font-semibold leading-snug text-ink text-balance sm:text-4xl">
-                {c.heading}
-              </h2>
+              <div>
+                <CapabilityIcon name={c.icon} class="h-7 w-7 text-mineral mb-4" />
+                <h2 class="font-display text-3xl font-semibold leading-snug text-ink text-balance sm:text-4xl">
+                  {c.heading}
+                </h2>
+              </div>
               <div class="max-w-2xl">
                 <p class="text-base font-medium leading-snug text-ink/90 text-pretty sm:text-lg">
                   {c.lead}
                 </p>
                 <p class="mt-3 text-steel leading-relaxed text-pretty">{c.body}</p>
-                <p class="mt-5 border-l border-line pl-3 font-mono text-xs uppercase tracking-widest text-steel/60">
+                <p class="mt-5 border-l-2 border-mineral/40 pl-3 font-mono text-xs uppercase tracking-widest text-mineral/80">
                   {c.techLine.join(" · ")}
                 </p>
-                {c.boundary && (
-                  <p class="mt-4 max-w-xl text-sm italic leading-relaxed text-steel/70 text-pretty">
-                    {c.boundary}
-                  </p>
-                )}
+                <p class="mt-5 font-mono text-xs uppercase tracking-widest text-steel">
+                  {c.moment.label}
+                </p>
+                <p class="mt-2 max-w-xl text-sm leading-relaxed text-steel/85 text-pretty">
+                  {c.moment.body}
+                </p>
               </div>
             </div>
           ))
@@ -88,14 +95,16 @@ const email = "hello@twny.com.au";
         <div class="mt-7 grid gap-6 sm:grid-cols-2 sm:gap-10">
           <div>
             <p class="font-mono text-xs uppercase tracking-widest text-steel/70">
+              <span class="inline-block h-1.5 w-1.5 -translate-y-px bg-mineral align-middle mr-2" aria-hidden="true" />
               {engagementShape.focused.label}
             </p>
             <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
               {engagementShape.focused.description}
             </p>
           </div>
-          <div class="sm:border-l sm:border-line sm:pl-10">
+          <div class="sm:border-l sm:border-mineral/25 sm:pl-10">
             <p class="font-mono text-xs uppercase tracking-widest text-steel/70">
+              <span class="inline-block h-1.5 w-1.5 -translate-y-px bg-mineral align-middle mr-2" aria-hidden="true" />
               {engagementShape.ongoing.label}
             </p>
             <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">

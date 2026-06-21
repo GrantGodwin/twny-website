@@ -138,7 +138,7 @@ The guardrails that keep TWNY from drifting into the generic average of the web:
 ## 7. Build rules
 
 - **`npm run build` must pass** before any change is considered done. Astro static build,
-  four pages (`/`, `/productivity`, `/pricing`, `/contact`). The site is dark-only
+  three pages (`/`, `/services`, `/contact`). The site is dark-only
   (`.dark` set statically on `<html>`).
 - **Accessibility (AA, non-negotiable):** semantic structure and landmarks, one `<h1>` and
   correct heading order, a skip link, full keyboard operability with a visible focus state,
