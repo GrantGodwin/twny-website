@@ -11,6 +11,8 @@ import Photo from "./Photo.astro";
 // the left for the headline, deep Ink-blue tones with restrained warm highlights.
 // Metaphor, not literal technology — guidance, clarity, quiet competence, operating
 // in the background. Provenance/licence: supplied by project owner.
+
+const email = "hello@twny.com.au";
 ---
 
 <section
@@ -51,19 +53,18 @@ import Photo from "./Photo.astro";
         data-animate
         class="mt-7 max-w-md text-base leading-relaxed text-white/[0.84] text-pretty lg:text-lg"
       >
-        We look after the technology behind your business, so you don't have
-        to.
+        Most businesses don't want to think about technology. They just want
+        it to work.
       </p>
       <p
         data-animate
         class="mt-4 max-w-md text-base leading-relaxed text-white/[0.84] text-pretty lg:text-lg"
       >
-        Spend less time thinking about technology, and more time running your
-        business.
+        That's what we're here for — quietly, reliably, in the background.
       </p>
 
       <div data-animate class="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
-        <Button href="/contact" variant="ember">Get in touch</Button>
+        <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
         <Button href="#what-we-look-after" variant="mineral" arrow="down">
           What we look after
         </Button>

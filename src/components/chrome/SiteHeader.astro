@@ -10,10 +10,11 @@ interface Props {
 const { overHero = false } = Astro.props;
 
 const nav = [
-  { label: "Services", href: "/#services" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "Services", href: "/services" },
   { label: "Contact", href: "/contact" },
 ];
+
+const email = "hello@twny.com.au";
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
@@ -31,7 +32,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
     <nav
       aria-label="Primary"
-      class="hidden sm:flex flex-1 items-center justify-center gap-10"
+      class="hidden sm:flex flex-1 items-center justify-end gap-8"
     >
       {
         nav.map((item) => {
@@ -55,9 +56,9 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
     {/* desktop/tablet CTA — on the hero it starts hidden and reveals once the
         hero's own primary CTA has scrolled roughly half out of view */}
     <div
-      class:list={["hidden items-center sm:flex", overHero && "header-cta"]}
+      class:list={["hidden items-center sm:flex ml-8", overHero && "header-cta"]}
     >
-      <Button href="/contact" variant="ember">Get in touch</Button>
+      <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
     </div>
 
     <button
@@ -98,7 +99,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
         })
       }
       <div class="pt-5">
-        <Button href="/contact" variant="ember" class="w-full justify-center">
+        <Button href={`mailto:${email}`} variant="ember" class="w-full justify-center">
           Get in touch
         </Button>
       </div>

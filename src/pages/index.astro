@@ -5,6 +5,8 @@ import CapabilityIcon from "../components/home/CapabilityIcon.astro";
 import ClientStories from "../components/home/ClientStories.astro";
 import Button from "../components/ui/Button.astro";
 import { capabilities, philosophy, rotatingTerms } from "../data/offer";
+
+const email = "hello@twny.com.au";
 ---
 
 <BaseLayout
@@ -16,11 +18,10 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
   <Hero />
 
   {/* WHAT WE LOOK AFTER — full-width editorial header, then four wide
-      capability panels. Flat bg-band — the shared "editorial band" surface
-      used identically by this section, Why TWNY, and the closing section, so
-      all three read as one consistent surface with clean boundaries between
-      them (no gradients, no lighter/darker variants). */}
-  <section id="what-we-look-after" class="bg-band text-ink">
+      capability panels. Flat bg-paper, distinct from Why TWNY's bg-band
+      directly below — the tonal step makes the section break obvious on its
+      own, without a gradient. */}
+  <section id="what-we-look-after" class="bg-paper text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
       <div data-animate class="max-w-2xl">
         <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
@@ -30,9 +31,10 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
           Technology shouldn't be another job.
         </h2>
         <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
-          We look after the technology behind your business — so things
-          run smoothly day to day, and you have more time for the work
-          that actually matters.
+          From email and websites to backup and security, this is the
+          everyday technology that keeps your business running — looked
+          after properly, so small problems get caught before they become
+          big ones.
         </p>
       </div>
 
@@ -56,7 +58,7 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
       </div>
 
       <div data-animate class="mt-16 lg:mt-20">
-        <Button href="/#services" variant="mineral">
+        <Button href="/services" variant="mineral">
           See how we can help
         </Button>
       </div>
@@ -123,8 +125,8 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
           class="mt-3 max-w-[548px] text-sm leading-relaxed text-steel text-pretty sm:mt-4 sm:text-base"
         >
           Technology is complicated. The jargon, the platforms and the
-          security requirements keep changing. We stay across it, so you
-          don't have to.
+          security requirements keep changing — we stay across all of it,
+          so the detail never lands on your desk.
         </p>
       </div>
 
@@ -172,14 +174,14 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
       brand's own voice — "the jargon stops with us" applied to the first
       conversation: you don't have to have all the answers.
 
-      Flat bg-band — the same shared "editorial band" surface token as What we
-      look after and Why TWNY (one token, three sections, no lighter/darker
-      variants between them). Steps up cleanly from Client Stories' flat
-      bg-sand dip with no gradient blend. The exhale is made with space, not
-      colour: this is the most generously padded section on the page.
-      Left-aligned, single column; no cards, icons, diagrams, illustrations, or
-      steps. The footer (bg-paper) sits cleanly beneath as its own utility
-      surface, separated by its own top hairline rather than a gradient fade. */}
+      Flat bg-band — the same token as Why TWNY (non-adjacent, separated by
+      Client Stories' bg-sand dip, so reusing it doesn't blur any boundary).
+      Steps up cleanly from that dip with no gradient blend. The exhale is
+      made with space, not colour: this is the most generously padded section
+      on the page. Left-aligned, single column; no cards, icons, diagrams,
+      illustrations, or steps. The footer (bg-paper) sits cleanly beneath as
+      its own utility surface, separated by its own top hairline rather than
+      a gradient fade. */}
   <section id="getting-started" class="bg-band text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-28 sm:py-36 lg:py-48">
       <div data-animate class="max-w-2xl">
@@ -200,8 +202,8 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
         </div>
 
         <div class="mt-20 flex flex-col items-start gap-y-6 gap-x-9 sm:flex-row sm:items-center">
-          <Button href="/contact" variant="ember">Get in touch</Button>
-          <Button href="/#services" variant="mineral">How we can help</Button>
+          <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
+          <Button href="/services" variant="mineral">How we can help</Button>
         </div>
       </div>
     </div>
@@ -343,7 +345,7 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
   .term-reel__track {
     display: block;
     transform: translateY(-33.3333%);
-    transition: transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .term-reel__item {
     display: block;
@@ -400,11 +402,11 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
 
 <script define:vars={{ terms: rotatingTerms }}>
   // "Why TWNY" rotating term — a vertical reel (translateY on a 3-item
-  // track), not a crossfade, carousel or typing effect. ~3.8s dwell, one
-  // smooth scroll per advance. Pauses on hover/focus and when scrolled out
-  // of view. Under prefers-reduced-motion the CSS above hides the edge
-  // slivers and strips the transform/transition entirely, so this script
-  // does nothing and the markup's initial static term is simply what shows.
+  // track), not a crossfade, carousel or typing effect. ~1s dwell, one quick
+  // scroll per advance. Pauses on hover/focus and when scrolled out of view.
+  // Under prefers-reduced-motion the CSS above hides the edge slivers and
+  // strips the transform/transition entirely, so this script does nothing
+  // and the markup's initial static term is simply what shows.
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const track = document.querySelector("[data-rotating-track]");
   const prevEl = document.querySelector("[data-reel-prev]");
@@ -443,7 +445,7 @@ import { capabilities, philosophy, rotatingTerms } from "../data/offer";
       );
     };
 
-    setInterval(advance, 3800);
+    setInterval(advance, 1400);
 
     wrapper?.addEventListener("mouseenter", () => (hoverPaused = true));
     wrapper?.addEventListener("mouseleave", () => (hoverPaused = false));
