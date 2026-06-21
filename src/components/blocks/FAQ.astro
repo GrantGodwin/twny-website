@@ -1,11 +1,18 @@
 ---
-// Pricing FAQ — pre-empts objections. Native <details>, no JS, restrained.
-import { faqs } from "../../data/pricing";
+// Embedded FAQ block — native <details>, no JS, restrained.
+interface Faq {
+  q: string;
+  a: string;
+}
+interface Props {
+  items: Faq[];
+}
+const { items } = Astro.props;
 ---
 
 <div class="border border-line rounded-sm divide-y divide-line overflow-hidden">
   {
-    faqs.map((item) => (
+    items.map((item) => (
       <details class="group bg-paper">
         <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-5 font-display font-medium text-ink hover:text-mineral transition-colors">
           {item.q}

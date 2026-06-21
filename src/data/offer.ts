@@ -30,39 +30,6 @@ export const capabilities: Capability[] = [
   },
 ];
 
-// The offer — two recurring clusters plus advisory, as three panels.
-export interface OfferCard {
-  title: string;
-  blurb: string;
-  items?: string[];
-  accent?: "mineral" | "ember";
-}
-
-export const offerCards: OfferCard[] = [
-  {
-    title: "Run your business",
-    blurb: "Microsoft 365 operations — email, files, identity and security.",
-    items: [
-      "Productivity, in four managed tiers",
-      "Backup as managed recovery",
-      "Copilot and AI, introduced when you're ready",
-    ],
-    accent: "mineral",
-  },
-  {
-    title: "Run your web presence",
-    blurb: "The website and the addresses people find you by.",
-    items: ["Web hosting and care", "Domains and DNS, always portable"],
-    accent: "mineral",
-  },
-  {
-    title: "Projects & advisory",
-    blurb:
-      "Migrations, rebuilds, security uplift, AI implementation — scoped and quoted separately, so the recurring service stays clean.",
-    accent: "ember",
-  },
-];
-
 // "Why TWNY" — the homepage's emotional centre. Demonstrates the philosophy
 // (we carry the complexity so clients don't have to) rather than asserting
 // differentiation as a list of principles. The rotating terms are not the

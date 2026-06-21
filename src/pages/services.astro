@@ -1,11 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
-import { capabilities } from "../data/offer";
+import FAQ from "../components/blocks/FAQ.astro";
+import { serviceCapabilities, engagementShape, serviceFaqs } from "../data/services";
 
-// Placeholder services page — anchors the site's "Services" nav item and the
-// homepage's secondary "explore services" links now that /#services no
-// longer exists. Minimal for now; a full services IA is a separate decision.
+// One considered page, not the homepage's alternating chapters: a single
+// editorial surface (paper) carries all four capabilities, separated by
+// spacing, typography and hairlines rather than a colour change between
+// each one. Only two surface transitions on the whole page (sand → paper →
+// band), so it reads calmer and more operational than the homepage.
 const email = "hello@twny.com.au";
 ---
 
@@ -13,51 +16,124 @@ const email = "hello@twny.com.au";
   title="Services — TWNY"
   description="Microsoft 365, websites, domains, backup and practical automation — the everyday technology behind your business, looked after by one accountable operator."
 >
+  {/* INTRO */}
   <section class="bg-sand">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-24">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
       <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-3">
         Services
       </p>
-      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink max-w-2xl text-balance">
-        What we look after.
+      <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold leading-[1.07] text-ink max-w-2xl text-balance">
+        The technology your business runs on.
       </h1>
-      <p class="mt-4 text-lg text-steel leading-relaxed max-w-2xl text-pretty">
-        Email, websites, devices, backup and security — the everyday
-        technology behind your business, looked after by one accountable
-        operator.
+      <p class="mt-5 text-lg text-steel leading-relaxed max-w-xl text-pretty">
+        Email, your website, backup, security and the everyday time-savers —
+        most of what a small business depends on falls into four places. We
+        look after all of them as one connected operation, with one person
+        who already knows your setup.
       </p>
-
       <div class="mt-9">
-        <Button href={`mailto:${email}`} variant="ember">
-          Get in touch
-        </Button>
+        <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
+      </div>
+    </div>
+  </section>
+
+  {/* THE FOUR CAPABILITIES — one continuous editorial surface. No section
+      eyebrow/heading of its own (that would just repeat the homepage's
+      chapter pattern); the four headings below are the structure. Each row
+      pairs a lead sentence (the dek) with the fuller explanation, a quietly
+      bordered technology line, and — only where it earns its place — an
+      italicised boundary/ownership aside. Lengths and shape deliberately
+      vary row to row rather than repeating the same stack four times. */}
+  <section class="bg-paper border-y border-line">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
+      <div class="divide-y divide-line">
+        {
+          serviceCapabilities.map((c) => (
+            <div class="grid gap-5 py-14 first:pt-0 last:pb-0 lg:grid-cols-[260px_1fr] lg:gap-16 lg:py-16">
+              <h2 class="font-display text-3xl font-semibold leading-snug text-ink text-balance sm:text-4xl">
+                {c.heading}
+              </h2>
+              <div class="max-w-2xl">
+                <p class="text-base font-medium leading-snug text-ink/90 text-pretty sm:text-lg">
+                  {c.lead}
+                </p>
+                <p class="mt-3 text-steel leading-relaxed text-pretty">{c.body}</p>
+                <p class="mt-5 border-l border-line pl-3 font-mono text-xs uppercase tracking-widest text-steel/60">
+                  {c.techLine.join(" · ")}
+                </p>
+                {c.boundary && (
+                  <p class="mt-4 max-w-xl text-sm italic leading-relaxed text-steel/70 text-pretty">
+                    {c.boundary}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))
+        }
       </div>
 
-      <div class="mt-10 max-w-2xl bg-band border border-line rounded-sm p-5">
-        <p class="font-mono text-xs text-steel leading-relaxed">
-          ▲ Prototype placeholder. A full services page is not built yet —
-          this page exists to anchor navigation and "explore our services"
-          links until that work is scheduled.
+      {/* HOW THIS USUALLY STARTS — clarifies engagement shape (focused work
+          vs. ongoing care) without pricing, packages or tiers. Visually
+          quieter than the four capabilities: no surface shift, smaller
+          type, h3 not h2. Two plain-prose lanes separated by a single
+          hairline, not a comparison grid. */}
+      <div class="mt-4 max-w-3xl border-t border-line pt-10 lg:mt-8">
+        <h3 class="font-display text-lg font-semibold text-ink text-balance sm:text-xl">
+          {engagementShape.heading}
+        </h3>
+        <p class="mt-3 max-w-2xl text-sm leading-relaxed text-steel text-pretty sm:text-base">
+          {engagementShape.intro}
+        </p>
+
+        <div class="mt-7 grid gap-6 sm:grid-cols-2 sm:gap-10">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-widest text-steel/70">
+              {engagementShape.focused.label}
+            </p>
+            <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
+              {engagementShape.focused.description}
+            </p>
+          </div>
+          <div class="sm:border-l sm:border-line sm:pl-10">
+            <p class="font-mono text-xs uppercase tracking-widest text-steel/70">
+              {engagementShape.ongoing.label}
+            </p>
+            <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
+              {engagementShape.ongoing.description}
+            </p>
+          </div>
+        </div>
+
+        <p class="mt-7 max-w-2xl text-sm font-medium leading-relaxed text-ink/90 text-pretty sm:text-base">
+          {engagementShape.reassurance}
         </p>
       </div>
     </div>
   </section>
 
-  <section class="bg-paper border-y border-line">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20">
-      <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        {
-          capabilities.map((c) => (
-            <div>
-              <h2 class="font-display text-xl font-semibold text-ink">
-                {c.heading}
-              </h2>
-              <p class="mt-3 text-sm leading-relaxed text-steel text-pretty">
-                {c.body}
-              </p>
-            </div>
-          ))
-        }
+  {/* EMBEDDED FAQ + CLOSING CTA — the page's one remaining surface shift,
+      grouping "clear the last objection" and "the decision" into a single
+      band rather than two more chapters. */}
+  <section class="bg-band">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-24">
+      <div class="max-w-2xl mb-10">
+        <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink text-balance">
+          Common questions.
+        </h2>
+      </div>
+      <FAQ items={serviceFaqs} />
+
+      <div class="mt-20 max-w-2xl border-t border-line pt-12 lg:mt-24">
+        <h2 class="font-display text-3xl font-semibold leading-[1.05] text-ink text-balance sm:text-4xl">
+          If it touches your business, we can probably help.
+        </h2>
+        <p class="mt-5 max-w-xl text-steel leading-relaxed text-pretty">
+          Tell us what's going on and we'll tell you plainly whether we're the
+          right fit — and if we're not, we'll say so.
+        </p>
+        <div class="mt-9">
+          <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
+        </div>
       </div>
     </div>
   </section>
