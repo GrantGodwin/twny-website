@@ -3,30 +3,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import FAQ from "../components/blocks/FAQ.astro";
 import CapabilityIcon from "../components/home/CapabilityIcon.astro";
-import {
-  serviceCapabilities,
-  heroBreadth,
-  engagementShape,
-  taxonomy,
-  serviceFaqs,
-} from "../data/services";
+import { serviceCapabilities, engagementShape, serviceFaqs } from "../data/services";
 
-// One considered page, not the homepage's alternating chapters: a single
-// editorial surface (paper) carries all four capabilities, separated by
-// spacing, typography and hairlines rather than a colour change between
-// each one. Only two surface transitions on the whole page (sand → paper →
-// band), so it reads calmer and more operational than the homepage.
+// One considered page, not the homepage's alternating chapters. The hero
+// carries a four-group capability map (icon + capability + grouped
+// technologies) so breadth is legible before a word of body copy is read;
+// the deep sections beneath go to meaning and trust. Only two surface
+// transitions on the whole page (sand → paper → band).
 const email = "hello@twny.com.au";
 
-const breadthSize: Record<string, string> = {
-  base: "text-base",
-  lg: "text-lg sm:text-xl",
-  xl: "text-xl sm:text-2xl",
-};
-
-// Splits `text` on any of `terms`, used to render named technologies as
-// Mineral inline accents within otherwise plain body copy (the "woven" and
-// "compact" capability layouts) instead of a separate tag line.
+// Splits `text` on any of `terms`, to render named technologies as Mineral
+// inline accents within otherwise plain body copy.
 function withHighlights(text: string, terms: string[] = []) {
   if (!terms.length) return [text];
   const escaped = terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
@@ -36,55 +23,56 @@ function withHighlights(text: string, terms: string[] = []) {
 
 <BaseLayout
   title="Services — TWNY"
-  description="Microsoft 365, websites, domains, DNS, email, backup, security, Copilot and practical automation — the everyday technology behind your business, looked after by one accountable operator."
+  description="Microsoft 365, email, Teams, SharePoint, websites, hosting, domains, DNS, backup, security, Copilot and automation — the everyday technology behind your business, looked after by one accountable operator."
 >
-  {/* INTRO — the visual anchor is informational, not decorative: a small,
-      hand-set cluster of the breadth of what we cover, in Mineral, beside
-      the headline. No gradient, no illustration, no icon grid — just a
-      second, quieter typographic voice answering "what do you actually
-      do" in under a second. */}
+  {/* HERO — headline + the single primary action, then a four-group
+      capability map. The map is information architecture, not decoration:
+      a small Mineral icon per capability, the plain-English capability name
+      in white, and the recognisable technologies grouped beneath in
+      Mineral. A visitor sees something relevant to their business in two
+      seconds, before reading a paragraph. */}
   <section class="bg-sand">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
-      <div class="grid gap-14 lg:grid-cols-[1.1fr_auto] lg:items-start lg:gap-20">
-        <div>
-          <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-3">
-            Services
-          </p>
-          <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold leading-[1.07] text-ink max-w-2xl text-balance">
-            The technology your business runs on.
-          </h1>
-          <p class="mt-5 text-lg text-steel leading-relaxed max-w-xl text-pretty">
-            Looked after as one connected operation, by someone who already
-            knows your setup — not a list of separate things to manage.
-          </p>
-          <div class="mt-9">
-            <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
-          </div>
+      <div class="max-w-2xl">
+        <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-3">
+          Services
+        </p>
+        <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold leading-[1.07] text-ink text-balance">
+          The technology your business runs on.
+        </h1>
+        <p class="mt-5 text-lg text-steel leading-relaxed text-pretty">
+          Looked after as one connected operation, by someone who already
+          knows your setup — not a list of separate things to manage.
+        </p>
+        <div class="mt-9">
+          <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
         </div>
+      </div>
 
-        <div class="lg:border-l lg:border-mineral/20 lg:pl-14 lg:pt-1">
-          <p class="font-mono text-xs uppercase tracking-widest text-steel/60 mb-5">
-            Across all of it
-          </p>
-          <div class="grid grid-cols-2 gap-x-10 gap-y-3">
-            {
-              heroBreadth.map((item) => (
-                <span class={`font-display font-medium leading-snug text-mineral ${breadthSize[item.size]}`}>
-                  {item.term}
-                </span>
-              ))
-            }
-          </div>
-        </div>
+      <div class="mt-16 grid grid-cols-2 gap-x-8 gap-y-12 border-t border-line pt-12 lg:mt-20 lg:grid-cols-4 lg:gap-x-12 lg:pt-14">
+        {
+          serviceCapabilities.map((c) => (
+            <div>
+              <CapabilityIcon name={c.icon} class="h-8 w-8 text-mineral" />
+              <p class="mt-4 font-display text-lg font-medium text-ink">{c.heading}</p>
+              <ul class="mt-4 space-y-1.5">
+                {c.tech.map((t) => (
+                  <li class="font-display text-[0.95rem] leading-snug text-mineral">{t}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  {/* THE FOUR CAPABILITIES — one continuous editorial surface, no section
-      eyebrow/heading of its own; a small Mineral rule marks the start of
-      the zone. Each row's `layout` varies how the technology line and the
-      closing "moment" are rendered, so the eye doesn't learn one fixed
-      rhythm after the first two rows. */}
+  {/* THE FOUR CAPABILITIES — the map's chapters: same four names, now with
+      meaning and a little concrete specificity for trust. Each row's
+      `layout` varies how its closing "moment" is rendered (a labelled note,
+      a woven body, a pulled quote, or nothing for the lightest row), so the
+      eye doesn't learn one fixed rhythm. The shared capability icon is the
+      wayfinding link back to the map above. */}
   <section class="bg-paper border-y border-line">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
       <div class="h-0.5 w-10 bg-mineral mb-14 lg:mb-16" aria-hidden="true" />
@@ -94,7 +82,7 @@ function withHighlights(text: string, terms: string[] = []) {
           serviceCapabilities.map((c) => (
             <div class="grid gap-5 py-14 first:pt-0 last:pb-0 lg:grid-cols-[260px_1fr] lg:gap-16 lg:py-16">
               <div>
-                <CapabilityIcon name={c.icon} class="h-6 w-6 text-mineral mb-3" />
+                <CapabilityIcon name={c.icon} class="h-8 w-8 text-mineral mb-4" />
                 <h2 class="font-display text-2xl font-medium leading-snug text-ink text-balance sm:text-3xl">
                   {c.heading}
                 </h2>
@@ -109,12 +97,6 @@ function withHighlights(text: string, terms: string[] = []) {
                     c.highlight?.includes(part) ? <span class="text-mineral">{part}</span> : part
                   )}
                 </p>
-
-                {c.techLine && (
-                  <p class="mt-5 border-l-2 border-mineral/40 pl-3 font-mono text-xs uppercase tracking-widest text-mineral/80">
-                    {c.techLine.join(" · ")}
-                  </p>
-                )}
 
                 {c.moment && c.layout === "quote" ? (
                   <div class="mt-6 border-l-2 border-mineral/50 pl-4">
@@ -143,38 +125,12 @@ function withHighlights(text: string, terms: string[] = []) {
         }
       </div>
 
-      {/* EVERYTHING, BY NAME — a premium taxonomy, not a bullet list, a
-          pricing table or feature cards: large, scannable text in a
-          multi-column index with a Mineral rule between columns. Answers
-          "do these people do the thing I'm looking for" without a single
-          paragraph. */}
-      <div class="taxonomy mt-12 border-t border-line pt-10 lg:mt-14">
-        <h3 class="font-display text-lg font-semibold text-ink text-balance sm:text-xl">
-          {taxonomy.heading}
-        </h3>
-        <p class="mt-3 max-w-2xl text-sm leading-relaxed text-steel text-pretty sm:text-base">
-          {taxonomy.lede}
-        </p>
-        <div class="taxonomy-columns mt-8 columns-2 gap-x-12 sm:columns-3">
-          {
-            taxonomy.items.map((item) => (
-              <p class="mb-4 flex items-baseline gap-2.5 break-inside-avoid-column font-display text-base text-ink sm:text-lg">
-                <span class="text-mineral" aria-hidden="true">
-                  —
-                </span>
-                <span>{item}</span>
-              </p>
-            ))
-          }
-        </div>
-      </div>
-
-      {/* HOW THIS USUALLY STARTS — quietly introduces the commercial model
+      {/* HOW THIS USUALLY STARTS — the commercial model, stated plainly
           (two ways to work with us) without pricing, packages or tiers. A
-          small Mineral arrow maps the relationship between them — a focused
-          project is usually the entry point, ongoing care is what it tends
-          to grow into — rather than presenting two equal menu options. */}
-      <div class="mt-12 max-w-3xl border-t border-line pt-10 lg:mt-14">
+          small Mineral arrow maps the relationship: a focused project is
+          usually the entry point, ongoing care is what it tends to grow
+          into — not two equal menu options. */}
+      <div class="mt-14 max-w-3xl border-t border-line pt-12 lg:mt-16">
         <h3 class="font-display text-lg font-semibold text-ink text-balance sm:text-xl">
           {engagementShape.heading}
         </h3>
@@ -182,9 +138,9 @@ function withHighlights(text: string, terms: string[] = []) {
           {engagementShape.intro}
         </p>
 
-        <div class="engagement-path mt-8 flex flex-col gap-6 sm:flex-row sm:items-stretch sm:gap-2">
+        <div class="mt-8 flex flex-col gap-6 sm:flex-row sm:items-stretch sm:gap-2">
           <div class="max-w-sm">
-            <p class="font-mono text-xs uppercase tracking-widest text-mineral/80">
+            <p class="font-mono text-xs uppercase tracking-widest text-mineral">
               {engagementShape.focused.label}
             </p>
             <p class="mt-2 text-sm leading-relaxed text-steel text-pretty sm:text-base">
@@ -200,7 +156,7 @@ function withHighlights(text: string, terms: string[] = []) {
           </div>
 
           <div class="max-w-sm">
-            <p class="font-mono text-xs uppercase tracking-widest text-mineral/55">
+            <p class="font-mono text-xs uppercase tracking-widest text-mineral">
               {engagementShape.ongoing.label}
             </p>
             <p class="mt-2 text-sm leading-relaxed text-steel text-pretty sm:text-base">
@@ -218,7 +174,7 @@ function withHighlights(text: string, terms: string[] = []) {
 
   {/* EMBEDDED FAQ + CLOSING CTA — the page's one remaining surface shift,
       grouping "clear the last objection" and "the decision" into a single
-      band rather than two more chapters. */}
+      band. The FAQ heading is deliberately the quietest label on the page. */}
   <section class="bg-band">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-24">
       <div class="mb-8">
@@ -243,15 +199,8 @@ function withHighlights(text: string, terms: string[] = []) {
 </BaseLayout>
 
 <style>
-  /* "Everything, by name" — a native CSS multi-column rule gives the
-     index a Mineral-tinted vertical divider between columns without any
-     extra markup; no card backgrounds, no gradients. */
-  .taxonomy-columns {
-    column-rule: 1px solid color-mix(in srgb, var(--mineral) 22%, transparent);
-  }
-
-  /* "How this usually starts" — the connecting arrow rotates to point
-     downward when the two paths stack on narrow screens. */
+  /* "How this usually starts" — the connecting arrow points down when the
+     two paths stack on narrow screens, across when they sit side by side. */
   .engagement-arrow {
     font-size: 1.25rem;
     transform: rotate(90deg);

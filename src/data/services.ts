@@ -1,28 +1,24 @@
-// Services page content. Same four capability themes as the homepage's
-// "What we look after" (src/data/offer.ts), but written to go deeper. Each
-// capability has its own `layout` so the four rows don't share one rhythm:
-//
-//   standard — heading, lead, body, a technology line, a labelled moment.
-//   woven    — technology terms folded into the body as Mineral inline
-//              accents instead of a separate line.
-//   quote    — the moment rendered larger, as a pulled scenario.
-//   compact  — the shortest row; everything folded into one paragraph.
-//
-// No pricing language, no packages, plans, bundles or tiers anywhere here.
+// Services page content. The four capability themes (matching the homepage's
+// "What we look after") drive two things: the hero capability map — a
+// scannable, grouped index of recognisable technologies — and the deeper
+// editorial sections beneath it. `tech` feeds the hero map (recognition);
+// `lead` / `body` / `moment` feed the deep section (meaning and trust). No
+// pricing, packages, plans, bundles or tiers anywhere here.
 
 export interface ServiceCapability {
-  /** Matches CapabilityIcon's name prop — reuses the homepage's restrained line marks as a small, single-colour visual anchor. */
+  /** Matches CapabilityIcon's name prop — the capability's visual identity in both the hero map and its deep section. */
   icon: "communication" | "presence" | "protection" | "automation";
   heading: string;
-  /** A short, punchy distillation — sits above the body as an editorial lead-in, not a tagline. */
+  /** Recognisable headline technologies — shown grouped under this capability in the hero map, in Mineral. */
+  tech: string[];
+  /** A short distillation, above the body. */
   lead: string;
   body: string;
+  /** Varies the deep section's shape so the four rows don't share one rhythm. */
   layout: "standard" | "woven" | "quote" | "compact";
-  /** Substrings of `body` to render as Mineral inline accents (used by "woven" and "compact"). */
+  /** Substrings of `body` rendered as Mineral inline accents (named technologies pulled forward for trust). */
   highlight?: string[];
-  /** Named technologies/scope, shown as a quiet Mineral-accented supporting line. Omitted for "woven" and "compact". */
-  techLine?: string[];
-  /** The one closing emphasis for this capability — omitted for "compact". */
+  /** Closing emphasis — omitted for the lightest (compact) row. */
   moment?: {
     label: string;
     body: string;
@@ -33,10 +29,11 @@ export const serviceCapabilities: ServiceCapability[] = [
   {
     icon: "communication",
     heading: "Work smoothly.",
+    tech: ["Microsoft 365", "Email", "Teams", "SharePoint"],
     lead: "The everyday tools your team relies on, just running properly.",
     layout: "standard",
-    body: "Email, files, calendars and the Microsoft 365 apps you already use — kept running, secured properly, and set up so everyone works from the same source of truth. When something needs to change, you tell us once.",
-    techLine: ["Mailboxes", "Files & calendars", "Identity & sign-in", "Microsoft 365 apps"],
+    body: "Email, files and calendars on Microsoft 365 — Exchange and identity set up, secured and kept current, so everyone works from the same place. When something needs changing, you tell us once.",
+    highlight: ["Exchange"],
     moment: {
       label: "What we keep out of your way",
       body: "Personal devices, home Wi-Fi and printers sit outside this — we're upfront about that rather than stretching to cover everything.",
@@ -45,22 +42,23 @@ export const serviceCapabilities: ServiceCapability[] = [
   {
     icon: "presence",
     heading: "Look professional.",
+    tech: ["Websites", "Hosting", "Domains"],
     lead: "A presence online that earns trust at first glance.",
     layout: "woven",
-    body: "Your website and the addresses people find you by — kept current, fast and reliable, without you needing to think about hosting, domains or renewals.",
-    highlight: ["hosting", "domains", "renewals"],
+    body: "Your website and the addresses people find you by — hosting, DNS and SSL kept in order, so the site stays fast and current and you never have to think about a renewal.",
+    highlight: ["DNS", "SSL"],
     moment: {
       label: "When this is working well",
-      body: "You stop thinking about your website at all — it's simply there, looking the way it should, whenever someone looks your business up. You're always the registrant of record, and everything is portable if you ever need to move it.",
+      body: "You stop thinking about your website at all — it's simply there whenever someone looks your business up. You're always the registrant of record, and everything is portable if you ever need to move it.",
     },
   },
   {
     icon: "protection",
     heading: "Stay protected.",
+    tech: ["Backup", "Security", "Recovery"],
     lead: "Recovery, planned before you ever need it.",
     layout: "quote",
-    body: "Backup, security and recovery — sorted out in advance, so small problems don't become business problems. Recovery is the product here, not storage, and you own your data and your backups either way.",
-    techLine: ["Managed backup", "Threat protection", "Recovery planning"],
+    body: "Backup, security and recovery, sorted out in advance — because recovery is the product here, not storage. You own your data and your backups either way.",
     moment: {
       label: "A typical example",
       body: "A laptop is lost, a mailbox is compromised, or a ransomware email gets through. Because recovery is already planned, it's a bad afternoon — not a bad month.",
@@ -69,25 +67,12 @@ export const serviceCapabilities: ServiceCapability[] = [
   {
     icon: "automation",
     heading: "Save time.",
+    tech: ["Copilot", "Automation", "AI"],
     lead: "Practical automation, without the hype.",
     layout: "compact",
-    body: "AI and automation that take repetitive work off your plate — drafting, summarising, the repeat admin nobody enjoys, client updates that go out on time, a clean handover when someone's away. Tools like Copilot are introduced when you're ready for them, never forced in because they're new.",
+    body: "AI and automation that take repetitive work off your plate — drafting, summarising, the repeat admin nobody enjoys, client updates that go out on time. Tools like Copilot come in when you're ready, never because they're new.",
     highlight: ["Copilot"],
   },
-];
-
-// Hero breadth cluster — a small, structured visual anchor that
-// communicates range at a glance, without a feature grid, icon grid or
-// gradient. Sizes are hand-set for editorial rhythm, not generated.
-export const heroBreadth: { term: string; size: "base" | "lg" | "xl" }[] = [
-  { term: "Microsoft 365", size: "lg" },
-  { term: "Websites", size: "base" },
-  { term: "Domains", size: "base" },
-  { term: "Backup", size: "lg" },
-  { term: "Security", size: "base" },
-  { term: "AI", size: "xl" },
-  { term: "Automation", size: "base" },
-  { term: "Advice", size: "lg" },
 ];
 
 // "How this usually starts" — quietly introduces the commercial model (two
@@ -111,29 +96,6 @@ export const engagementShape = {
     "You don't need to know which one you're after before you get in touch — tell us what's going on and we'll work out the right shape together.",
 };
 
-// "Everything, by name" — a premium taxonomy of named services, presented
-// as a structured index (multi-column, Mineral rule between columns), not
-// a bullet list, a pricing table or a row of feature cards. Answers "do
-// these people actually do the thing I'm looking for" at a glance.
-export const taxonomy = {
-  heading: "Everything, by name.",
-  lede: "If you're looking for something specific, it's probably here.",
-  items: [
-    "Microsoft 365",
-    "Business email",
-    "Websites",
-    "Website care",
-    "Domains & DNS",
-    "Managed backup",
-    "Security",
-    "Microsoft licensing",
-    "Copilot",
-    "AI & automation",
-    "Technology advice",
-    "Migrations",
-  ],
-};
-
 export interface ServiceFaq {
   q: string;
   a: string;
@@ -150,7 +112,7 @@ export const serviceFaqs: ServiceFaq[] = [
   },
   {
     q: "Do you work remotely, or come on-site?",
-    a: "Mostly remotely — most things don't need a visit. When something genuinely needs hands-on-site, we'll say so and arrange it.",
+    a: "Mostly remotely — most things don't need a visit. When something genuinely needs someone on-site, we'll say so and arrange it.",
   },
   {
     q: "What's outside what you do?",
