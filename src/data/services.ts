@@ -70,23 +70,46 @@ export const serviceCapabilities: ServiceCapability[] = [
 
 // "How this usually starts" — answers the commercial question (how do
 // people usually buy or work with us) in plain language, without naming a
-// plan, tier or package. Two engagement shapes, not a comparison table.
+// plan, tier or package. Not two equal options: focused work is usually the
+// entry point, and ongoing care is what a lot of those relationships grow
+// into — a sequence, not a comparison table.
 export const engagementShape = {
   heading: "How this usually starts.",
-  intro:
-    "Most engagements start in one of two ways: a focused piece of work, or ongoing care across the technology your business relies on day to day.",
+  intro: "Most relationships start with a focused piece of work — and some of those grow from there.",
   focused: {
-    label: "Focused work",
+    label: "Focused work — usually the start",
     description:
-      "A defined task with a clear start and finish — a website refresh, a Microsoft 365 cleanup, a security uplift, getting backup and recovery set up properly, an automation workflow, or a migration.",
+      "A single, defined task with a clear start and finish — a website refresh, a security uplift, a migration, or getting backup and recovery set up properly. It's usually how people get to know how we work.",
   },
   ongoing: {
-    label: "Ongoing care",
+    label: "Ongoing care — what it tends to grow into",
     description:
-      "Continuous support across the technology your business runs on — email, files and calendars, your website and domains, backup and security, renewals and risks tracked before they bite, and plain advice when you need it.",
+      "Once that trust is there, a lot of relationships grow into ongoing care — the email, files, websites, backup, security and renewals that keep your business moving, looked after quietly in the background.",
   },
   reassurance:
-    "You don't need to know which one fits before you get in touch — tell us what's going on and we'll work out the right shape together.",
+    "Either way, you don't need to know which one fits before you get in touch — tell us what's going on and we'll work out the right shape together.",
+};
+
+// "The specifics" — a quiet, scannable index of named services and
+// technologies, for visitors (and search engines) looking for something
+// concrete. Plain wrapped text with Mineral separators, not a feature grid.
+export const specifics = {
+  heading: "The specifics.",
+  lede: "Some of the names behind the four things above, if you're looking for something in particular.",
+  items: [
+    "Microsoft 365",
+    "Email",
+    "Websites",
+    "Domains & DNS",
+    "Hosting",
+    "Backup",
+    "Security",
+    "Copilot",
+    "AI & automation",
+    "Migrations",
+    "Microsoft licensing",
+    "Advisory",
+  ],
 };
 
 export interface ServiceFaq {
@@ -104,8 +127,8 @@ export const serviceFaqs: ServiceFaq[] = [
     a: "We work best with businesses of around 1 to 25 people — small enough that one accountable operator makes sense, big enough that getting it right actually matters.",
   },
   {
-    q: "Do I need to decide between a project and ongoing support before I contact you?",
-    a: "No — tell us what's going on and we'll work out the right shape together, whether that's a one-off piece of work or ongoing care.",
+    q: "Do you work remotely, or come on-site?",
+    a: "Mostly remotely — most things don't need a visit. When something genuinely needs hands-on-site, we'll say so and arrange it.",
   },
   {
     q: "What's outside what you do?",

@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import FAQ from "../components/blocks/FAQ.astro";
 import CapabilityIcon from "../components/home/CapabilityIcon.astro";
-import { serviceCapabilities, engagementShape, serviceFaqs } from "../data/services";
+import { serviceCapabilities, engagementShape, specifics, serviceFaqs } from "../data/services";
 
 // One considered page, not the homepage's alternating chapters: a single
 // editorial surface (paper) carries all four capabilities, separated by
@@ -15,11 +15,23 @@ const email = "hello@twny.com.au";
 
 <BaseLayout
   title="Services — TWNY"
-  description="Microsoft 365, websites, domains, backup and practical automation — the everyday technology behind your business, looked after by one accountable operator."
+  description="Microsoft 365, websites, domains, DNS, email, backup, security, Copilot and practical automation — the everyday technology behind your business, looked after by one accountable operator."
 >
-  {/* INTRO */}
-  <section class="bg-sand">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
+  {/* INTRO — one restrained, abstract visual point of interest (a soft
+      Mineral glow plus a single architectural hairline), low-contrast and
+      behind the type. No photography, no illustration, no diagram; it
+      reads as ambient light, not decoration, and disappears entirely under
+      prefers-reduced-motion beyond a static, slightly dimmer glow. */}
+  <section class="bg-sand relative overflow-hidden">
+    <div
+      class="hero-glow pointer-events-none absolute -top-32 -right-24 h-[34rem] w-[34rem] rounded-full blur-3xl sm:-right-32 sm:h-[40rem] sm:w-[40rem]"
+      aria-hidden="true"
+    />
+    <div
+      class="hero-line pointer-events-none absolute inset-y-0 right-[22%] hidden w-px sm:block"
+      aria-hidden="true"
+    />
+    <div class="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
       <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-3">
         Services
       </p>
@@ -54,8 +66,8 @@ const email = "hello@twny.com.au";
           serviceCapabilities.map((c) => (
             <div class="grid gap-5 py-14 first:pt-0 last:pb-0 lg:grid-cols-[260px_1fr] lg:gap-16 lg:py-16">
               <div>
-                <CapabilityIcon name={c.icon} class="h-7 w-7 text-mineral mb-4" />
-                <h2 class="font-display text-3xl font-semibold leading-snug text-ink text-balance sm:text-4xl">
+                <CapabilityIcon name={c.icon} class="h-6 w-6 text-mineral mb-3" />
+                <h2 class="font-display text-2xl font-medium leading-snug text-ink text-balance sm:text-3xl">
                   {c.heading}
                 </h2>
               </div>
@@ -79,12 +91,37 @@ const email = "hello@twny.com.au";
         }
       </div>
 
-      {/* HOW THIS USUALLY STARTS — clarifies engagement shape (focused work
-          vs. ongoing care) without pricing, packages or tiers. Visually
-          quieter than the four capabilities: no surface shift, smaller
-          type, h3 not h2. Two plain-prose lanes separated by a single
-          hairline, not a comparison grid. */}
+      {/* THE SPECIFICS — a quiet, scannable index of named services for
+          discoverability and SEO. Plain wrapped text with Mineral
+          separators, not a feature grid or a catalogue. */}
       <div class="mt-4 max-w-3xl border-t border-line pt-10 lg:mt-8">
+        <h3 class="font-display text-lg font-semibold text-ink text-balance sm:text-xl">
+          {specifics.heading}
+        </h3>
+        <p class="mt-3 max-w-2xl text-sm leading-relaxed text-steel text-pretty sm:text-base">
+          {specifics.lede}
+        </p>
+        <p class="mt-5 flex max-w-3xl flex-wrap items-baseline gap-x-2 gap-y-2 text-sm text-steel sm:text-base">
+          {
+            specifics.items.map((item, i) => (
+              <>
+                <span>{item}</span>
+                {i < specifics.items.length - 1 && (
+                  <span class="text-mineral/50" aria-hidden="true">
+                    ·
+                  </span>
+                )}
+              </>
+            ))
+          }
+        </p>
+      </div>
+
+      {/* HOW THIS USUALLY STARTS — clarifies engagement shape without
+          pricing, packages or tiers. Not two equal options: a sequential
+          narrative (focused work, the usual entry point, then what it can
+          grow into) rather than a side-by-side comparison. */}
+      <div class="mt-12 max-w-3xl border-t border-line pt-10 lg:mt-14">
         <h3 class="font-display text-lg font-semibold text-ink text-balance sm:text-xl">
           {engagementShape.heading}
         </h3>
@@ -92,25 +129,21 @@ const email = "hello@twny.com.au";
           {engagementShape.intro}
         </p>
 
-        <div class="mt-7 grid gap-6 sm:grid-cols-2 sm:gap-10">
-          <div>
-            <p class="font-mono text-xs uppercase tracking-widest text-steel/70">
-              <span class="inline-block h-1.5 w-1.5 -translate-y-px bg-mineral align-middle mr-2" aria-hidden="true" />
-              {engagementShape.focused.label}
-            </p>
-            <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
-              {engagementShape.focused.description}
-            </p>
-          </div>
-          <div class="sm:border-l sm:border-mineral/25 sm:pl-10">
-            <p class="font-mono text-xs uppercase tracking-widest text-steel/70">
-              <span class="inline-block h-1.5 w-1.5 -translate-y-px bg-mineral align-middle mr-2" aria-hidden="true" />
-              {engagementShape.ongoing.label}
-            </p>
-            <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
-              {engagementShape.ongoing.description}
-            </p>
-          </div>
+        <div class="mt-7 max-w-2xl">
+          <p class="font-mono text-xs uppercase tracking-widest text-mineral/80">
+            <span class="mr-2 inline-block h-1.5 w-1.5 -translate-y-px bg-mineral align-middle" aria-hidden="true" />
+            {engagementShape.focused.label}
+          </p>
+          <p class="mt-2 text-sm leading-relaxed text-steel text-pretty sm:text-base">
+            {engagementShape.focused.description}
+          </p>
+
+          <p class="mt-6 font-mono text-xs uppercase tracking-widest text-steel/60">
+            {engagementShape.ongoing.label}
+          </p>
+          <p class="mt-2 text-sm leading-relaxed text-steel text-pretty sm:text-base">
+            {engagementShape.ongoing.description}
+          </p>
         </div>
 
         <p class="mt-7 max-w-2xl text-sm font-medium leading-relaxed text-ink/90 text-pretty sm:text-base">
@@ -125,10 +158,8 @@ const email = "hello@twny.com.au";
       band rather than two more chapters. */}
   <section class="bg-band">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-24">
-      <div class="max-w-2xl mb-10">
-        <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink text-balance">
-          Common questions.
-        </h2>
+      <div class="mb-8">
+        <h2 class="font-mono text-xs uppercase tracking-widest text-steel">FAQ</h2>
       </div>
       <FAQ items={serviceFaqs} />
 
@@ -137,8 +168,8 @@ const email = "hello@twny.com.au";
           If it touches your business, we can probably help.
         </h2>
         <p class="mt-5 max-w-xl text-steel leading-relaxed text-pretty">
-          Tell us what's going on and we'll tell you plainly whether we're the
-          right fit — and if we're not, we'll say so.
+          Tell us what you're working with and we'll tell you plainly whether
+          we're the right fit — and if we're not, we'll say so.
         </p>
         <div class="mt-9">
           <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
@@ -147,3 +178,37 @@ const email = "hello@twny.com.au";
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* Hero — the page's one visual point of interest: a soft Mineral glow and
+     a single architectural hairline, both low-contrast and sitting behind
+     the type. Reads as ambient light, not decoration. */
+  .hero-glow {
+    background: radial-gradient(circle, color-mix(in srgb, var(--mineral) 22%, transparent), transparent 70%);
+    animation: hero-glow-breathe 11s ease-in-out infinite;
+  }
+  .hero-line {
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      color-mix(in srgb, var(--mineral) 22%, transparent) 25%,
+      color-mix(in srgb, var(--mineral) 22%, transparent) 75%,
+      transparent
+    );
+  }
+  @keyframes hero-glow-breathe {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-glow {
+      animation: none;
+      opacity: 0.8;
+    }
+  }
+</style>
