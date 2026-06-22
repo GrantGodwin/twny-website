@@ -1,99 +1,95 @@
-// Services page content. The four capability themes (matching the homepage's
-// "What we look after") drive two things: the hero capability map — a
-// scannable, grouped index of recognisable technologies — and the deeper
-// editorial sections beneath it. `tech` feeds the hero map (recognition);
-// `lead` / `body` / `moment` feed the deep section (meaning and trust). No
-// pricing, packages, plans, bundles or tiers anywhere here.
+// Services page content. The job of this page is confidence, not
+// completeness: a visitor already warmed by the homepage, here to answer
+// "can these people actually look after my business?". Copy is business
+// language, not IT language — technology names appear only where they build
+// confidence. No pricing, packages, plans, bundles or tiers anywhere.
 
+// The four capabilities — same themes as the homepage, but each answers
+// "what does this do for MY business?" rather than "what is this?". One
+// consistent editorial shape across all four: icon, kicker, outcome
+// headline, short explanation, one reassuring operational truth.
 export interface ServiceCapability {
-  /** Matches CapabilityIcon's name prop — the capability's visual identity in both the hero map and its deep section. */
+  /** The capability's visual identity (reused from the homepage's line marks). */
   icon: "communication" | "presence" | "protection" | "automation";
-  heading: string;
-  /** Recognisable headline technologies — shown grouped under this capability in the hero map, in Mineral. */
-  tech: string[];
-  /** A short distillation, above the body. */
-  lead: string;
+  /** The homepage capability name — used as a small kicker for continuity and structure. */
+  kicker: string;
+  /** The strong, scannable outcome — what having this handled means for the business. */
+  headline: string;
+  /** One short, plain-language explanation. */
   body: string;
-  /** Varies the deep section's shape so the four rows don't share one rhythm. */
-  layout: "standard" | "woven" | "quote" | "compact";
-  /** Substrings of `body` rendered as Mineral inline accents (named technologies pulled forward for trust). */
-  highlight?: string[];
-  /** Closing emphasis — omitted for the lightest (compact) row. */
-  moment?: {
-    label: string;
-    body: string;
-  };
+  /** One reassuring operational truth, set apart with a Mineral rule. */
+  truth: string;
 }
 
 export const serviceCapabilities: ServiceCapability[] = [
   {
     icon: "communication",
-    heading: "Work smoothly.",
-    tech: ["Microsoft 365", "Email", "Teams", "SharePoint"],
-    lead: "The everyday tools your team relies on, just running properly.",
-    layout: "standard",
-    body: "Email, files and calendars on Microsoft 365 — Exchange and identity set up, secured and kept current, so everyone works from the same place. When something needs changing, you tell us once.",
-    highlight: ["Exchange"],
-    moment: {
-      label: "What we keep out of your way",
-      body: "Personal devices, home Wi-Fi and printers sit outside this — we're upfront about that rather than stretching to cover everything.",
-    },
+    kicker: "Work smoothly",
+    headline: "Email and files that just work.",
+    body: "Email, shared files and calendars on Microsoft 365 — set up properly and quietly kept that way, so your team always works from the same place.",
+    truth: "Need something changed? You ask once, and it's handled.",
   },
   {
     icon: "presence",
-    heading: "Look professional.",
-    tech: ["Websites", "Hosting", "Domains"],
-    lead: "A presence online that earns trust at first glance.",
-    layout: "woven",
-    body: "Your website and the addresses people find you by — hosting, DNS and SSL kept in order, so the site stays fast and current and you never have to think about a renewal.",
-    highlight: ["DNS", "SSL"],
-    moment: {
-      label: "When this is working well",
-      body: "You stop thinking about your website at all — it's simply there whenever someone looks your business up. You're always the registrant of record, and everything is portable if you ever need to move it.",
-    },
+    kicker: "Look professional",
+    headline: "A website that's always looked after.",
+    body: "Your website, your domain and the addresses people reach you on — kept current, secure and reliable, with no renewals or hosting for you to chase.",
+    truth: "You always own your domain — and you can take everything with you.",
   },
   {
     icon: "protection",
-    heading: "Stay protected.",
-    tech: ["Backup", "Security", "Recovery"],
-    lead: "Recovery, planned before you ever need it.",
-    layout: "quote",
-    body: "Backup, security and recovery, sorted out in advance — because recovery is the product here, not storage. You own your data and your backups either way.",
-    moment: {
-      label: "A typical example",
-      body: "A laptop is lost, a mailbox is compromised, or a ransomware email gets through. Because recovery is already planned, it's a bad afternoon — not a bad month.",
-    },
+    kicker: "Stay protected",
+    headline: "Covered before anything goes wrong.",
+    body: "Backup, security and a recovery plan, sorted before you need them — so a lost laptop or a bad email is a bad afternoon, not a bad month.",
+    truth: "Recovery is the point. Not just having a copy somewhere.",
   },
   {
     icon: "automation",
-    heading: "Save time.",
-    tech: ["Copilot", "Automation", "AI"],
-    lead: "Practical automation, without the hype.",
-    layout: "compact",
-    body: "AI and automation that take repetitive work off your plate — drafting, summarising, the repeat admin nobody enjoys, client updates that go out on time. Tools like Copilot come in when you're ready, never because they're new.",
-    highlight: ["Copilot"],
+    kicker: "Save time",
+    headline: "Less busywork, more business.",
+    body: "Practical AI and automation that take the repetitive admin off your plate — the drafting, the chasing, the jobs nobody enjoys.",
+    truth: "Brought in when you're ready — never because it's the latest thing.",
   },
 ];
 
+// "Whatever you'd call it, we look after it." — grouped reassurance, not an
+// SEO keyword list. Plain business names, grouped the way an owner would
+// think about them, so the read is "yes, they do that too".
+export interface LookAfterGroup {
+  label: string;
+  items: string[];
+}
+
+export const lookAfter: { heading: string; lede: string; groups: LookAfterGroup[] } = {
+  heading: "Whatever you'd call it, we look after it.",
+  lede: "Grouped the way you'd actually think about it.",
+  groups: [
+    { label: "Communication", items: ["Business email", "Shared files", "Calendars", "Microsoft 365"] },
+    { label: "Your online presence", items: ["Websites", "Domains", "Hosting", "Website care"] },
+    { label: "Protection", items: ["Backup", "Security", "Recovery"] },
+    { label: "Smarter work", items: ["AI", "Automation", "Copilot"] },
+    { label: "Advice", items: ["A second opinion", "Planning ahead", "What to do next"] },
+  ],
+};
+
 // "How this usually starts" — quietly introduces the commercial model (two
 // ways to work with us) without naming a plan, tier or package. A focused
-// project is usually the entry point; ongoing care is what it tends to grow
-// into — a relationship, not two equal menu options.
+// project is usually the entry point; ongoing care is what it grows into.
 export const engagementShape = {
   heading: "How this usually starts.",
   intro: "There are two ways to work with us — and most relationships move from the first to the second.",
   focused: {
     label: "A focused project",
     description:
-      "A defined piece of work with a clear scope and a clear finish — a website rebuild, a security uplift, a migration, getting backup and recovery sorted properly.",
+      "A defined piece of work with a clear start and finish — a new website, tighter security, a move to something better, or getting backup and recovery sorted properly.",
   },
   ongoing: {
     label: "Ongoing care",
     description:
-      "Continuous responsibility for the technology your business depends on — email, files, websites, backup, security and renewals, looked after quietly so nothing slips.",
+      "Someone looking after the everyday technology for you — so it stays reliable, stays current, and you've always got one number to call.",
   },
   reassurance:
-    "You don't need to know which one you're after before you get in touch — tell us what's going on and we'll work out the right shape together.",
+    "You don't need to work out which one you need before you get in touch — tell us what's going on and we'll work out the right shape together.",
 };
 
 export interface ServiceFaq {
@@ -103,8 +99,8 @@ export interface ServiceFaq {
 
 export const serviceFaqs: ServiceFaq[] = [
   {
-    q: "What if I already use Microsoft 365 with someone else?",
-    a: "That's fine — we can take over an existing tenant or help you move to a clean one. Either way, you end up with one place and one person responsible for it.",
+    q: "What if I already have email and systems set up?",
+    a: "That's fine — we can take over what you've got, or help you move to something cleaner. Either way, you end up with one place and one person responsible for it.",
   },
   {
     q: "What size of business is this for?",
@@ -116,6 +112,6 @@ export const serviceFaqs: ServiceFaq[] = [
   },
   {
     q: "What's outside what you do?",
-    a: "Personal devices, home Wi-Fi, and large on-prem server estates aren't a fit for what we do. If that's most of what you need, we'll say so early rather than take it on anyway.",
+    a: "Personal devices, home Wi-Fi and large on-prem server rooms aren't a fit for what we do. If that's most of what you need, we'll say so early rather than take it on anyway.",
   },
 ];

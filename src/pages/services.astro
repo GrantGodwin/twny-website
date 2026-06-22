@@ -3,61 +3,104 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import FAQ from "../components/blocks/FAQ.astro";
 import CapabilityIcon from "../components/home/CapabilityIcon.astro";
-import { serviceCapabilities, engagementShape, serviceFaqs } from "../data/services";
+import { serviceCapabilities, lookAfter, engagementShape, serviceFaqs } from "../data/services";
 
-// One considered page, not the homepage's alternating chapters. The hero
-// carries a four-group capability map (icon + capability + grouped
-// technologies) so breadth is legible before a word of body copy is read;
-// the deep sections beneath go to meaning and trust. Only two surface
-// transitions on the whole page (sand → paper → band).
+// A confidence page, not a catalogue. Surfaces step gently for rhythm
+// (sand → paper → sand → paper → band, closing on the same band token as
+// the homepage's closing section), with one divider language throughout —
+// solid `border-line` hairlines, matching the homepage — and a deliberate
+// three-role palette: Mineral for technology/capability/labels, Ember for
+// the single action, white for the confident statements.
 const email = "hello@twny.com.au";
-
-// Splits `text` on any of `terms`, to render named technologies as Mineral
-// inline accents within otherwise plain body copy.
-function withHighlights(text: string, terms: string[] = []) {
-  if (!terms.length) return [text];
-  const escaped = terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-  return text.split(new RegExp(`(${escaped.join("|")})`, "g"));
-}
 ---
 
 <BaseLayout
   title="Services — TWNY"
-  description="Microsoft 365, email, Teams, SharePoint, websites, hosting, domains, DNS, backup, security, Copilot and automation — the everyday technology behind your business, looked after by one accountable operator."
+  description="Email, files, your website, backup, security and practical AI — the everyday technology behind your business, looked after by one team that already knows your setup."
 >
-  {/* HERO — headline + the single primary action, then a four-group
-      capability map. The map is information architecture, not decoration:
-      a small Mineral icon per capability, the plain-English capability name
-      in white, and the recognisable technologies grouped beneath in
-      Mineral. A visitor sees something relevant to their business in two
-      seconds, before reading a paragraph. */}
+  {/* HERO — confident and unhurried. One statement, one reassurance, one
+      action. No tech matrix, no capability list to scan yet; the job here
+      is simply to feel in the right place. */}
   <section class="bg-sand">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
-      <div class="max-w-2xl">
-        <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-3">
-          Services
-        </p>
-        <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold leading-[1.07] text-ink text-balance">
-          The technology your business runs on.
-        </h1>
-        <p class="mt-5 text-lg text-steel leading-relaxed text-pretty">
-          Looked after as one connected operation, by someone who already
-          knows your setup — not a list of separate things to manage.
-        </p>
-        <div class="mt-9">
-          <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
-        </div>
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 sm:py-32 lg:py-40">
+      <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral mb-5">
+        Services
+      </p>
+      <h1 class="font-display text-4xl font-semibold leading-[1.05] text-ink text-balance sm:text-5xl lg:text-6xl max-w-3xl">
+        The technology your business runs on.
+      </h1>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-steel text-pretty sm:text-xl">
+        Looked after as one — by people who already know how your business
+        works.
+      </p>
+      <div class="mt-10">
+        <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
       </div>
+    </div>
+  </section>
 
-      <div class="mt-16 grid grid-cols-2 gap-x-8 gap-y-12 border-t border-line pt-12 lg:mt-20 lg:grid-cols-4 lg:gap-x-12 lg:pt-14">
+  {/* WHAT WE LOOK AFTER — the four capabilities, but each answers "what does
+      this mean for my business?" not "what is it?". One consistent shape per
+      capability: a left rail (icon + homepage kicker) and a right column
+      (large outcome headline → plain explanation → one reassuring truth on a
+      Mineral rule). The four big outcome lines are the page's scan layer. */}
+  <section class="bg-paper border-y border-line">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
+      <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+        What we look after
+      </p>
+
+      <div class="mt-14 divide-y divide-line lg:mt-16">
         {
           serviceCapabilities.map((c) => (
+            <div class="grid gap-6 py-12 first:pt-0 last:pb-0 lg:grid-cols-[200px_1fr] lg:gap-16 lg:py-16">
+              <div class="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-5">
+                <CapabilityIcon name={c.icon} class="h-9 w-9 shrink-0 text-mineral" />
+                <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral/70">
+                  {c.kicker}
+                </p>
+              </div>
+
+              <div class="max-w-2xl">
+                <h2 class="font-display text-2xl font-semibold leading-[1.12] text-ink text-balance sm:text-3xl">
+                  {c.headline}
+                </h2>
+                <p class="mt-4 text-base leading-relaxed text-steel text-pretty sm:text-lg">
+                  {c.body}
+                </p>
+                <p class="mt-6 border-l-2 border-mineral pl-4 text-base leading-snug text-ink/90 text-pretty">
+                  {c.truth}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* WHATEVER YOU'D CALL IT — grouped reassurance, the breadth answer. An
+      information index, not a keyword list: Mineral group labels, confident
+      white item lists, grouped the way an owner would think about them. */}
+  <section class="bg-sand">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
+      <h2 class="font-display text-2xl font-semibold leading-tight text-ink text-balance sm:text-3xl max-w-2xl">
+        {lookAfter.heading}
+      </h2>
+      <p class="mt-3 text-steel leading-relaxed text-pretty">
+        {lookAfter.lede}
+      </p>
+
+      <div class="mt-12 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+        {
+          lookAfter.groups.map((g) => (
             <div>
-              <CapabilityIcon name={c.icon} class="h-8 w-8 text-mineral" />
-              <p class="mt-4 font-display text-lg font-medium text-ink">{c.heading}</p>
-              <ul class="mt-4 space-y-1.5">
-                {c.tech.map((t) => (
-                  <li class="font-display text-[0.95rem] leading-snug text-mineral">{t}</li>
+              <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+                {g.label}
+              </h3>
+              <ul class="mt-4 space-y-2.5">
+                {g.items.map((item) => (
+                  <li class="font-display text-base leading-snug text-ink sm:text-lg">{item}</li>
                 ))}
               </ul>
             </div>
@@ -67,130 +110,72 @@ function withHighlights(text: string, terms: string[] = []) {
     </div>
   </section>
 
-  {/* THE FOUR CAPABILITIES — the map's chapters: same four names, now with
-      meaning and a little concrete specificity for trust. Each row's
-      `layout` varies how its closing "moment" is rendered (a labelled note,
-      a woven body, a pulled quote, or nothing for the lightest row), so the
-      eye doesn't learn one fixed rhythm. The shared capability icon is the
-      wayfinding link back to the map above. */}
+  {/* HOW THIS USUALLY STARTS — the commercial model, in plain language and
+      with no pricing: a focused project usually leads to ongoing care. The
+      Mineral arrow carries the sequence; the reassurance line carries the
+      page's strongest message — you don't need to know what you need. */}
   <section class="bg-paper border-y border-line">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
-      <div class="h-0.5 w-10 bg-mineral mb-14 lg:mb-16" aria-hidden="true" />
+      <h2 class="font-display text-2xl font-semibold leading-tight text-ink text-balance sm:text-3xl max-w-2xl">
+        {engagementShape.heading}
+      </h2>
+      <p class="mt-3 max-w-2xl text-steel leading-relaxed text-pretty">
+        {engagementShape.intro}
+      </p>
 
-      <div class="divide-y divide-line">
-        {
-          serviceCapabilities.map((c) => (
-            <div class="grid gap-5 py-14 first:pt-0 last:pb-0 lg:grid-cols-[260px_1fr] lg:gap-16 lg:py-16">
-              <div>
-                <CapabilityIcon name={c.icon} class="h-8 w-8 text-mineral mb-4" />
-                <h2 class="font-display text-2xl font-medium leading-snug text-ink text-balance sm:text-3xl">
-                  {c.heading}
-                </h2>
-              </div>
-              <div class="max-w-2xl">
-                <p class="text-base font-medium leading-snug text-ink/90 text-pretty sm:text-lg">
-                  {c.lead}
-                </p>
-
-                <p class="mt-3 text-steel leading-relaxed text-pretty">
-                  {withHighlights(c.body, c.highlight).map((part) =>
-                    c.highlight?.includes(part) ? <span class="text-mineral">{part}</span> : part
-                  )}
-                </p>
-
-                {c.moment && c.layout === "quote" ? (
-                  <div class="mt-6 border-l-2 border-mineral/50 pl-4">
-                    <p class="font-mono text-xs uppercase tracking-widest text-mineral/55 mb-1.5">
-                      {c.moment.label}
-                    </p>
-                    <p class="max-w-xl font-display text-base italic leading-relaxed text-ink/90 text-pretty sm:text-lg">
-                      {c.moment.body}
-                    </p>
-                  </div>
-                ) : (
-                  c.moment && (
-                    <>
-                      <p class="mt-5 font-mono text-xs uppercase tracking-widest text-mineral/55">
-                        {c.moment.label}
-                      </p>
-                      <p class="mt-2 max-w-xl text-sm leading-relaxed text-steel/85 text-pretty">
-                        {c.moment.body}
-                      </p>
-                    </>
-                  )
-                )}
-              </div>
-            </div>
-          ))
-        }
-      </div>
-
-      {/* HOW THIS USUALLY STARTS — the commercial model, stated plainly
-          (two ways to work with us) without pricing, packages or tiers. A
-          small Mineral arrow maps the relationship: a focused project is
-          usually the entry point, ongoing care is what it tends to grow
-          into — not two equal menu options. */}
-      <div class="mt-14 max-w-3xl border-t border-line pt-12 lg:mt-16">
-        <h3 class="font-display text-lg font-semibold text-ink text-balance sm:text-xl">
-          {engagementShape.heading}
-        </h3>
-        <p class="mt-3 max-w-2xl text-sm leading-relaxed text-steel text-pretty sm:text-base">
-          {engagementShape.intro}
-        </p>
-
-        <div class="mt-8 flex flex-col gap-6 sm:flex-row sm:items-stretch sm:gap-2">
-          <div class="max-w-sm">
-            <p class="font-mono text-xs uppercase tracking-widest text-mineral">
-              {engagementShape.focused.label}
-            </p>
-            <p class="mt-2 text-sm leading-relaxed text-steel text-pretty sm:text-base">
-              {engagementShape.focused.description}
-            </p>
-          </div>
-
-          <div
-            class="engagement-arrow flex shrink-0 items-center self-center text-mineral/60 sm:self-stretch"
-            aria-hidden="true"
-          >
-            →
-          </div>
-
-          <div class="max-w-sm">
-            <p class="font-mono text-xs uppercase tracking-widest text-mineral">
-              {engagementShape.ongoing.label}
-            </p>
-            <p class="mt-2 text-sm leading-relaxed text-steel text-pretty sm:text-base">
-              {engagementShape.ongoing.description}
-            </p>
-          </div>
+      <div class="mt-10 flex flex-col gap-8 sm:flex-row sm:items-stretch sm:gap-4">
+        <div class="flex-1 sm:max-w-sm">
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+            {engagementShape.focused.label}
+          </p>
+          <p class="mt-3 text-steel leading-relaxed text-pretty">
+            {engagementShape.focused.description}
+          </p>
         </div>
 
-        <p class="mt-8 max-w-2xl text-sm font-medium leading-relaxed text-ink/90 text-pretty sm:text-base">
-          {engagementShape.reassurance}
-        </p>
+        <div
+          class="engagement-arrow flex shrink-0 items-center self-center text-mineral/60"
+          aria-hidden="true"
+        >
+          →
+        </div>
+
+        <div class="flex-1 sm:max-w-sm">
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+            {engagementShape.ongoing.label}
+          </p>
+          <p class="mt-3 text-steel leading-relaxed text-pretty">
+            {engagementShape.ongoing.description}
+          </p>
+        </div>
       </div>
+
+      <p class="mt-10 max-w-2xl text-lg font-medium leading-relaxed text-ink/90 text-pretty">
+        {engagementShape.reassurance}
+      </p>
     </div>
   </section>
 
-  {/* EMBEDDED FAQ + CLOSING CTA — the page's one remaining surface shift,
-      grouping "clear the last objection" and "the decision" into a single
-      band. The FAQ heading is deliberately the quietest label on the page. */}
+  {/* FAQ + CLOSE — the page winds down into its conclusion. The FAQ is the
+      quietest thing on the page (a small Steel label, no heavy heading), so
+      it reads as the last few reassurances before the close rather than a
+      new chapter; the closing statement and CTA follow on the same surface. */}
   <section class="bg-band">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-24">
-      <div class="mb-8">
-        <h2 class="font-mono text-xs uppercase tracking-widest text-steel">FAQ</h2>
-      </div>
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
+      <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel mb-8">
+        A few common questions
+      </p>
       <FAQ items={serviceFaqs} />
 
-      <div class="mt-20 max-w-2xl border-t border-line pt-12 lg:mt-24">
-        <h2 class="font-display text-3xl font-semibold leading-[1.05] text-ink text-balance sm:text-4xl">
+      <div class="mt-24 max-w-2xl">
+        <h2 class="font-display text-3xl font-semibold leading-[1.05] text-ink text-balance sm:text-4xl lg:text-5xl">
           If it touches your business, we can probably help.
         </h2>
-        <p class="mt-5 max-w-xl text-steel leading-relaxed text-pretty">
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-steel text-pretty">
           Tell us what you're working with and we'll tell you plainly whether
           we're the right fit — and if we're not, we'll say so.
         </p>
-        <div class="mt-9">
+        <div class="mt-10">
           <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
         </div>
       </div>
@@ -202,7 +187,7 @@ function withHighlights(text: string, terms: string[] = []) {
   /* "How this usually starts" — the connecting arrow points down when the
      two paths stack on narrow screens, across when they sit side by side. */
   .engagement-arrow {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     transform: rotate(90deg);
   }
   @media (min-width: 640px) {
