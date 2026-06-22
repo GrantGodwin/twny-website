@@ -1,30 +1,39 @@
 // Services page content. The job of this page is confidence, not
 // completeness: a visitor already warmed by the homepage, here to answer
 // "can these people actually look after my business?". Copy is business
-// language, not IT language — technology names appear only where they build
-// confidence. No pricing, packages, plans, bundles or tiers anywhere.
+// language, not IT language. No pricing, packages, plans, bundles or tiers.
+//
+// One data set drives two registers: `services` feeds the hero capability
+// map (fast breadth recognition); `headline` / `body` / `truth` and the
+// optional `ownership` / `examples` / `emphasizeTruth` fields feed the deep
+// sections, which are deliberately composed differently from one another.
 
-// The four capabilities — same themes as the homepage, but each answers
-// "what does this do for MY business?" rather than "what is this?". One
-// consistent editorial shape across all four: icon, kicker, outcome
-// headline, short explanation, one reassuring operational truth.
 export interface ServiceCapability {
   /** The capability's visual identity (reused from the homepage's line marks). */
   icon: "communication" | "presence" | "protection" | "automation";
-  /** The homepage capability name — used as a small kicker for continuity and structure. */
+  /** The homepage capability name — the through-line between hero map and deep section. */
   kicker: string;
+  /** Recognisable services, in plain business language — shown in the hero map, in Mineral. */
+  services: string[];
   /** The strong, scannable outcome — what having this handled means for the business. */
   headline: string;
   /** One short, plain-language explanation. */
   body: string;
-  /** One reassuring operational truth, set apart with a Mineral rule. */
+  /** One reassuring operational truth. */
   truth: string;
+  /** Look professional — rendered as a small grouped list instead of a single truth line. */
+  ownership?: string[];
+  /** Save time — rendered as a compact checklist of concrete examples. */
+  examples?: string[];
+  /** Stay protected — render the truth larger, as the section's highlighted moment. */
+  emphasizeTruth?: boolean;
 }
 
 export const serviceCapabilities: ServiceCapability[] = [
   {
     icon: "communication",
     kicker: "Work smoothly",
+    services: ["Business email", "Shared files", "Calendars", "Microsoft 365"],
     headline: "Email and files that just work.",
     body: "Email, shared files and calendars on Microsoft 365 — set up properly and quietly kept that way, so your team always works from the same place.",
     truth: "Need something changed? You ask once, and it's handled.",
@@ -32,64 +41,56 @@ export const serviceCapabilities: ServiceCapability[] = [
   {
     icon: "presence",
     kicker: "Look professional",
+    services: ["Websites", "Domains", "Hosting", "Website care"],
     headline: "A website that's always looked after.",
     body: "Your website, your domain and the addresses people reach you on — kept current, secure and reliable, with no renewals or hosting for you to chase.",
     truth: "You always own your domain — and you can take everything with you.",
+    ownership: ["You own your domain", "Everything stays portable", "No renewals to chase"],
   },
   {
     icon: "protection",
     kicker: "Stay protected",
+    services: ["Backup", "Security", "Recovery"],
     headline: "Covered before anything goes wrong.",
     body: "Backup, security and a recovery plan, sorted before you need them — so a lost laptop or a bad email is a bad afternoon, not a bad month.",
-    truth: "Recovery is the point. Not just having a copy somewhere.",
+    truth: "Recovery is the point — not just having a copy somewhere.",
+    emphasizeTruth: true,
   },
   {
     icon: "automation",
     kicker: "Save time",
+    services: ["AI", "Automation", "Copilot"],
     headline: "Less busywork, more business.",
-    body: "Practical AI and automation that take the repetitive admin off your plate — the drafting, the chasing, the jobs nobody enjoys.",
+    body: "Practical AI and automation that quietly take the repetitive admin off your plate.",
     truth: "Brought in when you're ready — never because it's the latest thing.",
+    examples: ["Drafting", "Summarising", "Client updates", "Clean handovers"],
   },
 ];
 
-// "Whatever you'd call it, we look after it." — grouped reassurance, not an
-// SEO keyword list. Plain business names, grouped the way an owner would
-// think about them, so the read is "yes, they do that too".
-export interface LookAfterGroup {
-  label: string;
-  items: string[];
-}
-
-export const lookAfter: { heading: string; lede: string; groups: LookAfterGroup[] } = {
-  heading: "Whatever you'd call it, we look after it.",
-  lede: "Grouped the way you'd actually think about it.",
-  groups: [
-    { label: "Communication", items: ["Business email", "Shared files", "Calendars", "Microsoft 365"] },
-    { label: "Your online presence", items: ["Websites", "Domains", "Hosting", "Website care"] },
-    { label: "Protection", items: ["Backup", "Security", "Recovery"] },
-    { label: "Smarter work", items: ["AI", "Automation", "Copilot"] },
-    { label: "Advice", items: ["A second opinion", "Planning ahead", "What to do next"] },
-  ],
+// The page's memorable moment — an oversized editorial statement that
+// answers breadth with reassurance ("yes, they do that too"), with the
+// natural groupings reduced to a single confident line rather than a
+// keyword grid.
+export const breadthMoment = {
+  statement: "Whatever you'd call it, we look after it.",
+  groups: ["Communication", "Online presence", "Protection", "Smarter work", "Advice"],
 };
 
-// "How this usually starts" — quietly introduces the commercial model (two
-// ways to work with us) without naming a plan, tier or package. A focused
-// project is usually the entry point; ongoing care is what it grows into.
+// "How this usually starts" — the commercial model as a short journey
+// (focused project → ongoing relationship), without naming a plan, tier or
+// package, and without a process diagram.
 export const engagementShape = {
   heading: "How this usually starts.",
-  intro: "There are two ways to work with us — and most relationships move from the first to the second.",
   focused: {
     label: "A focused project",
-    description:
-      "A defined piece of work with a clear start and finish — a new website, tighter security, a move to something better, or getting backup and recovery sorted properly.",
+    description: "A clear piece of work with a start and a finish — a new website, tighter security, or a move to something better.",
   },
   ongoing: {
-    label: "Ongoing care",
-    description:
-      "Someone looking after the everyday technology for you — so it stays reliable, stays current, and you've always got one number to call.",
+    label: "An ongoing relationship",
+    description: "Someone looking after the everyday technology for you — reliable, current, and one number to call when you need it.",
   },
   reassurance:
-    "You don't need to work out which one you need before you get in touch — tell us what's going on and we'll work out the right shape together.",
+    "You don't need to work out which one you need before you get in touch — tell us what's going on, and we'll work out the right shape together.",
 };
 
 export interface ServiceFaq {

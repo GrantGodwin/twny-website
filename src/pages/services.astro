@@ -3,14 +3,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import FAQ from "../components/blocks/FAQ.astro";
 import CapabilityIcon from "../components/home/CapabilityIcon.astro";
-import { serviceCapabilities, lookAfter, engagementShape, serviceFaqs } from "../data/services";
+import { serviceCapabilities, breadthMoment, engagementShape, serviceFaqs } from "../data/services";
 
-// A confidence page, not a catalogue. Surfaces step gently for rhythm
-// (sand → paper → sand → paper → band, closing on the same band token as
-// the homepage's closing section), with one divider language throughout —
-// solid `border-line` hairlines, matching the homepage — and a deliberate
-// three-role palette: Mineral for technology/capability/labels, Ember for
-// the single action, white for the confident statements.
+// Composed to the same standard as the homepage: matched eyebrow tracking,
+// one solid `border-line` divider language, a deliberate three-role palette
+// (Mineral = services / capability / technology, Ember = the single action,
+// white = confidence), and surfaces that step like the homepage's rooms
+// (sand → paper → band → sand → band).
 const email = "hello@twny.com.au";
 ---
 
@@ -18,32 +17,52 @@ const email = "hello@twny.com.au";
   title="Services — TWNY"
   description="Email, files, your website, backup, security and practical AI — the everyday technology behind your business, looked after by one team that already knows your setup."
 >
-  {/* HERO — confident and unhurried. One statement, one reassurance, one
-      action. No tech matrix, no capability list to scan yet; the job here
-      is simply to feel in the right place. */}
+  {/* HERO — left: the statement and the single action. Right: a capability
+      map (four groups, icon + plain-language services) so a visitor
+      recognises their business in seconds. Information design, not a tag
+      cloud: aligned blocks on a shared baseline, hairline-topped, no cards. */}
   <section class="bg-sand">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 sm:py-32 lg:py-40">
-      <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral mb-5">
-        Services
-      </p>
-      <h1 class="font-display text-4xl font-semibold leading-[1.05] text-ink text-balance sm:text-5xl lg:text-6xl max-w-3xl">
-        The technology your business runs on.
-      </h1>
-      <p class="mt-6 max-w-xl text-lg leading-relaxed text-steel text-pretty sm:text-xl">
-        Looked after as one — by people who already know how your business
-        works.
-      </p>
-      <div class="mt-10">
-        <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-24 lg:py-28">
+      <div class="grid gap-16 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-20">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral mb-5">
+            Services
+          </p>
+          <h1 class="font-display text-4xl font-semibold leading-[1.05] text-ink text-balance sm:text-5xl lg:text-[3.5rem]">
+            The technology your business runs on.
+          </h1>
+          <p class="mt-6 max-w-md text-lg leading-relaxed text-steel text-pretty">
+            Looked after as one — by people who already know how your business
+            works.
+          </p>
+          <div class="mt-9">
+            <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-x-8 gap-y-9 sm:gap-x-10">
+          {
+            serviceCapabilities.map((c) => (
+              <div class="border-t border-line pt-4">
+                <CapabilityIcon name={c.icon} class="h-6 w-6 text-mineral" />
+                <p class="mt-3 font-display text-base font-medium text-ink">{c.kicker}</p>
+                <ul class="mt-3 space-y-1">
+                  {c.services.map((s) => (
+                    <li class="text-sm leading-snug text-mineral">{s}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>
 
-  {/* WHAT WE LOOK AFTER — the four capabilities, but each answers "what does
-      this mean for my business?" not "what is it?". One consistent shape per
-      capability: a left rail (icon + homepage kicker) and a right column
-      (large outcome headline → plain explanation → one reassuring truth on a
-      Mineral rule). The four big outcome lines are the page's scan layer. */}
+  {/* WHAT WE LOOK AFTER — the four capabilities in depth. Same left rail
+      (icon + kicker) keeps them a family; the right column is composed
+      differently per capability (a truth line, a grouped ownership list, a
+      highlighted truth, a checklist) so the four don't share one silhouette. */}
   <section class="bg-paper border-y border-line">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
       <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
@@ -68,9 +87,46 @@ const email = "hello@twny.com.au";
                 <p class="mt-4 text-base leading-relaxed text-steel text-pretty sm:text-lg">
                   {c.body}
                 </p>
-                <p class="mt-6 border-l-2 border-mineral pl-4 text-base leading-snug text-ink/90 text-pretty">
-                  {c.truth}
-                </p>
+
+                {/* Grouped ownership list (Look professional) */}
+                {c.ownership && (
+                  <ul class="mt-6 grid gap-x-8 gap-y-2 sm:grid-cols-2">
+                    {c.ownership.map((item) => (
+                      <li class="flex items-baseline gap-2.5 text-base text-ink">
+                        <span class="text-mineral" aria-hidden="true">
+                          —
+                        </span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {/* Compact checklist (Save time) */}
+                {c.examples && (
+                  <ul class="mt-6 flex flex-wrap gap-x-8 gap-y-2.5">
+                    {c.examples.map((item) => (
+                      <li class="flex items-center gap-2 text-base text-ink">
+                        <span class="text-mineral" aria-hidden="true">
+                          ✓
+                        </span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {/* Highlighted truth (Stay protected) vs. quiet truth line */}
+                {!c.ownership && !c.examples && c.emphasizeTruth && (
+                  <p class="mt-7 border-l-2 border-mineral pl-5 font-display text-xl font-medium leading-snug text-ink text-pretty sm:text-2xl">
+                    {c.truth}
+                  </p>
+                )}
+                {!c.ownership && !c.examples && !c.emphasizeTruth && (
+                  <p class="mt-6 border-l-2 border-mineral pl-4 text-base leading-snug text-ink/90 text-pretty">
+                    {c.truth}
+                  </p>
+                )}
               </div>
             </div>
           ))
@@ -79,52 +135,43 @@ const email = "hello@twny.com.au";
     </div>
   </section>
 
-  {/* WHATEVER YOU'D CALL IT — grouped reassurance, the breadth answer. An
-      information index, not a keyword list: Mineral group labels, confident
-      white item lists, grouped the way an owner would think about them. */}
-  <section class="bg-sand">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
-      <h2 class="font-display text-2xl font-semibold leading-tight text-ink text-balance sm:text-3xl max-w-2xl">
-        {lookAfter.heading}
+  {/* MEMORABLE MOMENT — an oversized editorial statement that turns the old
+      keyword list into reassurance. The natural groupings sit beneath as one
+      confident Mineral line, not a grid. The stop-scrolling beat. */}
+  <section class="bg-band">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 sm:py-32">
+      <h2 class="max-w-4xl font-display text-3xl font-semibold leading-[1.08] text-ink text-balance sm:text-5xl lg:text-6xl">
+        {breadthMoment.statement}
       </h2>
-      <p class="mt-3 text-steel leading-relaxed text-pretty">
-        {lookAfter.lede}
-      </p>
-
-      <div class="mt-12 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+      <ul class="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs uppercase tracking-[0.18em] text-mineral">
         {
-          lookAfter.groups.map((g) => (
-            <div>
-              <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-                {g.label}
-              </h3>
-              <ul class="mt-4 space-y-2.5">
-                {g.items.map((item) => (
-                  <li class="font-display text-base leading-snug text-ink sm:text-lg">{item}</li>
-                ))}
-              </ul>
-            </div>
+          breadthMoment.groups.map((g, i) => (
+            <>
+              {i > 0 && (
+                <li class="text-steel/40" aria-hidden="true">
+                  /
+                </li>
+              )}
+              <li>{g}</li>
+            </>
           ))
         }
-      </div>
+      </ul>
     </div>
   </section>
 
-  {/* HOW THIS USUALLY STARTS — the commercial model, in plain language and
-      with no pricing: a focused project usually leads to ongoing care. The
-      Mineral arrow carries the sequence; the reassurance line carries the
-      page's strongest message — you don't need to know what you need. */}
-  <section class="bg-paper border-y border-line">
+  {/* HOW THIS USUALLY STARTS — the commercial model as a short journey, told
+      with layout: a focused project leads to an ongoing relationship. A
+      single connecting rule + arrow carries the sequence; the reassurance is
+      the resolution, set as the largest line. No pricing, no process steps. */}
+  <section class="bg-sand">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
-      <h2 class="font-display text-2xl font-semibold leading-tight text-ink text-balance sm:text-3xl max-w-2xl">
+      <h2 class="font-display text-2xl font-semibold leading-tight text-ink text-balance sm:text-3xl">
         {engagementShape.heading}
       </h2>
-      <p class="mt-3 max-w-2xl text-steel leading-relaxed text-pretty">
-        {engagementShape.intro}
-      </p>
 
-      <div class="mt-10 flex flex-col gap-8 sm:flex-row sm:items-stretch sm:gap-4">
-        <div class="flex-1 sm:max-w-sm">
+      <div class="engagement mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-[1fr_auto_1fr] sm:items-start">
+        <div class="max-w-sm">
           <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
             {engagementShape.focused.label}
           </p>
@@ -133,14 +180,9 @@ const email = "hello@twny.com.au";
           </p>
         </div>
 
-        <div
-          class="engagement-arrow flex shrink-0 items-center self-center text-mineral/60"
-          aria-hidden="true"
-        >
-          →
-        </div>
+        <div class="engagement-arrow font-display text-mineral" aria-hidden="true">→</div>
 
-        <div class="flex-1 sm:max-w-sm">
+        <div class="max-w-sm">
           <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
             {engagementShape.ongoing.label}
           </p>
@@ -150,17 +192,16 @@ const email = "hello@twny.com.au";
         </div>
       </div>
 
-      <p class="mt-10 max-w-2xl text-lg font-medium leading-relaxed text-ink/90 text-pretty">
+      <p class="mt-14 max-w-3xl border-t border-line pt-8 font-display text-xl font-medium leading-snug text-ink text-balance sm:text-2xl">
         {engagementShape.reassurance}
       </p>
     </div>
   </section>
 
-  {/* FAQ + CLOSE — the page winds down into its conclusion. The FAQ is the
-      quietest thing on the page (a small Steel label, no heavy heading), so
-      it reads as the last few reassurances before the close rather than a
-      new chapter; the closing statement and CTA follow on the same surface. */}
-  <section class="bg-band">
+  {/* FAQ + CLOSE — the page winds down into its conclusion on one surface:
+      a quiet Steel label, the questions, then the confident close and the
+      single action. */}
+  <section class="bg-band border-t border-line">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
       <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel mb-8">
         A few common questions
@@ -184,15 +225,20 @@ const email = "hello@twny.com.au";
 </BaseLayout>
 
 <style>
-  /* "How this usually starts" — the connecting arrow points down when the
-     two paths stack on narrow screens, across when they sit side by side. */
+  /* "How this usually starts" — the connecting arrow points across when the
+     two stages sit side by side, and down when they stack on narrow screens. */
   .engagement-arrow {
-    font-size: 1.375rem;
+    font-size: 1.5rem;
+    line-height: 1;
     transform: rotate(90deg);
+    justify-self: start;
+    align-self: center;
   }
   @media (min-width: 640px) {
     .engagement-arrow {
       transform: none;
+      align-self: start;
+      margin-top: 0.4rem;
     }
   }
 </style>
