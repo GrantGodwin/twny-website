@@ -1,96 +1,86 @@
-// Services page content. The job of this page is confidence, not
-// completeness: a visitor already warmed by the homepage, here to answer
-// "can these people actually look after my business?". Copy is business
-// language, not IT language. No pricing, packages, plans, bundles or tiers.
-//
-// One data set drives two registers: `services` feeds the hero capability
-// map (fast breadth recognition); `headline` / `body` / `truth` and the
-// optional `ownership` / `examples` / `emphasizeTruth` fields feed the deep
-// sections, which are deliberately composed differently from one another.
+// Services page content — the homepage's second chapter. Its job is
+// reassurance, not a catalogue: that we can look after your business, that
+// we know what we're doing, and that getting in touch is the obvious next
+// step. Business language, calm and confident. No pricing anywhere.
 
 export interface ServiceCapability {
-  /** The capability's visual identity (reused from the homepage's line marks). */
+  /** The capability's visual identity (the homepage's line marks). */
   icon: "communication" | "presence" | "protection" | "automation";
-  /** The homepage capability name — the through-line between hero map and deep section. */
-  kicker: string;
-  /** Recognisable services, in plain business language — shown in the hero map, in Mineral. */
-  services: string[];
-  /** The strong, scannable outcome — what having this handled means for the business. */
+  /** Capability title — the hero rows. */
+  title: string;
+  /** One supporting sentence for the hero rows. */
+  heroLine: string;
+  /** The deep section's outcome headline. */
   headline: string;
-  /** One short, plain-language explanation. */
+  /** One plain-language paragraph. */
   body: string;
-  /** One reassuring operational truth. */
-  truth: string;
-  /** Look professional — rendered as a small grouped list instead of a single truth line. */
-  ownership?: string[];
-  /** Save time — rendered as a compact checklist of concrete examples. */
-  examples?: string[];
-  /** Stay protected — render the truth larger, as the section's highlighted moment. */
-  emphasizeTruth?: boolean;
+  /** One single reassurance statement. */
+  reassurance: string;
 }
 
 export const serviceCapabilities: ServiceCapability[] = [
   {
     icon: "communication",
-    kicker: "Work smoothly",
-    services: ["Business email", "Shared files", "Calendars", "Microsoft 365"],
+    title: "Work smoothly",
+    heroLine: "Email, files and collaboration that simply work.",
     headline: "Email and files that just work.",
-    body: "Email, shared files and calendars on Microsoft 365 — set up properly and quietly kept that way, so your team always works from the same place.",
-    truth: "Need something changed? You ask once, and it's handled.",
+    body: "Business email, shared files and collaboration quietly looked after, so your team always works from the same place and you only need one person to call when something changes.",
+    reassurance: "You ask once. It's handled.",
   },
   {
     icon: "presence",
-    kicker: "Look professional",
-    services: ["Websites", "Domains", "Hosting", "Website care"],
+    title: "Look professional",
+    heroLine: "A website and online presence you never have to chase.",
     headline: "A website that's always looked after.",
-    body: "Your website, your domain and the addresses people reach you on — kept current, secure and reliable, with no renewals or hosting for you to chase.",
-    truth: "You always own your domain — and you can take everything with you.",
-    ownership: ["You own your domain", "Everything stays portable", "No renewals to chase"],
+    body: "Your website, domain and hosting kept current, secure and reliable, so your business always looks professional without you needing to think about it.",
+    reassurance: "You always own your domain.",
   },
   {
     icon: "protection",
-    kicker: "Stay protected",
-    services: ["Backup", "Security", "Recovery"],
+    title: "Stay protected",
+    heroLine: "Security, backup and recovery planned before you need them.",
     headline: "Covered before anything goes wrong.",
-    body: "Backup, security and a recovery plan, sorted before you need them — so a lost laptop or a bad email is a bad afternoon, not a bad month.",
-    truth: "Recovery is the point — not just having a copy somewhere.",
-    emphasizeTruth: true,
+    body: "Backup, security and recovery planned in advance, so small problems stay small and your business keeps moving.",
+    reassurance: "Recovery matters more than storage.",
   },
   {
     icon: "automation",
-    kicker: "Save time",
-    services: ["AI", "Automation", "Copilot"],
-    headline: "Less busywork, more business.",
-    body: "Practical AI and automation that quietly take the repetitive admin off your plate.",
-    truth: "Brought in when you're ready — never because it's the latest thing.",
-    examples: ["Drafting", "Summarising", "Client updates", "Clean handovers"],
+    title: "Save time",
+    heroLine: "Practical AI and automation that removes repetitive work.",
+    headline: "Less busywork. More business.",
+    body: "Practical AI and automation that quietly removes repetitive admin, without changing how your team already works.",
+    reassurance: "Introduced when it makes sense—not because it's fashionable.",
   },
 ];
 
-// The page's memorable moment — an oversized editorial statement that
-// answers breadth with reassurance ("yes, they do that too"), with the
-// natural groupings reduced to a single confident line rather than a
-// keyword grid.
-export const breadthMoment = {
-  statement: "Whatever you'd call it, we look after it.",
-  groups: ["Communication", "Online presence", "Protection", "Smarter work", "Advice"],
+// "The things we look after every day." — reassurance that yes, we do that.
+// Five plain lists, no borders, no cards.
+export interface EverydayGroup {
+  label: string;
+  items: string[];
+}
+
+export const everyday: { heading: string; lede: string; groups: EverydayGroup[] } = {
+  heading: "The things we look after every day.",
+  lede: "Most businesses call us for a handful of things. These are the ones that come up every week.",
+  groups: [
+    { label: "Communication", items: ["Business email", "Shared files", "Calendars", "Microsoft 365"] },
+    { label: "Online presence", items: ["Websites", "Hosting", "Domains", "Website care"] },
+    { label: "Protection", items: ["Backup", "Security", "Recovery"] },
+    { label: "Smarter work", items: ["AI", "Automation", "Copilot"] },
+    { label: "Advice", items: ["Planning", "Migrations", "Technology decisions", "Second opinions"] },
+  ],
 };
 
-// "How this usually starts" — the commercial model as a short journey
-// (focused project → ongoing relationship), without naming a plan, tier or
-// package, and without a process diagram.
-export const engagementShape = {
-  heading: "How this usually starts.",
-  focused: {
-    label: "A focused project",
-    description: "A clear piece of work with a start and a finish — a new website, tighter security, or a move to something better.",
-  },
-  ongoing: {
-    label: "An ongoing relationship",
-    description: "Someone looking after the everyday technology for you — reliable, current, and one number to call when you need it.",
-  },
-  reassurance:
-    "You don't need to work out which one you need before you get in touch — tell us what's going on, and we'll work out the right shape together.",
+// "Working together is simple." — three columns, no arrows, no process diagram.
+export const howWeWork: { heading: string; steps: { title: string; body: string }[]; footnote: string } = {
+  heading: "Working together is simple.",
+  steps: [
+    { title: "Tell us what's happening.", body: "Whether it's one issue or everything at once." },
+    { title: "We'll work out what you need.", body: "We'll recommend the right approach, even if that's less work for us." },
+    { title: "Then we quietly look after it.", body: "So you can get back to running your business." },
+  ],
+  footnote: "You don't need to know exactly which service you need before getting in touch.",
 };
 
 export interface ServiceFaq {

@@ -3,54 +3,54 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import FAQ from "../components/blocks/FAQ.astro";
 import CapabilityIcon from "../components/home/CapabilityIcon.astro";
-import { serviceCapabilities, breadthMoment, engagementShape, serviceFaqs } from "../data/services";
+import { serviceCapabilities, everyday, howWeWork, serviceFaqs } from "../data/services";
 
-// Composed to the same standard as the homepage: matched eyebrow tracking,
-// one solid `border-line` divider language, a deliberate three-role palette
-// (Mineral = services / capability / technology, Ember = the single action,
-// white = confidence), and surfaces that step like the homepage's rooms
-// (sand → paper → band → sand → band).
+// The homepage's second chapter. Same design system: tonal surface steps as
+// the only section transition (no section borders, like the homepage), the
+// homepage's fade-edge hairline as the only within-section divider, matched
+// eyebrow/heading typography, and the three-role palette — white for
+// statements, Mineral for icons / capability names / labels, Ember for the
+// single action. Surfaces step like the homepage's rooms.
 const email = "hello@twny.com.au";
 ---
 
 <BaseLayout
   title="Services — TWNY"
-  description="Email, files, your website, backup, security and practical AI — the everyday technology behind your business, looked after by one team that already knows your setup."
+  description="Email, websites, security and everything in between — the everyday technology behind your business, looked after by one person who already knows your setup."
 >
-  {/* HERO — left: the statement and the single action. Right: a capability
-      map (four groups, icon + plain-language services) so a visitor
-      recognises their business in seconds. Information design, not a tag
-      cloud: aligned blocks on a shared baseline, hairline-topped, no cards. */}
-  <section class="bg-sand">
+  {/* HERO — the statement and the single action on the left; four calm rows
+      on the right (icon + title + one sentence) so a visitor recognises
+      their business without reading a paragraph. */}
+  <section class="bg-sand text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-24 lg:py-28">
-      <div class="grid gap-16 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-20">
+      <div class="grid gap-14 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-20">
         <div>
           <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral mb-5">
             Services
           </p>
-          <h1 class="font-display text-4xl font-semibold leading-[1.05] text-ink text-balance sm:text-5xl lg:text-[3.5rem]">
+          <h1 class="font-display text-4xl font-semibold leading-[1.05] text-balance sm:text-5xl lg:text-[3.5rem]">
             The technology your business runs on.
           </h1>
           <p class="mt-6 max-w-md text-lg leading-relaxed text-steel text-pretty">
-            Looked after as one — by people who already know how your business
-            works.
+            Email, websites, security and everything in between — looked after
+            by one person who already knows your business.
           </p>
           <div class="mt-9">
             <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-x-8 gap-y-9 sm:gap-x-10">
+        <div class="space-y-8 lg:space-y-9">
           {
             serviceCapabilities.map((c) => (
-              <div class="border-t border-line pt-4">
-                <CapabilityIcon name={c.icon} class="h-6 w-6 text-mineral" />
-                <p class="mt-3 font-display text-base font-medium text-ink">{c.kicker}</p>
-                <ul class="mt-3 space-y-1">
-                  {c.services.map((s) => (
-                    <li class="text-sm leading-snug text-mineral">{s}</li>
-                  ))}
-                </ul>
+              <div class="flex gap-4">
+                <CapabilityIcon name={c.icon} class="mt-1 h-6 w-6 shrink-0 text-mineral" />
+                <div>
+                  <p class="font-display text-lg font-medium text-mineral">{c.title}</p>
+                  <p class="mt-1 text-[0.95rem] leading-relaxed text-ink/70 text-pretty">
+                    {c.heroLine}
+                  </p>
+                </div>
               </div>
             ))
           }
@@ -59,75 +59,28 @@ const email = "hello@twny.com.au";
     </div>
   </section>
 
-  {/* WHAT WE LOOK AFTER — the four capabilities in depth. Same left rail
-      (icon + kicker) keeps them a family; the right column is composed
-      differently per capability (a truth line, a grouped ownership list, a
-      highlighted truth, a checklist) so the four don't share one silhouette. */}
-  <section class="bg-paper border-y border-line">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
+  {/* WHAT WE LOOK AFTER — the homepage's section treatment (eyebrow, then
+      content). Four identical editorial rows: icon, outcome headline, one
+      paragraph, one reassurance. Separated only by the homepage's fade-edge
+      hairline. Nothing else. */}
+  <section class="bg-paper text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
       <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
         What we look after
       </p>
 
-      <div class="mt-14 divide-y divide-line lg:mt-16">
+      <div class="mt-12 lg:mt-16">
         {
           serviceCapabilities.map((c) => (
-            <div class="grid gap-6 py-12 first:pt-0 last:pb-0 lg:grid-cols-[200px_1fr] lg:gap-16 lg:py-16">
-              <div class="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-5">
-                <CapabilityIcon name={c.icon} class="h-9 w-9 shrink-0 text-mineral" />
-                <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral/70">
-                  {c.kicker}
-                </p>
-              </div>
-
-              <div class="max-w-2xl">
-                <h2 class="font-display text-2xl font-semibold leading-[1.12] text-ink text-balance sm:text-3xl">
-                  {c.headline}
-                </h2>
-                <p class="mt-4 text-base leading-relaxed text-steel text-pretty sm:text-lg">
-                  {c.body}
-                </p>
-
-                {/* Grouped ownership list (Look professional) */}
-                {c.ownership && (
-                  <ul class="mt-6 grid gap-x-8 gap-y-2 sm:grid-cols-2">
-                    {c.ownership.map((item) => (
-                      <li class="flex items-baseline gap-2.5 text-base text-ink">
-                        <span class="text-mineral" aria-hidden="true">
-                          —
-                        </span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {/* Compact checklist (Save time) */}
-                {c.examples && (
-                  <ul class="mt-6 flex flex-wrap gap-x-8 gap-y-2.5">
-                    {c.examples.map((item) => (
-                      <li class="flex items-center gap-2 text-base text-ink">
-                        <span class="text-mineral" aria-hidden="true">
-                          ✓
-                        </span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {/* Highlighted truth (Stay protected) vs. quiet truth line */}
-                {!c.ownership && !c.examples && c.emphasizeTruth && (
-                  <p class="mt-7 border-l-2 border-mineral pl-5 font-display text-xl font-medium leading-snug text-ink text-pretty sm:text-2xl">
-                    {c.truth}
-                  </p>
-                )}
-                {!c.ownership && !c.examples && !c.emphasizeTruth && (
-                  <p class="mt-6 border-l-2 border-mineral pl-4 text-base leading-snug text-ink/90 text-pretty">
-                    {c.truth}
-                  </p>
-                )}
-              </div>
+            <div class="cap-row max-w-2xl py-12 first:pt-0 last:pb-0 lg:py-14">
+              <CapabilityIcon name={c.icon} class="h-9 w-9 text-mineral" />
+              <h2 class="mt-5 font-display text-2xl font-semibold leading-[1.12] text-balance sm:text-3xl">
+                {c.headline}
+              </h2>
+              <p class="mt-4 text-base leading-relaxed text-steel text-pretty sm:text-lg">
+                {c.body}
+              </p>
+              <p class="mt-5 text-base font-medium text-ink text-pretty">{c.reassurance}</p>
             </div>
           ))
         }
@@ -135,81 +88,70 @@ const email = "hello@twny.com.au";
     </div>
   </section>
 
-  {/* MEMORABLE MOMENT — an oversized editorial statement that turns the old
-      keyword list into reassurance. The natural groupings sit beneath as one
-      confident Mineral line, not a grid. The stop-scrolling beat. */}
-  <section class="bg-band">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 sm:py-32">
-      <h2 class="max-w-4xl font-display text-3xl font-semibold leading-[1.08] text-ink text-balance sm:text-5xl lg:text-6xl">
-        {breadthMoment.statement}
-      </h2>
-      <ul class="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-        {
-          breadthMoment.groups.map((g, i) => (
-            <>
-              {i > 0 && (
-                <li class="text-steel/40" aria-hidden="true">
-                  /
-                </li>
-              )}
-              <li>{g}</li>
-            </>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  {/* HOW THIS USUALLY STARTS — the commercial model as a short journey, told
-      with layout: a focused project leads to an ongoing relationship. A
-      single connecting rule + arrow carries the sequence; the reassurance is
-      the resolution, set as the largest line. No pricing, no process steps. */}
-  <section class="bg-sand">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
-      <h2 class="font-display text-2xl font-semibold leading-tight text-ink text-balance sm:text-3xl">
-        {engagementShape.heading}
-      </h2>
-
-      <div class="engagement mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-[1fr_auto_1fr] sm:items-start">
-        <div class="max-w-sm">
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-            {engagementShape.focused.label}
-          </p>
-          <p class="mt-3 text-steel leading-relaxed text-pretty">
-            {engagementShape.focused.description}
-          </p>
-        </div>
-
-        <div class="engagement-arrow font-display text-mineral" aria-hidden="true">→</div>
-
-        <div class="max-w-sm">
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-            {engagementShape.ongoing.label}
-          </p>
-          <p class="mt-3 text-steel leading-relaxed text-pretty">
-            {engagementShape.ongoing.description}
-          </p>
-        </div>
+  {/* THE THINGS WE LOOK AFTER EVERY DAY — reassurance that yes, we do that.
+      Five plain lists, no borders, no cards. */}
+  <section class="bg-band text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <div class="max-w-2xl">
+        <h2 class="font-display text-2xl font-semibold leading-[1.1] text-balance sm:text-3xl">
+          {everyday.heading}
+        </h2>
+        <p class="mt-4 text-base leading-relaxed text-steel text-pretty">
+          {everyday.lede}
+        </p>
       </div>
 
-      <p class="mt-14 max-w-3xl border-t border-line pt-8 font-display text-xl font-medium leading-snug text-ink text-balance sm:text-2xl">
-        {engagementShape.reassurance}
+      <div class="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:mt-16 lg:grid-cols-5">
+        {
+          everyday.groups.map((g) => (
+            <div>
+              <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">{g.label}</h3>
+              <ul class="mt-4 space-y-2.5">
+                {g.items.map((item) => (
+                  <li class="text-base leading-snug text-ink/85">{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* WORKING TOGETHER IS SIMPLE — three plain columns, no arrows, no process
+      diagram; one reassurance line beneath. */}
+  <section class="bg-sand text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <h2 class="font-display text-2xl font-semibold leading-[1.1] text-balance sm:text-3xl">
+        {howWeWork.heading}
+      </h2>
+
+      <div class="mt-14 grid gap-x-12 gap-y-10 sm:grid-cols-3 lg:mt-16">
+        {
+          howWeWork.steps.map((s) => (
+            <div>
+              <h3 class="font-display text-lg font-medium text-ink text-balance">{s.title}</h3>
+              <p class="mt-3 text-base leading-relaxed text-steel text-pretty">{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="mt-14 max-w-2xl text-lg font-medium leading-relaxed text-ink text-pretty lg:mt-16">
+        {howWeWork.footnote}
       </p>
     </div>
   </section>
 
-  {/* FAQ + CLOSE — the page winds down into its conclusion on one surface:
-      a quiet Steel label, the questions, then the confident close and the
-      single action. */}
-  <section class="bg-band border-t border-line">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-28">
-      <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel mb-8">
-        A few common questions
-      </p>
+  {/* FAQ + CLOSING — the FAQ, then the page's strongest beat: the close, left
+      almost exactly as it was. */}
+  <section class="bg-band text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel mb-8">FAQ</p>
       <FAQ items={serviceFaqs} />
 
       <div class="mt-24 max-w-2xl">
-        <h2 class="font-display text-3xl font-semibold leading-[1.05] text-ink text-balance sm:text-4xl lg:text-5xl">
+        <h2 class="font-display text-3xl font-semibold leading-[1.05] text-balance sm:text-4xl lg:text-5xl">
           If it touches your business, we can probably help.
         </h2>
         <p class="mt-6 max-w-xl text-lg leading-relaxed text-steel text-pretty">
@@ -225,20 +167,24 @@ const email = "hello@twny.com.au";
 </BaseLayout>
 
 <style>
-  /* "How this usually starts" — the connecting arrow points across when the
-     two stages sit side by side, and down when they stack on narrow screens. */
-  .engagement-arrow {
-    font-size: 1.5rem;
-    line-height: 1;
-    transform: rotate(90deg);
-    justify-self: start;
-    align-self: center;
+  /* The homepage's fade-edge hairline (matching `.divider-fade` on the
+     homepage) is the only within-section divider — between capability rows. */
+  .cap-row + .cap-row {
+    position: relative;
   }
-  @media (min-width: 640px) {
-    .engagement-arrow {
-      transform: none;
-      align-self: start;
-      margin-top: 0.4rem;
-    }
+  .cap-row + .cap-row::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--line) 80%, transparent) 30%,
+      color-mix(in srgb, var(--line) 80%, transparent) 70%,
+      transparent
+    );
   }
 </style>
