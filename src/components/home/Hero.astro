@@ -39,7 +39,7 @@ const email = "hello@twny.com.au";
   </div>
 
   <div
-    class="relative z-10 mx-auto grid min-h-[100svh] max-w-6xl items-center gap-10 px-5 pb-20 pt-32 sm:px-8 lg:grid-cols-2 lg:gap-12 lg:pb-24"
+    class="relative z-10 mx-auto grid min-h-[100svh] max-w-6xl items-center gap-10 px-5 pb-28 pt-32 sm:px-8 lg:grid-cols-2 lg:gap-12 lg:pb-32"
   >
     {/* left: headline, body, actions */}
     <div class="max-w-[510px]">
@@ -63,13 +63,51 @@ const email = "hello@twny.com.au";
         That's what we're here for — quietly, reliably, in the background.
       </p>
 
-      <div data-animate class="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
+      <div data-animate class="mt-9">
         <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
-        <Button href="#what-we-look-after" variant="mineral" arrow="down">
-          What we look after
-        </Button>
       </div>
     </div>
+  </div>
 
+  {/* centered scroll cue, pinned to the bottom of the hero — label above, a
+      down arrow beneath it. The next section peeks through just below (the
+      hero is < full height). Muted white so it reads as a quiet affordance,
+      leaving Mineral for links and Ember for the action. */}
+  <div
+    class="hero-cue absolute inset-x-0 bottom-7 z-10 flex justify-center sm:bottom-8"
+  >
+    <a
+      href="#what-we-look-after"
+      class="group flex flex-col items-center gap-1.5 text-white/75 transition-colors duration-200 ease-out hover:text-white focus-visible:text-white"
+    >
+      <span class="font-body text-sm font-medium">See what we look after</span>
+      <span
+        aria-hidden="true"
+        class="text-base leading-none transition-transform duration-200 ease-out group-hover:translate-y-0.5 motion-reduce:transition-none"
+        >↓</span
+      >
+    </a>
   </div>
 </section>
+
+<style>
+  /* The scroll cue must never depend on scrolling to appear (unlike the
+     scroll-revealed hero text), so it isn't [data-animate]. When motion is
+     allowed it still fades in once, a beat after the hero settles; with
+     reduced motion / no JS it's simply present. */
+  :global(.anim-ready) .hero-cue {
+    opacity: 0;
+    animation: hero-cue-in 0.7s ease-out 1.4s forwards;
+  }
+  @keyframes hero-cue-in {
+    to {
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.anim-ready) .hero-cue {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>
