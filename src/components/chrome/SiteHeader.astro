@@ -28,7 +28,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
   <div
     class="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between gap-6"
   >
-    <Wordmark class="site-wordmark text-[2.1rem]" />
+    <Wordmark class="site-wordmark text-[2.1rem]" animate={overHero} />
 
     <nav
       aria-label="Primary"
@@ -53,11 +53,8 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
       }
     </nav>
 
-    {/* desktop/tablet CTA — on the hero it starts hidden and reveals once the
-        hero's own primary CTA has scrolled roughly half out of view */}
-    <div
-      class:list={["hidden items-center sm:flex ml-8", overHero && "header-cta"]}
-    >
+    {/* desktop/tablet CTA — always visible and static (no scroll-reveal) */}
+    <div class="hidden items-center sm:flex ml-8">
       <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
     </div>
 
@@ -109,24 +106,10 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 <script>
   const header = document.querySelector(".site-header");
-  const heroEl = document.querySelector<HTMLElement>("[data-hero]");
-  const ctaWrap = document.querySelector(".header-cta");
-
-  let heroHalf = heroEl ? heroEl.offsetHeight / 2 : 0;
-  window.addEventListener(
-    "resize",
-    () => {
-      if (heroEl) heroHalf = heroEl.offsetHeight / 2;
-    },
-    { passive: true }
-  );
 
   function syncScroll() {
     if (header?.classList.contains("site-header--over-hero")) {
       header.classList.toggle("is-scrolled", window.scrollY > 24);
-    }
-    if (ctaWrap) {
-      ctaWrap.classList.toggle("is-revealed", window.scrollY > heroHalf);
     }
   }
   syncScroll();

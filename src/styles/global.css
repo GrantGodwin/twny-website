@@ -170,20 +170,6 @@ html[data-billing="monthly"] .price-annual { display: none; }
   color: #fff;
 }
 
-/* Desktop/tablet header CTA on the hero — hidden until the hero's own primary
-   CTA has scrolled roughly half out of view, then fades and slides in. */
-.header-cta {
-  opacity: 0;
-  transform: translateY(8px);
-  pointer-events: none;
-  transition: opacity 240ms ease-out, transform 240ms ease-out;
-}
-.header-cta.is-revealed {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
 /* Mobile menu toggle — a restrained three-line mark that morphs to a close
    mark; colour follows .site-menu-toggle via currentColor. */
 .menu-icon {
@@ -226,9 +212,49 @@ html[data-billing="monthly"] .price-annual { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .site-header,
-  .header-cta,
   .menu-icon span,
   .anim-ready [data-animate] {
     transition: none;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Wordmark entrance — homepage hero only (the over-hero header passes
+   `animate`, which splits "twny" into .wm-letter spans). Each letter
+   materialises into focus one at a time, left to right — a restrained zoom
+   (0.8 → 1) paired with a blur→sharp resolve and fade, on a long easeOutExpo
+   tail ("fast in, slow settle") so each letter appears to settle into place
+   rather than arrive. Plays on every fresh homepage load. Gated behind
+   `.anim-ready` (set only when motion is allowed) so reduced-motion / no-JS
+   users get the full static wordmark immediately.
+--------------------------------------------------------------------------- */
+@keyframes wordmark-letter-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+.site-wordmark .wm-letter {
+  display: inline-block; /* transform doesn't apply to inline boxes */
+  transform-origin: center;
+  will-change: transform, filter, opacity;
+}
+.anim-ready .site-wordmark .wm-letter {
+  opacity: 0;
+  /* Deliberate ≈ 3s entrance: 250ms lead + last letter (×3) at 450ms stagger
+     starts at 1600ms and settles after its 1.4s resolve → 3000ms. */
+  animation: wordmark-letter-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(250ms + var(--wm-i) * 450ms);
+}
+
+/* Let the wordmark lead: hold the hero's own reveals a beat so the name
+   finishes assembling just as the headline/body/CTA rise in behind it. */
+.anim-ready [data-hero] [data-animate] {
+  transition-delay: 0.5s;
 }

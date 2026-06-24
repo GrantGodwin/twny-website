@@ -1,9 +1,15 @@
 ---
 // Wordmark-only identity. No badge, monogram, or favicon device.
+//
+// `animate` opts the wordmark into the homepage-hero entrance: each letter
+// resolves into focus in reading order (see global.css). Only the over-hero
+// header passes it, so the footer / inner-page headers render plain static text.
 interface Props {
   class?: string;
+  animate?: boolean;
 }
-const { class: className = "" } = Astro.props;
+const { class: className = "", animate = false } = Astro.props;
+const letters = "twny".split("");
 ---
 
 <a
@@ -11,5 +17,13 @@ const { class: className = "" } = Astro.props;
   class={`font-display italic font-semibold lowercase tracking-normal text-ink hover:text-mineral transition-colors duration-200 ease-out ${className}`}
   aria-label="twny — home"
 >
-  twny
+  {
+    animate
+      ? letters.map((ch, i) => (
+          <span class="wm-letter" style={`--wm-i:${i}`} aria-hidden="true">
+            {ch}
+          </span>
+        ))
+      : "twny"
+  }
 </a>
