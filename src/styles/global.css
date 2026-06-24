@@ -243,13 +243,22 @@ html[data-billing="monthly"] .price-annual { display: none; }
 .site-wordmark .wm-letter {
   display: inline-block; /* transform doesn't apply to inline boxes */
   transform-origin: center;
-  will-change: transform, filter, opacity;
+  /* Padding gives each letter's filter/compositing region room for the italic
+     ink overhang and the 'y' descender; the matching negative margins keep the
+     visual spacing and baseline identical. Without this, a GPU-composited
+     build clips the slanted ink — it shows in production, not local dev. */
+  padding: 0 0.12em 0.22em;
+  margin: 0 -0.12em -0.22em;
 }
 .anim-ready .site-wordmark .wm-letter {
-  opacity: 0;
-  /* Deliberate ≈ 3s entrance: 250ms lead + last letter (×3) at 450ms stagger
+  /* `backwards` shows the hidden/blurred from-state during the stagger delay,
+     then each letter reverts to its natural resting style — so nothing leaves
+     a persistent blur() filter or composited layer at rest (no clipped ink),
+     and there's no `will-change: filter` for iOS Safari to choke on, so the
+     entrance plays on mobile too.
+     Deliberate ≈ 3s entrance: 250ms lead + last letter (×3) at 450ms stagger
      starts at 1600ms and settles after its 1.4s resolve → 3000ms. */
-  animation: wordmark-letter-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: wordmark-letter-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   animation-delay: calc(250ms + var(--wm-i) * 450ms);
 }
 
