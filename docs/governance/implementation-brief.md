@@ -14,10 +14,24 @@ not a competing brief.
 
 ## 1. What TWNY is
 
-TWNY is a **boutique Australian technology practice**. It runs the operating layer a modern
-small business depends on — **Microsoft 365, websites, domains, backup, AI and automation** —
-as **one connected operation**, looked after as a single whole with one source of truth and
-clean ownership the customer can always take with them.
+TWNY is a **small Australian technology consultancy and managed technology business** — a
+**technology partner**, not a provider category. It does two distinct but complementary
+things, and the site must establish both:
+
+- **Managed Technology** — ongoing responsibility for the technology environment a business
+  depends on (Microsoft 365, devices, identity and access, security, backup, suppliers,
+  websites and domains where relevant, and the decisions that come with them). Service
+  levels **Core / Business / Strategic** describe increasing responsibility; a lighter
+  **Technology Essentials** offer exists for very small environments but is deliberately not
+  given equal prominence in the public architecture.
+- **Professional Services** — defined project, advisory and specialist work: consulting and
+  advice, research and analysis, Microsoft 365 and workplace projects, AI and automation,
+  digital strategy and presence, remediation and transition.
+
+The customer never has to understand the internal taxonomy, and never has to choose a lane
+before getting in touch. Sometimes TWNY looks after the environment; sometimes it solves one
+difficult problem; often the relationship is both. The site should feel like **one coherent
+business**.
 
 - **Audience:** one person — the owner/operator or office manager of an Australian small
   business (~1–25 seats). Non-technical but competent, time-poor, the decision-maker and
@@ -25,9 +39,15 @@ clean ownership the customer can always take with them.
 - **What we sell:** the problem going away — technology handled, reliably, by someone
   accountable. Lead with the need, not the surface (a mailbox → *someone to call who already
   knows your setup*; backup → *recovery is the product, not storage*).
-- **What TWNY is not** — and the site should quietly make clear: not a commodity reseller
-  competing on licence cost; not "unlimited support"; not residential/break-fix/home-IT;
-  not for large legacy on-prem estates. Turning the wrong visitor away is a feature.
+- **What TWNY is not** — and the site should quietly make clear: not a conventional MSP; not
+  an outsourced helpdesk; not a software/licence reseller; not a cybersecurity company; not
+  a generic IT support provider; not a broad corporate consultancy; not an AI consultancy;
+  not a startup. Also not "unlimited support", not residential/break-fix/home-IT, and not
+  for large legacy on-prem estates. Turning the wrong visitor away is a feature.
+- **Not a one-person dependency.** TWNY is small, hands-on, accountable and relationship-led
+  — *people who know your business*, "one accountable technology partner", "one place to
+  call". Never "one person", "one operator", or language implying a single point of failure.
+  Do not overcorrect into sounding like a large team either.
 
 ## 2. What must never change
 
@@ -42,8 +62,14 @@ These are fixed across all build tasks unless a future prompt **explicitly** ove
 - **Ink-first / dark-first.** One continuous dark environment. **No white or Paper sections**
   unless a future prompt explicitly requests one. No light "relief" theme, no theme toggle.
 - **Colour roles** (section 4) and **wordmark-only identity** are fixed.
+- **No pricing on the public website — locked.** No prices, "from" prices, tier prices,
+  hourly rates, price tables, pricing page or pricing CTA, anywhere. The commercial model
+  may be explained *structurally*; the numbers are handled in conversation and in a
+  proposal. Never infer a public price from internal pricing material.
 - **No fabricated proof** — no invented testimonials, client names, certifications,
-  experience figures, or fake metrics. Honesty is the brand.
+  experience figures, or fake metrics. Honesty is the brand. Client work is described in
+  safe capability themes, in the present tense where the work is ongoing, with no quotes,
+  named individuals, metrics, logos or stand-in photography.
 - **Accessibility is non-negotiable** — WCAG 2.1 AA (section 7).
 - **The page H1 is page-specific** — a confident, category-clear sentence that answers "what
   is this page about?" Never the brand statement, never a tagline.
@@ -56,7 +82,7 @@ Every public sentence has one job. Keep these layers distinct:
 | --- | --- | --- |
 | **Wordmark** | `twny` | Masthead, footer, legal. Identity only. |
 | **Canonical brand statement** | *Simplifying the technology behind your business.* | Off-page, metadata. Never an H1. |
-| **Service descriptor** | *Microsoft 365, websites, domains, backup, AI and automation — looked after by one accountable operator.* | Supporting line under an H1, footer, metadata. |
+| **Service descriptor** | *Ongoing technology management, specialist projects and practical advice for Australian businesses.* | Supporting line under an H1, footer, metadata. |
 | **Page H1** | Page-specific, category-clear | Top of each page. Owns its own sentence. |
 | **Internal philosophy** *(never public)* | *Technology is the medium. Simplicity is the outcome. Competence is how.* | Governance only. The site *demonstrates* simplicity; it never prints this. |
 | **Primary CTA** | *Tell us what you need.* | The standard low-pressure next step. |
@@ -138,17 +164,16 @@ The guardrails that keep TWNY from drifting into the generic average of the web:
 ## 7. Build rules
 
 - **`npm run build` must pass** before any change is considered done. Astro static build,
-  three pages (`/`, `/services`, `/contact`). The site is dark-only
-  (`.dark` set statically on `<html>`).
+  three pages only (`/`, `/services`, `/contact`) — no additional top-level pages without
+  an explicit decision. The site is dark-only (`.dark` set statically on `<html>`).
 - **Accessibility (AA, non-negotiable):** semantic structure and landmarks, one `<h1>` and
   correct heading order, a skip link, full keyboard operability with a visible focus state,
   AA text contrast over imagery and across all Ink surfaces (scrims exist for this), honoured
   `prefers-reduced-motion`. The site must be fully usable, and still feel premium, with motion
   off — motion never carries quality.
-- **Pricing, if touched:** transparent, AUD, ex-GST, two recurring modes only (Annual
-  Commitment — prepaid, two months free; Monthly Flex — no lock-in). Beautifully clear.
-  Any unconfirmed figure is **visibly flagged draft**; never ship a number we won't hold;
-  never show reseller numbers, margins, or cost bases.
+- **Pricing: none, ever.** There is no pricing page, pricing section, price table, rate,
+  tier price or "from" figure on the public site (§2). If a task seems to need one, it
+  doesn't — explain the model structurally instead and leave the numbers to the proposal.
 - **Never invent content,** even as a placeholder. Flag drafts and unverified figures.
 - **Touch only what the task needs.** When unsure, stop and ask, or re-read this brief —
   don't guess and ship.

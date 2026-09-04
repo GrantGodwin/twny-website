@@ -1,4 +1,8 @@
 // Homepage content. Public-only language — plain, customer-subject, no slogans.
+//
+// NO PRICING. Prices, rates, tiers and "from" figures never appear on the public
+// site — TWNY's commercial model is explained structurally and priced in
+// conversation. Do not reintroduce pricing data here or anywhere in src/.
 
 // "What we look after" — four capability columns, icon + heading + body.
 export interface Capability {
@@ -25,8 +29,39 @@ export const capabilities: Capability[] = [
   },
   {
     icon: "automation",
-    heading: "Save time.",
-    body: "Practical AI and automation that take repetitive work off your plate, simplify everyday tasks and help things run more efficiently — without the hype.",
+    heading: "Work smarter.",
+    body: "Practical automation and AI applied where it genuinely helps — less repetitive admin, fewer manual steps, and better use of the tools you already have.",
+  },
+];
+
+// "Two ways we work" — the homepage's structural correction. TWNY is one
+// business that does two complementary things: it takes ongoing responsibility
+// for a technology environment, and it solves defined problems as project or
+// advisory work. Neither is a sub-brand and the customer never has to pick a
+// lane before getting in touch. Prose only — the capability grid below already
+// carries the "what", so this section must not become a second feature list.
+export interface Engagement {
+  /** Small mono label — the engagement shape, not a product name. */
+  label: string;
+  name: string;
+  /** One sentence, used in the Services hero rows. */
+  line: string;
+  /** The homepage paragraph. */
+  body: string;
+}
+
+export const engagements: Engagement[] = [
+  {
+    label: "Ongoing",
+    name: "Managed Technology",
+    line: "We take ongoing responsibility for the technology your business depends on.",
+    body: "We take on the technology your business depends on and keep it working — Microsoft 365, devices, identity and access, security, backup, suppliers and the decisions that come with them. One place to call, and people who already know how your business is put together.",
+  },
+  {
+    label: "Project-based",
+    name: "Professional Services",
+    line: "We take on defined projects, advisory work and the harder problems.",
+    body: "When there's a specific problem, project or decision, we take that on as a defined piece of work — advice and research, Microsoft 365 and workplace projects, automation, digital presence, or untangling something that has grown messy. You don't need an ongoing arrangement with us to bring us one.",
   },
 ];
 
@@ -65,10 +100,63 @@ export const philosophy: PhilosophyPoint[] = [
   },
 ];
 
+// "A sense of the work" — factual capability evidence, replacing the scaffold
+// client-stories feature. STRICT RULES: named engagements only where naming is
+// approved, described in safe capability themes, written in the present tense
+// where work is ongoing. NO quotes, NO named individuals, NO metrics, NO logos,
+// NO photography standing in for a client's premises. If a line here cannot be
+// stood behind, delete it rather than soften it.
+export interface WorkExample {
+  client: string;
+  /** Which of the two engagement shapes this sits in. */
+  category: "Managed Technology" | "Professional Services";
+  summary: string;
+  tags: string[];
+}
+
+export const work: WorkExample[] = [
+  {
+    client: "Concrete Sales",
+    category: "Managed Technology",
+    summary:
+      "Consolidating a long-standing environment onto managed Microsoft 365 and modern device management, and moving the business off its last on-premises server.",
+    tags: ["Microsoft 365", "Devices", "Infrastructure modernisation"],
+  },
+  {
+    client: "Baza Capital",
+    category: "Managed Technology",
+    summary:
+      "Remediating SharePoint retention and storage inside a complex Microsoft 365 tenant, including escalation with Microsoft, alongside backup and continuity advice.",
+    tags: ["Microsoft 365", "SharePoint", "Backup and continuity"],
+  },
+  {
+    client: "Stiles Advisory",
+    category: "Professional Services",
+    summary:
+      "Commissioned market research and structured analysis, delivered as an evidence-led report written to be decided from rather than read.",
+    tags: ["Research and analysis", "Advisory"],
+  },
+  {
+    client: "Deller Constructions",
+    category: "Professional Services",
+    summary:
+      "Rebuilding the website and sharpening how the business presents itself online, replacing a dated digital presence.",
+    tags: ["Digital presence", "Website"],
+  },
+];
+
 // "Helping businesses like yours" — a living editorial feature, not a carousel.
 // One client story is featured at a time (the emotional anchor), while the full
 // roster of businesses stays visible and selectable (the recognition anchor).
 // The featured story auto-advances and can be driven from the roster.
+//
+// ⚠ RETIRED — NOT RENDERED ANYWHERE. This scaffold is superseded by `work`
+// above and by the "A sense of the work" homepage section. It is kept only so
+// the ClientStories component (also unrendered) still type-checks for a future
+// pass. It contains INVENTED PERSON NAMES and INVENTED QUOTES and images that
+// are not the clients' premises. DO NOT RENDER ANY OF IT. Before this data or
+// that component ever ships, every quote must be genuinely attributed and every
+// image replaced with approved client photography.
 //
 // SCAFFOLD CONTENT. The copy below is placeholder/approved-for-scaffold and the
 // `image` paths point at existing local files reused only as stand-ins — they

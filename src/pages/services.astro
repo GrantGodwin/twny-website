@@ -2,25 +2,35 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import FAQ from "../components/blocks/FAQ.astro";
-import CapabilityIcon from "../components/home/CapabilityIcon.astro";
-import { serviceCapabilities, everyday, howWeWork, serviceFaqs } from "../data/services";
+import {
+  engagementRows,
+  managed,
+  professional,
+  howWeWork,
+  serviceFaqs,
+} from "../data/services";
 
-// The homepage's second chapter. Same design system: tonal surface steps as
-// the only section transition (no section borders, like the homepage), the
-// homepage's fade-edge hairline as the only within-section divider, matched
-// eyebrow/heading typography, and the three-role palette — white for
-// statements, Mineral for icons / capability names / labels, Ember for the
-// single action. Surfaces step like the homepage's rooms.
+// The homepage's second chapter, restructured around the two ways TWNY works:
+// Managed Technology (ongoing responsibility) and Professional Services
+// (defined project and advisory work). Same design system as the homepage:
+// tonal surface steps as the only section transition, the fade-edge hairline as
+// the only within-section divider, matched eyebrow/heading typography, and the
+// three-role palette — Ink for statements, Mineral for labels and links, Ember
+// for the single action.
+//
+// NO PRICING on this page or anywhere on the public site. Core / Business /
+// Strategic are described as increasing levels of responsibility, never as
+// price cards and never as a comparison matrix.
 const email = "hello@twny.com.au";
 ---
 
 <BaseLayout
-  title="Services — TWNY"
-  description="Email, websites, security and everything in between — the everyday technology behind your business, looked after by one person who already knows your setup."
+  title="Services — Managed Technology and Professional Services | TWNY"
+  description="Two ways to work with us: ongoing responsibility for the technology your business runs on, and defined project, advisory and specialist work when there's a harder problem to solve."
 >
-  {/* HERO — the statement and the single action on the left; four calm rows
-      on the right (icon + title + one sentence) so a visitor recognises
-      their business without reading a paragraph. */}
+  {/* HERO — the statement and the single action on the left; the two
+      engagement shapes on the right as two calm rows, so the page's whole
+      structure is legible before a word of detail. */}
   <section class="bg-sand text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-24 lg:py-28">
       <div class="grid gap-14 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-20">
@@ -29,28 +39,30 @@ const email = "hello@twny.com.au";
             Services
           </p>
           <h1 class="font-display text-4xl font-semibold leading-[1.05] text-balance sm:text-5xl lg:text-[3.5rem]">
-            The technology your business runs on.
+            One technology partner, two ways to work.
           </h1>
           <p class="mt-6 max-w-md text-lg leading-relaxed text-steel text-pretty">
-            Email, websites, security and everything in between — looked after
-            by one person who already knows your business.
+            We take ongoing responsibility for the technology your business runs
+            on — and we take on the harder, one-off problems in between.
           </p>
           <div class="mt-9">
             <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
           </div>
         </div>
 
-        <div class="space-y-8 lg:space-y-9">
+        <div class="engagement-rows">
           {
-            serviceCapabilities.map((c) => (
-              <div class="flex gap-4">
-                <CapabilityIcon name={c.icon} class="mt-1 h-6 w-6 shrink-0 text-mineral" />
-                <div>
-                  <p class="font-display text-lg font-medium text-mineral">{c.title}</p>
-                  <p class="mt-1 text-[0.95rem] leading-relaxed text-ink/70 text-pretty">
-                    {c.heroLine}
-                  </p>
-                </div>
+            engagementRows.map((e) => (
+              <div class="engagement-row py-7 first:pt-0 last:pb-0">
+                <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">
+                  {e.label}
+                </p>
+                <p class="mt-3 font-display text-xl font-medium text-mineral">
+                  {e.name}
+                </p>
+                <p class="mt-2 text-[0.95rem] leading-relaxed text-ink/70 text-pretty">
+                  {e.line}
+                </p>
               </div>
             ))
           }
@@ -59,62 +71,111 @@ const email = "hello@twny.com.au";
     </div>
   </section>
 
-  {/* WHAT WE LOOK AFTER — the homepage's section treatment (eyebrow, then
-      content). Four identical editorial rows: icon, outcome headline, one
-      paragraph, one reassurance. Separated only by the homepage's fade-edge
-      hairline. Nothing else. */}
-  <section class="bg-paper text-ink">
+  {/* MANAGED TECHNOLOGY — the ongoing relationship. The customer-level story
+      first, then what we actually take on, then the levels of responsibility.
+      No pricing, no comparison matrix, no self-configuration. */}
+  <section id="managed-technology" class="bg-paper text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
-      <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-        What we look after
-      </p>
+      <div class="max-w-2xl">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+          {managed.eyebrow}
+        </p>
+        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+          {managed.heading}
+        </h2>
+        <div class="mt-6 space-y-5 text-base leading-relaxed text-steel text-pretty sm:text-lg">
+          {managed.body.map((para) => <p>{para}</p>)}
+        </div>
+      </div>
 
-      <div class="mt-12 lg:mt-16">
-        {
-          serviceCapabilities.map((c) => (
-            <div class="cap-row max-w-2xl py-12 first:pt-0 last:pb-0 lg:py-14">
-              <CapabilityIcon name={c.icon} class="h-9 w-9 text-mineral" />
-              <h2 class="mt-5 font-display text-2xl font-semibold leading-[1.12] text-balance sm:text-3xl">
-                {c.headline}
-              </h2>
-              <p class="mt-4 text-base leading-relaxed text-steel text-pretty sm:text-lg">
-                {c.body}
-              </p>
-              <p class="mt-5 text-base font-medium text-ink text-pretty">{c.reassurance}</p>
-            </div>
-          ))
-        }
+      {/* what we take on — label + one line, in customer language */}
+      <div class="divider-rule mt-16 pt-12 lg:mt-20 lg:pt-14">
+        <h3 class="font-display text-xl font-medium text-ink">
+          {managed.areasHeading}
+        </h3>
+        <div class="mt-10 grid gap-x-12 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            managed.areas.map((a) => (
+              <div>
+                <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+                  {a.label}
+                </p>
+                <p class="mt-3 text-[0.9375rem] leading-relaxed text-steel text-pretty">
+                  {a.line}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      {/* levels of responsibility — described, never priced or compared */}
+      <div class="divider-rule mt-16 pt-12 lg:mt-20 lg:pt-14">
+        <div class="max-w-2xl">
+          <h3 class="font-display text-xl font-medium text-ink text-balance">
+            {managed.levelsHeading}
+          </h3>
+          <p class="mt-4 text-base leading-relaxed text-steel text-pretty">
+            {managed.levelsLede}
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-3">
+          {
+            managed.levels.map((level) => (
+              <div>
+                <p class="font-display text-lg font-semibold text-ink">
+                  {level.name}
+                </p>
+                <p class="mt-3 text-[0.9375rem] leading-relaxed text-steel text-pretty">
+                  {level.body}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+
+        <p class="mt-14 max-w-2xl text-base leading-relaxed text-ink text-pretty">
+          {managed.ownership}
+        </p>
       </div>
     </div>
   </section>
 
-  {/* THE THINGS WE LOOK AFTER EVERY DAY — reassurance that yes, we do that.
-      Five plain lists, no borders, no cards. */}
-  <section class="bg-band text-ink">
+  {/* PROFESSIONAL SERVICES — defined work, grouped into a small number of
+      understandable customer problems rather than an internal catalogue. */}
+  <section id="professional-services" class="bg-band text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
       <div class="max-w-2xl">
-        <h2 class="font-display text-2xl font-semibold leading-[1.1] text-balance sm:text-3xl">
-          {everyday.heading}
-        </h2>
-        <p class="mt-4 text-base leading-relaxed text-steel text-pretty">
-          {everyday.lede}
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+          {professional.eyebrow}
         </p>
+        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+          {professional.heading}
+        </h2>
+        <div class="mt-6 space-y-5 text-base leading-relaxed text-steel text-pretty sm:text-lg">
+          {professional.body.map((para) => <p>{para}</p>)}
+        </div>
       </div>
 
-      <div class="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:mt-16 lg:grid-cols-5">
+      <div class="mt-14 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
         {
-          everyday.groups.map((g) => (
+          professional.groups.map((g) => (
             <div>
-              <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">{g.label}</h3>
-              <ul class="mt-4 space-y-2.5">
-                {g.items.map((item) => (
-                  <li class="text-base leading-snug text-ink/85">{item}</li>
-                ))}
-              </ul>
+              <h3 class="font-display text-lg font-medium text-ink text-balance">
+                {g.title}
+              </h3>
+              <p class="mt-3 text-[0.9375rem] leading-relaxed text-steel text-pretty">
+                {g.body}
+              </p>
             </div>
           ))
         }
       </div>
+
+      <p class="mt-16 max-w-2xl text-base font-medium leading-relaxed text-ink text-pretty sm:text-lg lg:mt-20">
+        {professional.bridge}
+      </p>
     </div>
   </section>
 
@@ -143,8 +204,7 @@ const email = "hello@twny.com.au";
     </div>
   </section>
 
-  {/* FAQ + CLOSING — the FAQ, then the page's strongest beat: the close, left
-      almost exactly as it was. */}
+  {/* FAQ + CLOSING — the FAQ, then the page's strongest beat: the close. */}
   <section class="bg-band text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
       <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel mb-8">FAQ</p>
@@ -167,12 +227,15 @@ const email = "hello@twny.com.au";
 </BaseLayout>
 
 <style>
-  /* The homepage's fade-edge hairline (matching `.divider-fade` on the
-     homepage) is the only within-section divider — between capability rows. */
-  .cap-row + .cap-row {
+  /* The homepage's fade-edge hairline is the only within-section divider —
+     between the two engagement rows in the hero, and between the three
+     movements of the Managed Technology section. */
+  .engagement-row + .engagement-row,
+  .divider-rule {
     position: relative;
   }
-  .cap-row + .cap-row::before {
+  .engagement-row + .engagement-row::before,
+  .divider-rule::before {
     content: "";
     position: absolute;
     top: 0;
