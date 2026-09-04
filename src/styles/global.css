@@ -80,14 +80,6 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Annual / Monthly Flex toggle.
-   <html data-billing="annual|monthly"> controls which price face shows.
-   Price components render both faces; CSS reveals one.
---------------------------------------------------------------------------- */
-html[data-billing="annual"] .price-monthly { display: none; }
-html[data-billing="monthly"] .price-annual { display: none; }
-
-/* ---------------------------------------------------------------------------
    Hero readability scrims — applied over the full-bleed hero photo, behind
    the text content. Both are deliberately soft and resolve well clear of the
    lighthouse/beam on the right.

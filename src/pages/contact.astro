@@ -3,65 +3,77 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Section from "../components/ui/Section.astro";
 import Button from "../components/ui/Button.astro";
 
-// Placeholder contact — no form backend in the prototype. A real form and
-// the guided /recommend flow come later.
+// Low-friction contact. Email is the working contact path, so it leads — and
+// the address is also shown as selectable text, because a `mailto:` link fails
+// silently on managed devices and webmail-only setups.
+//
+// There is no form here: no form backend or recipient configuration exists in
+// this deployment, and inventing one (an endpoint, a key, a third-party
+// service) would ship something that quietly loses enquiries. Adding a real
+// form is tracked as follow-up work, not faked here.
 const email = "hello@twny.com.au";
 ---
 
 <BaseLayout
   title="Contact — tell us what you need | TWNY"
-  description="Tell us what you need and we'll recommend a starting point. A short conversation, then a clear recommendation."
+  description="Tell us what's happening in your business and we'll tell you what we'd do about it. You don't need to know which service you need before getting in touch."
 >
   <section class="bg-sand">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-24">
       <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-3">
         Contact
       </p>
-      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink max-w-2xl text-balance">
+      <h1
+        class="font-display text-3xl sm:text-4xl font-semibold text-ink max-w-2xl text-balance"
+      >
         Tell us what you need.
       </h1>
       <p class="mt-4 text-lg text-steel leading-relaxed max-w-2xl text-pretty">
-        A short conversation, then a clear recommendation — and we'll say so if
-        you need less than you think. No sales funnel, no pressure.
+        You don't need to know which service you need, or have it all worked out
+        first. Tell us what's happening in your business and we'll tell you
+        plainly what we'd do about it — including if that's less than you
+        expected.
       </p>
 
-      <div class="mt-9">
-        <Button href={`mailto:${email}`} variant="ember">
-          Email {email}
-        </Button>
-      </div>
-
-      <div class="mt-10 max-w-2xl bg-band border border-line rounded-sm p-5">
-        <p class="font-mono text-xs text-steel leading-relaxed">
-          ▲ Prototype placeholder. The contact form and the guided
-          recommendation flow are not built in this prototype — this page exists
-          to anchor the primary CTA. We reply within one business day.
+      <div class="mt-9 flex flex-col items-start gap-5">
+        <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
+        <p class="text-sm text-steel">
+          Or email us directly at{" "}
+          <a
+            href={`mailto:${email}`}
+            class="font-medium text-mineral transition-colors hover:text-mineral-strong"
+            >{email}</a
+          >.
         </p>
       </div>
     </div>
   </section>
 
-  <Section surface="paper" eyebrow="What happens next" heading="How a first conversation goes.">
+  <Section
+    surface="paper"
+    eyebrow="What happens next"
+    heading="How a first conversation goes."
+  >
     <ol class="border-t border-line max-w-2xl">
       <li class="grid grid-cols-[auto_1fr] gap-4 py-5 border-b border-line">
         <span class="font-mono text-mineral">01</span>
         <span class="text-steel leading-relaxed">
-          You tell us roughly where you're at — team size, what's working, what
-          isn't.
+          You tell us roughly where you're at — the size of the team, what's
+          working, and what isn't.
         </span>
       </li>
       <li class="grid grid-cols-[auto_1fr] gap-4 py-5 border-b border-line">
         <span class="font-mono text-mineral">02</span>
         <span class="text-steel leading-relaxed">
-          We recommend a starting point and a fixed price, with the scope
-          written down.
+          We recommend a starting point — ongoing support, a defined project, or
+          sometimes just advice — with the scope written down.
         </span>
       </li>
       <li class="grid grid-cols-[auto_1fr] gap-4 py-5 border-b border-line">
         <span class="font-mono text-mineral">03</span>
         <span class="text-steel leading-relaxed">
-          If it's a fit, we get you onboarded. If it isn't, we'll tell you that
-          too.
+          If it's a fit, we get started. If it isn't, we'll tell you that too,
+          and point you somewhere better.
         </span>
       </li>
     </ol>

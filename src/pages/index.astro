@@ -2,26 +2,73 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/home/Hero.astro";
 import CapabilityIcon from "../components/home/CapabilityIcon.astro";
-import ClientStories from "../components/home/ClientStories.astro";
 import Button from "../components/ui/Button.astro";
-import { capabilities, philosophy, rotatingTerms } from "../data/offer";
+import { capabilities, engagements, philosophy, rotatingTerms, work } from "../data/offer";
 
 const email = "hello@twny.com.au";
 ---
 
 <BaseLayout
   title="twny — Simplifying the technology behind your business"
-  description="A boutique Australian technology practice. We look after the Microsoft 365, websites, domains, backup and automation behind your business — one accountable operator, fewer moving parts, and clean ownership you keep."
+  description="An Australian technology partner. We take ongoing responsibility for the technology your business runs on, and take on the specialist projects and advice in between — one place to call, and clean ownership you keep."
   heroHeader={true}
 >
   {/* HERO */}
   <Hero />
 
+  {/* TWO WAYS WE WORK — the homepage's structural correction, placed at the
+      first narrative transition out of the hero. TWNY is one business that
+      takes ongoing responsibility for an environment AND solves defined
+      problems; a visitor has to understand both before the capability grid
+      below narrows to the everyday. Prose only, two columns, one hairline —
+      deliberately not a second feature list, not cards, not a diagram. On
+      bg-paper: a lifted step out of the hero's Ink, and tonally distinct from
+      the bg-sand section beneath it. */}
+  <section id="how-we-work" class="bg-paper text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <div data-animate class="max-w-2xl">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+          How we work
+        </p>
+        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+          Two ways to work with us.
+        </h2>
+        <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+          Sometimes we look after the whole environment. Sometimes it's one
+          difficult problem that needs solving properly. Often it's both — and
+          you don't need to work out which before getting in touch.
+        </p>
+      </div>
+
+      <div
+        data-animate
+        class="engagement-pair mt-14 grid gap-x-16 gap-y-12 sm:grid-cols-2 lg:mt-16"
+      >
+        {
+          engagements.map((e) => (
+            <div class="engagement-item">
+              <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">
+                {e.label}
+              </p>
+              <h3 class="mt-4 font-display text-xl font-semibold leading-snug text-ink lg:text-2xl">
+                {e.name}
+              </h3>
+              <p class="mt-4 max-w-[30rem] text-[0.9375rem] leading-relaxed text-steel text-pretty">
+                {e.body}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
   {/* WHAT WE LOOK AFTER — full-width editorial header, then four wide
-      capability panels. Flat bg-paper, distinct from Why TWNY's bg-band
-      directly below — the tonal step makes the section break obvious on its
-      own, without a gradient. */}
-  <section id="what-we-look-after" class="bg-paper text-ink">
+      capability panels. Flat bg-sand: "Two ways we work" above now holds
+      bg-paper, so this steps back down to the base canvas and remains
+      tonally distinct from BOTH its neighbours (paper above, Why TWNY's
+      bg-band below) without a gradient. */}
+  <section id="what-we-look-after" class="bg-sand text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
       <div data-animate class="max-w-2xl">
         <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
@@ -156,16 +203,58 @@ const email = "hello@twny.com.au";
     </div>
   </section>
 
-  {/* HELPING BUSINESSES LIKE YOURS — the former "Social proof" item, now a
-      living, image-led editorial feature (client proof / business stories): one
-      featured story at a time with a persistent, selectable roster of all the
-      businesses. Self-contained in the ClientStories component (markup, styles,
-      rotation script). Flat bg-sand — the same Ink surface as Hero — a
-      deliberate visual dip between the editorial band above (What we look
-      after / Why TWNY) and the editorial band below (the closing section). No
-      gradient into the section above or below; the image card itself carries
-      the visual energy. */}
-  <ClientStories />
+  {/* A SENSE OF THE WORK — replaces the scaffold client-stories feature, which
+      depended on invented quotes, invented person names and stand-in imagery
+      that was never the clients' premises. This is capability evidence rather
+      than testimonial: named engagements, safe themes, present tense where the
+      work is ongoing. No quotes, no individuals, no metrics, no logos, no
+      photography. Typography and one hairline carry it — the same restraint as
+      Why TWNY. Flat bg-sand: the visual dip between the two bg-band editorial
+      sections either side. */}
+  <section id="selected-work" class="bg-sand text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <div data-animate class="max-w-2xl">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+          A sense of the work
+        </p>
+        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+          Both halves, in practice.
+        </h2>
+        <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+          Real engagements, described plainly. We don't publish quotes or
+          numbers we can't stand behind.
+        </p>
+      </div>
+
+      <div
+        data-animate
+        class="work-grid mt-14 grid gap-x-16 gap-y-12 sm:grid-cols-2 lg:mt-16"
+      >
+        {
+          work.map((item) => (
+            <div class="work-item">
+              <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">
+                {item.category}
+              </p>
+              <h3 class="mt-4 font-display text-xl font-semibold leading-snug text-ink text-balance">
+                {item.client}
+              </h3>
+              <p class="mt-4 max-w-[30rem] text-[0.9375rem] leading-relaxed text-steel text-pretty">
+                {item.summary}
+              </p>
+              <ul class="mt-5 flex flex-wrap gap-x-5 gap-y-1.5">
+                {item.tags.map((tag) => (
+                  <li class="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-mineral">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
   {/* CLOSING SECTION — "the handshake". Replaces BOTH the old standalone
       Pricing section and the old conversion CTA band. Not a feature, pricing,
@@ -211,6 +300,70 @@ const email = "hello@twny.com.au";
 </BaseLayout>
 
 <style>
+  /* Two-up editorial grids ("Two ways we work", "A sense of the work"). Same
+     hairline language as the capability columns below — a quiet fade-edge rule
+     between items, never a boxed card. Vertical between columns, horizontal
+     between stacked rows. */
+  .engagement-pair,
+  .work-grid {
+    align-items: start;
+  }
+  .engagement-item,
+  .work-item {
+    position: relative;
+  }
+  @media (min-width: 640px) {
+    .engagement-pair > .engagement-item:nth-child(2n)::before,
+    .work-grid > .work-item:nth-child(2n)::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -2rem;
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        color-mix(in srgb, var(--line) 60%, transparent) 18%,
+        color-mix(in srgb, var(--line) 60%, transparent) 82%,
+        transparent
+      );
+    }
+    .work-grid > .work-item:nth-child(n + 3)::after {
+      content: "";
+      position: absolute;
+      top: -3rem;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        color-mix(in srgb, var(--line) 48%, transparent) 30%,
+        color-mix(in srgb, var(--line) 48%, transparent) 70%,
+        transparent
+      );
+    }
+  }
+  @media (max-width: 639px) {
+    .engagement-item + .engagement-item::before,
+    .work-item + .work-item::before {
+      content: "";
+      position: absolute;
+      top: -1.5rem;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        color-mix(in srgb, var(--line) 48%, transparent) 30%,
+        color-mix(in srgb, var(--line) 48%, transparent) 70%,
+        transparent
+      );
+    }
+  }
+
   /* "What we look after" capability columns — quiet separators between
      columns (vertical) and rows (horizontal) as the grid wraps, without
      boxed cards. align-items: start keeps each item's own content height,
