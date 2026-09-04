@@ -130,7 +130,7 @@ export const work: WorkExample[] = [
     tags: ["Microsoft 365", "SharePoint", "Backup and continuity"],
   },
   {
-    client: "Stiles Advisory / Brix Property Group",
+    client: "Stiles Advisory",
     category: "Professional Services",
     summary:
       "Commissioned market research and structured analysis, delivered as an evidence-led report written to be decided from rather than read.",
