@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { mailto } from "../data/site";
+
+// Branded 404, replacing Vercel's raw NOT_FOUND infrastructure page.
+//
+// Astro emits this as dist/404.html and Vercel serves it, with a real 404
+// status, for any path that matches neither a redirect nor a built page. It is
+// deliberately not in the sitemap and not in the header or footer navigation.
+//
+// Restrained on purpose: no jokes, no novelty copy, no error codes or
+// technical language in the body. The reader has hit a dead link — the job is
+// to say so plainly and give them the three real routes back, not to entertain
+// them or to grow the site's architecture.
+const routes = [
+  { href: "/", label: "Home", note: "What we do, and how we work." },
+  {
+    href: "/services",
+    label: "Services",
+    note: "Managed Technology and Professional Services.",
+  },
+  { href: "/contact", label: "Contact", note: "Tell us what you need." },
+];
+---
+
+<BaseLayout
+  title="Page not found | TWNY"
+  description="That page isn't here. The link may be out of date, or the page may have moved."
+  noindex={true}
+>
+  <section class="bg-sand text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 sm:py-32 lg:py-40">
+      <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral mb-5">
+        404
+      </p>
+      <h1
+        class="max-w-2xl font-display text-4xl font-semibold leading-[1.05] text-balance sm:text-5xl"
+      >
+        That page isn't here.
+      </h1>
+      <p class="mt-6 max-w-lg text-lg leading-relaxed text-steel text-pretty">
+        The link may be out of date, or the page may have moved. Everything
+        we do is on one of these three pages.
+      </p>
+
+      <ul class="mt-14 max-w-2xl border-t border-line">
+        {
+          routes.map((route) => (
+            <li class="border-b border-line">
+              <a
+                href={route.href}
+                class="group grid grid-cols-[1fr_auto] items-baseline gap-4 py-5 transition-colors duration-200 ease-out"
+              >
+                <span>
+                  <span class="font-display text-xl font-medium text-mineral transition-colors duration-200 ease-out group-hover:text-mineral-strong">
+                    {route.label}
+                  </span>
+                  <span class="mt-1.5 block text-[0.9375rem] leading-relaxed text-steel">
+                    {route.note}
+                  </span>
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="font-mono text-mineral transition-transform duration-200 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none"
+                >
+                  →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-12 text-base leading-relaxed text-steel text-pretty">
+        Looking for something that used to be here?{" "}
+        <a
+          href={mailto}
+          class="font-medium text-mineral transition-colors hover:text-mineral-strong"
+          >Ask us</a
+        > and we'll point you to it.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
