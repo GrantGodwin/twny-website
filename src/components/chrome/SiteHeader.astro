@@ -1,6 +1,7 @@
 ---
 import Wordmark from "./Wordmark.astro";
 import Button from "../ui/Button.astro";
+import { mailto } from "../../data/site";
 
 interface Props {
   // When true the header floats transparently over an immersive hero and
@@ -13,8 +14,6 @@ const nav = [
   { label: "Services", href: "/services" },
   { label: "Contact", href: "/contact" },
 ];
-
-const email = "hello@twny.com.au";
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
@@ -55,7 +54,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
     {/* desktop/tablet CTA — always visible and static (no scroll-reveal) */}
     <div class="hidden items-center sm:flex ml-8">
-      <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
+      <Button href={mailto} variant="ember">Get in touch</Button>
     </div>
 
     <button
@@ -96,7 +95,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
         })
       }
       <div class="pt-5">
-        <Button href={`mailto:${email}`} variant="ember" class="w-full justify-center">
+        <Button href={mailto} variant="ember" class="w-full justify-center">
           Get in touch
         </Button>
       </div>

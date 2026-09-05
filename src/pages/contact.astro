@@ -4,14 +4,14 @@ import Section from "../components/ui/Section.astro";
 import Button from "../components/ui/Button.astro";
 
 // Low-friction contact. Email is the working contact path, so it leads — and
-// the address is also shown as selectable text, because a `mailto:` link fails
-// silently on managed devices and webmail-only setups.
+// the address is also shown as a large, selectable link, because a `mailto:`
+// link fails silently on managed devices and webmail-only setups.
 //
-// There is no form here: no form backend or recipient configuration exists in
-// this deployment, and inventing one (an endpoint, a key, a third-party
-// service) would ship something that quietly loses enquiries. Adding a real
-// form is tracked as follow-up work, not faked here.
-const email = "hello@twny.com.au";
+// There is still no form: this is a static build with no server runtime, and
+// no mail-sending credentials or form endpoint exist in the project. Inventing
+// one would ship something that quietly loses enquiries. Adding a real form is
+// follow-up work with a named dependency, not something to fake here.
+import { email, mailto } from "../data/site";
 ---
 
 <BaseLayout
@@ -36,14 +36,14 @@ const email = "hello@twny.com.au";
       </p>
 
       <div class="mt-9 flex flex-col items-start gap-5">
-        <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
-        <p class="text-sm text-steel">
+        <Button href={mailto} variant="ember">Get in touch</Button>
+        <p class="text-base text-steel">
           Or email us directly at{" "}
           <a
-            href={`mailto:${email}`}
-            class="font-medium text-mineral transition-colors hover:text-mineral-strong"
+            href={mailto}
+            class="inline-block py-1 font-medium text-mineral transition-colors hover:text-mineral-strong"
             >{email}</a
-          >.
+          >
         </p>
       </div>
     </div>

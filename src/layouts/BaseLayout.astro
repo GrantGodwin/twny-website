@@ -8,13 +8,47 @@ interface Props {
   description?: string;
   // Homepage opts in: header floats over the immersive hero, no top spacer.
   heroHeader?: boolean;
+  /**
+   * Page-specific JSON-LD, appended after the site-wide Organization node.
+   * Only add schema that describes content actually visible on the page.
+   */
+  jsonLd?: Record<string, unknown>[];
 }
 
 const {
   title,
   description = "An Australian technology partner. Ongoing technology management, specialist projects and practical advice — one place to call, and technology that stays yours.",
   heroHeader = false,
+  jsonLd = [],
 } = Astro.props;
+
+// Canonical URL. `site` is configured centrally in astro.config.mjs, so every
+// page derives its origin from one place. Trailing slashes are normalised away
+// (except the root) so a page can only ever have one canonical form.
+const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const canonical = new URL(path, Astro.site).href;
+const ogImage = new URL("/og-image.jpg", Astro.site).href;
+
+// Site-wide entity. Deliberately minimal: every field below is verifiable from
+// the site itself or the repository. No address, phone, opening hours, ratings,
+// reviews or physical premises — none of that is established, and inventing it
+// for schema would be fabricating business facts.
+//
+// Note on ProfessionalService: it is a LocalBusiness subtype whose expected
+// properties are address, geo and openingHours. Using it here would invite
+// exactly the fabrication above, so Organization carries the same true facts
+// without the implication of a storefront.
+const organization = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "TWNY",
+  legalName: "TWNY Pty Ltd",
+  url: new URL("/", Astro.site).href,
+  email: "hello@twny.com.au",
+  description:
+    "An Australian technology partner. Ongoing technology management, specialist projects and practical advice.",
+  areaServed: { "@type": "Country", name: "Australia" },
+};
 ---
 
 <!doctype html>
@@ -25,6 +59,28 @@ const {
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+
+    {/* Open Graph */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TWNY" />
+    <meta property="og:locale" content="en_AU" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A lighthouse on a dark coastal headland, its beam sweeping across the bay."
+    />
+
+    {/* Twitter / X */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     {/* The public site is dark-only for this phase (`.dark` is set statically on
         <html>). This only arms reveal animations before paint, avoiding a flash
@@ -42,12 +98,16 @@ const {
       })();
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(organization)}
     />
+    {
+      jsonLd.map((node) => (
+        <script type="application/ld+json" is:inline set:html={JSON.stringify(node)} />
+      ))
+    }
   </head>
   <body class="min-h-screen flex flex-col font-body">
     <a

@@ -3,9 +3,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/home/Hero.astro";
 import CapabilityIcon from "../components/home/CapabilityIcon.astro";
 import Button from "../components/ui/Button.astro";
-import { capabilities, engagements, philosophy, rotatingTerms, work } from "../data/offer";
+import { mailto } from "../data/site";
+import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatingTerms } from "../data/offer";
 
-const email = "hello@twny.com.au";
 ---
 
 <BaseLayout
@@ -34,9 +34,8 @@ const email = "hello@twny.com.au";
           Two ways to work with us.
         </h2>
         <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
-          Sometimes we look after the whole environment. Sometimes it's one
-          difficult problem that needs solving properly. Often it's both — and
-          you don't need to work out which before getting in touch.
+          Sometimes we look after everything. Sometimes it's one hard problem.
+          Often it's both.
         </p>
       </div>
 
@@ -77,12 +76,6 @@ const email = "hello@twny.com.au";
         <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
           Technology shouldn't be another job.
         </h2>
-        <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
-          From email and websites to backup and security, this is the
-          everyday technology that keeps your business running — looked
-          after properly, so small problems get caught before they become
-          big ones.
-        </p>
       </div>
 
       <div
@@ -194,30 +187,22 @@ const email = "hello@twny.com.au";
           ))
         }
       </div>
-
-      <div data-animate class="mt-9 lg:mt-10">
-        <Button href="/services" variant="mineral">
-          See how we make it simple
-        </Button>
-      </div>
     </div>
   </section>
 
-  {/* A SENSE OF THE WORK — replaces the scaffold client-stories feature, which
-      depended on invented quotes, invented person names and stand-in imagery
-      that was never the clients' premises. This is capability evidence rather
-      than testimonial: named engagements, safe themes, present tense where the
-      work is ongoing. No quotes, no individuals, no metrics, no logos, no
-      photography. Typography and one hairline carry it — the same restraint as
-      Why TWNY. Flat bg-sand: the visual dip between the two bg-band editorial
-      sections either side. */}
+  {/* THE WORK — two contrasting engagements, one per service shape, rather than
+      four near-identical blocks that read as a long repetitive scroll on mobile.
+      Concrete Sales carries Managed Technology; Stiles Advisory carries
+      Professional Services. The remaining two keep their signal in a single
+      line rather than a second grid. No eyebrow here: the heading carries the
+      section on its own, and the page already runs three eyebrows above it.
+      Same factual rules as before — no quotes, individuals, metrics, logos or
+      photography, and present tense where the work is ongoing. Flat bg-sand:
+      the dip between the two bg-band editorial sections either side. */}
   <section id="selected-work" class="bg-sand text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
       <div data-animate class="max-w-2xl">
-        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-          A sense of the work
-        </p>
-        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+        <h2 class="font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
           Both halves, in practice.
         </h2>
         <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
@@ -231,12 +216,12 @@ const email = "hello@twny.com.au";
         class="work-grid mt-14 grid gap-x-16 gap-y-12 sm:grid-cols-2 lg:mt-16"
       >
         {
-          work.map((item) => (
+          featuredWork.map((item) => (
             <div class="work-item">
-              <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">
+              <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
                 {item.category}
               </p>
-              <h3 class="mt-4 font-display text-xl font-semibold leading-snug text-ink text-balance">
+              <h3 class="mt-4 font-display text-2xl font-semibold leading-snug text-ink text-balance">
                 {item.client}
               </h3>
               <p class="mt-4 max-w-[30rem] text-[0.9375rem] leading-relaxed text-steel text-pretty">
@@ -244,7 +229,7 @@ const email = "hello@twny.com.au";
               </p>
               <ul class="mt-5 flex flex-wrap gap-x-5 gap-y-1.5">
                 {item.tags.map((tag) => (
-                  <li class="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-mineral">
+                  <li class="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-steel">
                     {tag}
                   </li>
                 ))}
@@ -253,6 +238,15 @@ const email = "hello@twny.com.au";
           ))
         }
       </div>
+
+      <p
+        data-animate
+        class="mt-14 max-w-2xl text-sm leading-relaxed text-steel text-pretty lg:mt-16"
+      >
+        {/* Kept on one line: JSX newlines inside the expression leak stray
+            spaces before the comma and the full stop. */}
+        Other work includes {otherWork.map((o, i) => (<Fragment>{i === 0 ? "" : i === otherWork.length - 1 ? " and " : ", "}<span class="text-ink">{o.client}</span> ({o.note})</Fragment>))}.
+      </p>
     </div>
   </section>
 
@@ -290,9 +284,8 @@ const email = "hello@twny.com.au";
           </p>
         </div>
 
-        <div class="mt-20 flex flex-col items-start gap-y-6 gap-x-9 sm:flex-row sm:items-center">
-          <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
-          <Button href="/services" variant="mineral">How we can help</Button>
+        <div class="mt-20">
+          <Button href={mailto} variant="ember">Get in touch</Button>
         </div>
       </div>
     </div>

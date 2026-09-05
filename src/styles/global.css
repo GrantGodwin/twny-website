@@ -1,5 +1,30 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Typefaces, self-hosted.
+   Previously fetched from fonts.googleapis.com at runtime, which put a
+   render-blocking third-party stylesheet plus a second origin (fonts.gstatic
+   .com) in front of first paint, and sent visitor IPs to Google. These are the
+   same OFL families at the same weights, packaged by Fontsource and served
+   from our own origin. Latin subset only — the site is en-AU.
+
+   EXACTLY the weights the design uses. Do not add weights speculatively:
+     Space Grotesk 400/500/600/700 (display; no italic exists — the wordmark's
+       slant is a synthesised oblique, which is the current production look)
+     Inter 400/500/600 + 400 italic (body)
+     JetBrains Mono 400/500 (small labels)
+--------------------------------------------------------------------------- */
+@import "@fontsource/space-grotesk/latin-400.css";
+@import "@fontsource/space-grotesk/latin-500.css";
+@import "@fontsource/space-grotesk/latin-600.css";
+@import "@fontsource/space-grotesk/latin-700.css";
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-400-italic.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/jetbrains-mono/latin-400.css";
+@import "@fontsource/jetbrains-mono/latin-500.css";
+
 /* Dark-first baseline driven by a `.dark` class on <html>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
