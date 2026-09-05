@@ -1,14 +1,25 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
 // Clean full-bleed photograph. The image is the subject; an optional scrim
 // holds text contrast over it. Positioning is set by the caller via `class`
 // (e.g. "relative min-h-[100svh]" for a hero, "absolute inset-0" to fill a cell).
+//
+// `src` is an imported asset, not a public path, so it goes through Astro's
+// image pipeline: intrinsic width/height are emitted (no layout shift) and a
+// srcset is generated so a phone never downloads the full-resolution master.
 interface Props {
-  src: string;
+  src: ImageMetadata;
   alt: string;
   class?: string;
   imgClass?: string;
   scrimClass?: string;
+  /** LCP image: load eagerly at high priority instead of lazily. */
   eager?: boolean;
+  /** Candidate widths for the srcset. Defaults suit a full-bleed hero. */
+  widths?: number[];
+  sizes?: string;
 }
 const {
   src,
@@ -17,15 +28,20 @@ const {
   imgClass = "",
   scrimClass = "",
   eager = false,
+  widths = [640, 828, 1280, 1920, 2560],
+  sizes = "100vw",
 } = Astro.props;
 ---
 
 <figure class={`overflow-hidden m-0 ${className}`}>
-  <img
+  <Image
     src={src}
     alt={alt}
+    widths={widths}
+    sizes={sizes}
     loading={eager ? "eager" : "lazy"}
     decoding="async"
+    fetchpriority={eager ? "high" : "auto"}
     class={`absolute inset-0 h-full w-full object-cover ${imgClass}`}
   />
   {scrimClass && <div class={`absolute inset-0 ${scrimClass}`} aria-hidden="true"></div>}

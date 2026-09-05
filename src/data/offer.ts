@@ -15,22 +15,22 @@ export const capabilities: Capability[] = [
   {
     icon: "communication",
     heading: "Work smoothly.",
-    body: "Email, Microsoft 365, files, calendars and collaboration — all working together, quietly maintained and ready whenever you need them.",
+    body: "Email, files, calendars and Microsoft 365 — working together, quietly maintained.",
   },
   {
     icon: "presence",
     heading: "Look professional.",
-    body: "A professional presence online that earns trust at first glance — current, reliable, and looked after without you needing to think about it.",
+    body: "A website and online presence that earns trust, kept current without you asking.",
   },
   {
     icon: "protection",
     heading: "Stay protected.",
-    body: "Backup, security and recovery planned before you need them, so small problems don't become business problems.",
+    body: "Backup, security and recovery planned before you need them, not after.",
   },
   {
     icon: "automation",
     heading: "Work smarter.",
-    body: "Practical automation and AI applied where it genuinely helps — less repetitive admin, fewer manual steps, and better use of the tools you already have.",
+    body: "Practical automation where it genuinely removes work, not where it sounds impressive.",
   },
 ];
 
@@ -55,13 +55,13 @@ export const engagements: Engagement[] = [
     label: "Ongoing",
     name: "Managed Technology",
     line: "We take ongoing responsibility for the technology your business depends on.",
-    body: "We take on the technology your business depends on and keep it working — Microsoft 365, devices, identity and access, security, backup, suppliers and the decisions that come with them. One place to call, and people who already know how your business is put together.",
+    body: "We take on the technology your business runs on, and keep it working. One place to call, and people who already know how it all fits together.",
   },
   {
     label: "Project-based",
     name: "Professional Services",
     line: "We take on defined projects, advisory work and the harder problems.",
-    body: "When there's a specific problem, project or decision, we take that on as a defined piece of work — advice and research, Microsoft 365 and workplace projects, automation, digital presence, or untangling something that has grown messy. You don't need an ongoing arrangement with us to bring us one.",
+    body: "When there's a specific problem, project or decision, we take it on as defined work with a written scope. You don't need an ongoing arrangement to bring us one.",
   },
 ];
 
@@ -114,7 +114,9 @@ export interface WorkExample {
   tags: string[];
 }
 
-export const work: WorkExample[] = [
+/** Two contrasting engagements, one per service shape — the clearest possible
+ *  demonstration of both halves without four near-identical blocks. */
+export const featuredWork: WorkExample[] = [
   {
     client: "Concrete Sales",
     category: "Managed Technology",
@@ -123,26 +125,18 @@ export const work: WorkExample[] = [
     tags: ["Microsoft 365", "Devices", "Infrastructure modernisation"],
   },
   {
-    client: "Baza Capital",
-    category: "Managed Technology",
-    summary:
-      "Remediating SharePoint retention and storage inside a complex Microsoft 365 tenant, including escalation with Microsoft, alongside backup and continuity advice.",
-    tags: ["Microsoft 365", "SharePoint", "Backup and continuity"],
-  },
-  {
     client: "Stiles Advisory",
     category: "Professional Services",
     summary:
       "Commissioned market research and structured analysis, delivered as an evidence-led report written to be decided from rather than read.",
     tags: ["Research and analysis", "Advisory"],
   },
-  {
-    client: "Deller Constructions",
-    category: "Professional Services",
-    summary:
-      "Rebuilding the website and sharpening how the business presents itself online, replacing a dated digital presence.",
-    tags: ["Digital presence", "Website"],
-  },
+];
+
+/** Retained signal, one line, no second grid. Same factual rules apply. */
+export const otherWork: { client: string; note: string }[] = [
+  { client: "Baza Capital", note: "SharePoint and Microsoft 365 remediation" },
+  { client: "Deller Constructions", note: "website rebuild and digital presence" },
 ];
 
 // "Helping businesses like yours" — a living editorial feature, not a carousel.

@@ -16,13 +16,13 @@ work — never ahead of approval, and never as part of proposing work (see
 
 | Field | Value |
 | --- | --- |
-| **Current Phase** | Phase 3 — Supporting Pages / first production alignment |
-| **Current Sprint** | First production alignment pass (Home, Services, Contact) — built, awaiting visual review |
-| **Current Work Item** | Alignment pass delivered and deployed; **stop here for visual review before any second refinement pass.** |
-| **Launch Scope (locked)** | **Home, Services, Contact. Nothing else.** No Pricing page, no Microsoft/AI/Cybersecurity/Websites/Research page, no About, no Work/Case Studies — those are decided later, once the core site is right. Privacy remains an open gap, not a decision. |
-| **Repository Status** | **Phase 2 (Homepage) complete.** Services was fully built across ten commits (superseding this table's earlier "placeholder / brief under review" entry, which had gone stale); `/pricing.astro` and `/productivity.astro` were deleted in `1aacb2c`, and the `/#services` dead anchor is resolved. **The first production alignment pass is now complete on all three pages:** the site was re-narrated from a single "we quietly look after your everyday technology" proposition to TWNY's actual two-shape business — **Managed Technology** (ongoing responsibility) and **Professional Services** (defined project, advisory and specialist work). Services is restructured around those two categories, with Core / Business / Strategic described as increasing levels of responsibility. The scaffold client-stories feature (invented quotes, invented person names, stand-in imagery) is **no longer rendered**; a factual, quote-free "A sense of the work" section covers four real engagements instead. `ClientStories.astro` and the `stories` scaffold data are retained but unrendered and marked do-not-ship. **NO PRICING anywhere on the public site — now a locked item in the implementation brief (§2, §7).** |
-| **Awaiting Human Direction** | **Visual review of the deployed alignment pass** before any further refinement. Then: (1) whether Work and/or About earn their own pages; (2) whether a Privacy page is required for launch; (3) the contact form backend — no form exists and none was invented, so email remains the only contact path; (4) the Mineral brand hex — the alignment brief specified `#1379A0`, which measures 3.4–4.0:1 on the Ink surfaces and fails WCAG AA for body text; the implemented `#3aa6c9` measures 6.0–6.9:1 and was kept. Needs a decision on reconciling the brand value with the on-dark value. |
-| **Recommended Next Action** | Review the deployed site visually at desktop and mobile, then direct the second pass page by page. |
+| **Current Phase** | Phase 4 — Launch (production hardening) |
+| **Current Sprint** | Production hardening and editorial cleanup (Vellum #491) — built, awaiting review |
+| **Current Work Item** | Hardening pass on a branch, PR open. **Stop for review; do not start another website pass.** |
+| **Launch Scope (locked)** | **Home, Services, Contact. Nothing else.** No Pricing page, no Work/About/blog, no per-service or local-SEO pages. |
+| **Repository Status** | First alignment pass merged to `main` (`9b699fe`). The hardening pass adds: homepage editorial cuts (roughly a fifth off the mobile page height), the work-proof section reduced to two contrasting engagements plus a single "other work" line, self-hosted fonts (both Google origins removed), the hero moved onto Astro's image pipeline, a central canonical base URL, Open Graph and Twitter cards, sitemap, environment-aware robots, Organization / Service / FAQPage structured data, and security + cache headers via `vercel.json`. **NO PRICING remains locked.** |
+| **Awaiting Human Direction** | Review of the hardening PR. Then the four deferred items below, each of which needs a decision or a credential rather than more code. |
+| **Recommended Next Action** | Review and merge the hardening PR, then decide on the contact-form backend, which is the only remaining launch-quality gap. |
 
 Work proceeds one roadmap item at a time:
 
@@ -76,19 +76,19 @@ Build order and status of each section.
 
 Implementation tasks only.
 
-- [ ] SEO
-- [ ] Metadata — per-page `<title>` and `<meta description>` exist; no canonical URLs yet
-- [ ] Structured data
-- [ ] Sitemap — no sitemap integration configured
-- [ ] robots.txt — not present in `public/`
-- [ ] Open Graph — no OG/Twitter tags in `BaseLayout.astro`
-- [ ] Google Analytics 4
-- [ ] Google Search Console
-- [ ] Microsoft Clarity
-- [ ] Performance — no Lighthouse/perf audit run yet
-- [ ] Accessibility review — skip link, `:focus-visible`, `aria-current`, `aria-expanded`/`aria-controls` on the mobile menu exist; no formal audit performed
-
----
+- [x] Metadata — per-page `<title>` and `<meta description>`; canonical URLs on every page, derived from one central base URL (`PUBLIC_SITE_URL` → `VERCEL_PROJECT_PRODUCTION_URL` → the current production deployment), so the domain cutover needs no code change.
+- [x] Open Graph — full og:* set plus Twitter `summary_large_image`, with a 1200×630 card cropped from the approved hero asset. **A purpose-designed OG card carrying the wordmark would be better than a photo crop; commission when convenient.**
+- [x] Sitemap — hand-built endpoint listing exactly Home, Services and Contact. Add an entry only when a real page is added.
+- [x] robots.txt — endpoint keyed on `VERCEL_ENV`. Default-allow by design: only an explicit `preview` build disallows crawling, so a missing variable can never block production.
+- [x] Structured data — Organization site-wide; Service ×2 and FAQPage on `/services`, generated from the same source the page renders so markup cannot drift from visible content. No address, phone, hours, ratings or reviews: none are established. `ProfessionalService` was deliberately **not** used — it is a `LocalBusiness` subtype whose expected properties are address/geo/openingHours, which would invite exactly that fabrication.
+- [x] Performance — fonts self-hosted (two third-party origins removed); hero served through Astro's image pipeline with a five-width srcset. Mobile home page now transfers ~151 KB total, with the hero at 8 KB instead of the 261 KB master.
+- [x] Security headers — `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Cross-Origin-Opener-Policy`, `Permissions-Policy`, plus immutable caching for `/_astro/*`, via `vercel.json`.
+- [ ] **Content-Security-Policy — deferred, not forgotten.** A working policy is `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'`. It is not shipped because it would block the Vercel preview toolbar (`vercel.live`), and because `form-action 'self'` and `script-src` would need widening the moment a third-party form handler or analytics is added. Ship it once the contact and analytics decisions below are settled, adding the origins those choices require.
+- [ ] **Analytics — deferred, needs Grant.** Nothing is installed and no IDs were invented. To enable Vercel Analytics: turn it on in the Vercel dashboard (Project → Analytics), then `npm i @vercel/analytics` and mount its component in `BaseLayout.astro`. Adding analytics makes the Privacy page below mandatory.
+- [ ] **Contact form backend — deferred, needs a decision.** The site is a static build with no server runtime and no mail-sending credentials, so a form cannot be added without either (a) an Astro server adapter plus a mail provider API key, or (b) a hosted form endpoint. Email remains the working path and is now centralised in `src/data/site.ts` with a prefilled subject.
+- [ ] **Privacy page — deferred, conditional.** Not added: the site currently sets no cookies, runs no analytics and collects nothing — a page would describe an empty set. It becomes **mandatory** the moment the contact form or analytics lands, and the footer needs its link at the same time.
+- [ ] Google Search Console — submit `https://<production domain>/sitemap.xml` after the domain cutover.
+- [ ] Accessibility review — skip link, `:focus-visible`, `aria-current`, mobile-menu ARIA and reduced-motion behaviour all verified by browser QA each pass; no formal third-party audit performed.
 
 ## Phase 2 — Post-Launch Expansion
 

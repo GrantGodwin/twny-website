@@ -9,6 +9,7 @@ import {
   howWeWork,
   serviceFaqs,
 } from "../data/services";
+import { mailto } from "../data/site";
 
 // The homepage's second chapter, restructured around the two ways TWNY works:
 // Managed Technology (ongoing responsibility) and Professional Services
@@ -21,12 +22,50 @@ import {
 // NO PRICING on this page or anywhere on the public site. Core / Business /
 // Strategic are described as increasing levels of responsibility, never as
 // price cards and never as a comparison matrix.
-const email = "hello@twny.com.au";
+
+// Structured data describing what this page actually shows: the two service
+// shapes, and the FAQ that is genuinely rendered below. Every question and
+// answer below is read from the same `serviceFaqs` source the page renders, so
+// the markup cannot drift from the visible content. No prices — Offer/price is
+// deliberately absent, in line with the no-public-pricing rule.
+const provider = { "@type": "Organization", name: "TWNY" };
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Managed Technology",
+    serviceType: "Managed technology services",
+    description:
+      "Ongoing responsibility for the technology a business runs on: Microsoft 365, devices, identity and access, security, backup, suppliers, and websites and domains where relevant.",
+    provider,
+    areaServed: { "@type": "Country", name: "Australia" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Professional Services",
+    serviceType: "Technology consulting and project services",
+    description:
+      "Defined project, advisory and specialist work: technology advice, research and analysis, Microsoft 365 and workplace projects, automation, digital presence, and remediation and transition.",
+    provider,
+    areaServed: { "@type": "Country", name: "Australia" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: serviceFaqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+];
 ---
 
 <BaseLayout
   title="Services — Managed Technology and Professional Services | TWNY"
   description="Two ways to work with us: ongoing responsibility for the technology your business runs on, and defined project, advisory and specialist work when there's a harder problem to solve."
+  jsonLd={jsonLd}
 >
   {/* HERO — the statement and the single action on the left; the two
       engagement shapes on the right as two calm rows, so the page's whole
@@ -46,7 +85,7 @@ const email = "hello@twny.com.au";
             on — and we take on the harder, one-off problems in between.
           </p>
           <div class="mt-9">
-            <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
+            <Button href={mailto} variant="ember">Get in touch</Button>
           </div>
         </div>
 
@@ -219,7 +258,7 @@ const email = "hello@twny.com.au";
           we're the right fit — and if we're not, we'll say so.
         </p>
         <div class="mt-10">
-          <Button href={`mailto:${email}`} variant="ember">Get in touch</Button>
+          <Button href={mailto} variant="ember">Get in touch</Button>
         </div>
       </div>
     </div>
