@@ -13,6 +13,12 @@ interface Props {
    * Only add schema that describes content actually visible on the page.
    */
   jsonLd?: Record<string, unknown>[];
+  /**
+   * Keep this page out of the index. Only the 404 uses it: the HTTP status is
+   * the real signal, this is belt-and-braces for anything that renders the
+   * page without seeing the status.
+   */
+  noindex?: boolean;
 }
 
 const {
@@ -20,6 +26,7 @@ const {
   description = "An Australian technology partner. Ongoing technology management, specialist projects and practical advice — one place to call, and technology that stays yours.",
   heroHeader = false,
   jsonLd = [],
+  noindex = false,
 } = Astro.props;
 
 // Canonical URL. `site` is configured centrally in astro.config.mjs, so every
@@ -60,6 +67,15 @@ const organization = {
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    {/* Icons. PNG rather than SVG: the mark is the wordmark set in Space
+        Grotesk, and a browser's SVG-favicon sandbox will not reliably load a
+        webfont, so it is rasterised once at build-time-independent sizes. */}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     {/* Open Graph */}
     <meta property="og:type" content="website" />

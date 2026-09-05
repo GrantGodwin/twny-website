@@ -128,12 +128,14 @@ export const featuredWork: WorkExample[] = [
     client: "Stiles Advisory",
     category: "Professional Services",
     summary:
-      "Commissioned market research and structured analysis, delivered as an evidence-led report written to be decided from rather than read.",
+      "Commissioned market research and structured analysis, delivered as an evidence-led report designed to support a decision, not simply document the research.",
     tags: ["Research and analysis", "Advisory"],
   },
 ];
 
-/** Retained signal, one line, no second grid. Same factual rules apply. */
+/** Retained signal, read as one sentence rather than a second grid. Same
+ *  factual rules apply: named engagements only, capability themes only, and
+ *  nothing here implies a client has reviewed or endorsed the wording. */
 export const otherWork: { client: string; note: string }[] = [
   { client: "Baza Capital", note: "SharePoint and Microsoft 365 remediation" },
   { client: "Deller Constructions", note: "website rebuild and digital presence" },

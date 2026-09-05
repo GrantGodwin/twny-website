@@ -239,13 +239,22 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
         }
       </div>
 
+      {/* Supporting work — subordinate to the two featured engagements, but
+          set as a deliberate closing line rather than a footnote: joined to the
+          grid above by the same fade-edge hairline used elsewhere, at body size
+          rather than small print, with each client in Ink. Same factual rules
+          as the featured items — capability themes only, no quotes, metrics,
+          outcomes or logos, and nothing implying client sign-off. */}
       <p
         data-animate
-        class="mt-14 max-w-2xl text-sm leading-relaxed text-steel text-pretty lg:mt-16"
+        class="work-coda relative mt-14 max-w-2xl pt-10 text-base leading-relaxed text-steel text-pretty lg:mt-16"
       >
-        {/* Kept on one line: JSX newlines inside the expression leak stray
-            spaces before the comma and the full stop. */}
-        Other work includes {otherWork.map((o, i) => (<Fragment>{i === 0 ? "" : i === otherWork.length - 1 ? " and " : ", "}<span class="text-ink">{o.client}</span> ({o.note})</Fragment>))}.
+        {/* Kept on one line, with every space written explicitly: JSX newlines
+            inside the expression leak stray spaces before the dashes and the
+            full stop. The no-break space before each em dash keeps the dash
+            bound to the word it follows, so a line can never open with a
+            dangling "— and". */}
+        Selected work also includes {otherWork.map((o, i) => (<Fragment>{i === 0 ? "" : i === otherWork.length - 1 ? "\u00A0— and " : "\u00A0— "}<span class="text-ink">{o.client}</span>{"\u00A0— "}{o.note}</Fragment>))}.
       </p>
     </div>
   </section>
@@ -355,6 +364,25 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
         transparent
       );
     }
+  }
+
+  /* Supporting-work coda — the fade-edge hairline that ties the sentence to
+     the proof grid above it, so it reads as the section's closing line rather
+     than as detached small print. */
+  .work-coda::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--line) 60%, transparent) 30%,
+      color-mix(in srgb, var(--line) 60%, transparent) 70%,
+      transparent
+    );
   }
 
   /* "What we look after" capability columns — quiet separators between
@@ -540,7 +568,12 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
           }
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      // Pre-trigger: the root is extended 12% of the viewport BELOW the fold,
+      // so a section starts revealing just before it scrolls into view and is
+      // already settled by the time it is actually being read. With the old
+      // -8% inset the reveal only began once the section was well inside the
+      // viewport, which is what made a fast scroll land on a blank panel.
+      { threshold: 0, rootMargin: "0px 0px 12% 0px" }
     );
     targets.forEach((el) => io.observe(el));
   }

@@ -1,5 +1,55 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/about-us", "destination": "/", "permanent": true },
+    { "source": "/about-us/", "destination": "/", "permanent": true },
+
+    { "source": "/get-in-touch", "destination": "/contact", "permanent": true },
+    { "source": "/get-in-touch/", "destination": "/contact", "permanent": true },
+    { "source": "/contact-us", "destination": "/contact", "permanent": true },
+    { "source": "/contact-us/", "destination": "/contact", "permanent": true },
+
+    {
+      "source": "/services/business-productivity-tools",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/business-productivity-tools/",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/business-website-hosting",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/business-website-hosting/",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/managed-services-consulting",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/managed-services-consulting/",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/cloud-platforms",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/cloud-platforms/",
+      "destination": "/services",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
