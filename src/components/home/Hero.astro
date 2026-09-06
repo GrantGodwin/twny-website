@@ -1,7 +1,6 @@
 ---
 import Button from "../ui/Button.astro";
 import Photo from "./Photo.astro";
-import { mailto } from "../../data/site";
 import heroImage from "../../assets/hero-lighthouse.webp";
 
 // HERO — full-bleed background image across the entire hero, sitting behind
@@ -65,8 +64,10 @@ import heroImage from "../../assets/hero-lighthouse.webp";
         advice — without you having to coordinate multiple providers.
       </p>
 
+      {/* Routes to the Contact page rather than opening a mail client: the
+          page says how a first conversation goes before asking for anything. */}
       <div data-animate class="mt-9">
-        <Button href={mailto} variant="ember">Get in touch</Button>
+        <Button href="/contact" variant="ember">Get in touch</Button>
       </div>
     </div>
   </div>

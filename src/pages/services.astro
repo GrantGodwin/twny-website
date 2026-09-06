@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import FAQ from "../components/blocks/FAQ.astro";
+import { orgId } from "../data/site";
 import {
   engagementRows,
   managed,
@@ -9,7 +10,6 @@ import {
   howWeWork,
   serviceFaqs,
 } from "../data/services";
-import { mailto } from "../data/site";
 
 // The homepage's second chapter, restructured around the two ways TWNY works:
 // Managed Technology (ongoing responsibility) and Professional Services
@@ -28,10 +28,12 @@ import { mailto } from "../data/site";
 // answer below is read from the same `serviceFaqs` source the page renders, so
 // the markup cannot drift from the visible content. No prices — Offer/price is
 // deliberately absent, in line with the no-public-pricing rule.
-const provider = { "@type": "Organization", name: "TWNY" };
+// The provider is the site-wide Organization, referenced by its stable @id
+// (BaseLayout emits the node itself), so there is exactly one TWNY entity in
+// the graph rather than an anonymous copy per Service.
+const provider = { "@id": orgId(Astro.site) };
 const jsonLd = [
   {
-    "@context": "https://schema.org",
     "@type": "Service",
     name: "Managed Technology",
     serviceType: "Managed technology services",
@@ -41,7 +43,6 @@ const jsonLd = [
     areaServed: { "@type": "Country", name: "Australia" },
   },
   {
-    "@context": "https://schema.org",
     "@type": "Service",
     name: "Professional Services",
     serviceType: "Technology consulting and project services",
@@ -51,7 +52,6 @@ const jsonLd = [
     areaServed: { "@type": "Country", name: "Australia" },
   },
   {
-    "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: serviceFaqs.map((f) => ({
       "@type": "Question",
@@ -86,7 +86,7 @@ const jsonLd = [
             decision or harder problem to solve.
           </p>
           <div class="mt-9">
-            <Button href={mailto} variant="ember">Get in touch</Button>
+            <Button href="/contact" variant="ember">Get in touch</Button>
           </div>
         </div>
 
@@ -100,7 +100,7 @@ const jsonLd = [
                 <p class="mt-3 font-display text-xl font-medium text-mineral">
                   {e.name}
                 </p>
-                <p class="mt-2 text-[0.95rem] leading-relaxed text-ink/70 text-pretty">
+                <p class="mt-2 text-[0.9688rem] leading-[1.6] text-steel text-pretty">
                   {e.line}
                 </p>
               </div>
@@ -140,7 +140,7 @@ const jsonLd = [
                 <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
                   {a.label}
                 </p>
-                <p class="mt-3 text-[0.9375rem] leading-relaxed text-steel text-pretty">
+                <p class="mt-3 text-[0.9688rem] leading-[1.6] text-steel text-pretty">
                   {a.line}
                 </p>
               </div>
@@ -167,7 +167,7 @@ const jsonLd = [
                 <p class="font-display text-lg font-semibold text-ink">
                   {level.name}
                 </p>
-                <p class="mt-3 text-[0.9375rem] leading-relaxed text-steel text-pretty">
+                <p class="mt-3 text-[0.9688rem] leading-[1.6] text-steel text-pretty">
                   {level.body}
                 </p>
               </div>
@@ -198,19 +198,24 @@ const jsonLd = [
         </div>
       </div>
 
-      <div class="mt-14 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
+      <div class="divider-rule mt-16 pt-12 lg:mt-20 lg:pt-14">
+        <h3 class="font-display text-xl font-medium text-ink">
+          {professional.groupsHeading}
+        </h3>
+      <div class="mt-10 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {
           professional.groups.map((g) => (
             <div>
               <h3 class="font-display text-lg font-medium text-ink text-balance">
                 {g.title}
               </h3>
-              <p class="mt-3 text-[0.9375rem] leading-relaxed text-steel text-pretty">
+              <p class="mt-3 text-[0.9688rem] leading-[1.6] text-steel text-pretty">
                 {g.body}
               </p>
             </div>
           ))
         }
+      </div>
       </div>
 
       <p class="mt-16 max-w-2xl text-base font-medium leading-relaxed text-ink text-pretty sm:text-lg lg:mt-20">
@@ -259,7 +264,7 @@ const jsonLd = [
           right fit — and if we're not, we'll say so.
         </p>
         <div class="mt-10">
-          <Button href={mailto} variant="ember">Get in touch</Button>
+          <Button href="/contact" variant="ember">Get in touch</Button>
         </div>
       </div>
     </div>

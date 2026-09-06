@@ -1,0 +1,46 @@
+# Pull-request and main-branch verification.
+#
+# Runs exactly what a contributor runs locally, in this order:
+#   npm ci          — clean install from the lockfile
+#   npm run check   — astro check (types and template diagnostics; must be 0 errors)
+#   npm run verify  — production build, then scripts/check-build.mjs over dist/
+#
+# This is build-output verification only. It cannot see what Vercel is serving;
+# for that, run `npm run verify:live` against the custom domain after a deploy.
+#
+# To make this a merge gate, enable branch protection on `main` with
+# "Require status checks to pass before merging" and select the check named
+# "verify". That is a repository setting, not something this file can set.
+name: verify
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run check
+
+      - run: npm run verify

@@ -63,7 +63,7 @@ export const managed: {
     "Most small businesses end up with Microsoft 365, devices, security, internet, domains and support spread across different providers. Each may do its part, but nobody is looking across the whole environment. Managed Technology gives that responsibility a clear home.",
     "We handle routine administration, raise decisions early and coordinate other providers when needed. When something breaks, you call us and we work the problem through.",
   ],
-  areasHeading: "What Managed Technology covers.",
+  areasHeading: "What we manage.",
   areas: [
     {
       label: "Microsoft 365",
@@ -122,14 +122,16 @@ export const professional: {
   eyebrow: string;
   heading: string;
   body: string[];
+  groupsHeading: string;
   groups: CapabilityGroup[];
   bridge: string;
 } = {
   eyebrow: "Professional Services",
   heading: "Sometimes you just need the problem solved.",
   body: [
-    "Not everything belongs in an ongoing arrangement. A migration, a clean-up, a piece of research, a decision that needs someone independent to look at it properly — these have a beginning and an end, and we deliver them as defined work with a written scope.",
+    "Not everything belongs in an ongoing arrangement. Technology consulting and advisory, a migration, a clean-up, a piece of research, a decision that needs someone independent to look at it properly — these have a beginning and an end, and we deliver them as defined work with a written scope.",
   ],
+  groupsHeading: "Where we help.",
   groups: [
     {
       title: "Advice and decisions",
@@ -197,6 +199,10 @@ export const serviceFaqs: ServiceFaq[] = [
   {
     q: "Do I have to sign up for ongoing support to work with you?",
     a: "No. Plenty of work starts as a single project — a migration, a clean-up, a piece of research, a website. If an ongoing arrangement makes sense afterwards, we'll talk about it then rather than making it a condition up front.",
+  },
+  {
+    q: "Does Managed Technology include day-to-day IT support?",
+    a: "Yes. Day-to-day support is part of it, but the arrangement goes further. Microsoft 365, devices, security, backup, suppliers and ongoing technology decisions are managed together rather than treated as separate tickets.",
   },
   {
     q: "How does the commercial side work?",
