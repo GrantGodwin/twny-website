@@ -36,7 +36,7 @@ const jsonLd = [
     name: "Managed Technology",
     serviceType: "Managed technology services",
     description:
-      "Ongoing responsibility for the technology a business runs on: Microsoft 365, devices, identity and access, security, backup, suppliers, and websites and domains where relevant.",
+      "Ongoing management of the technology a business relies on: Microsoft 365, devices, identity and access, security, backup, networks, suppliers, and websites and domains where relevant.",
     provider,
     areaServed: { "@type": "Country", name: "Australia" },
   },
@@ -64,7 +64,7 @@ const jsonLd = [
 
 <BaseLayout
   title="Services — Managed Technology and Professional Services | TWNY"
-  description="Two ways to work with us: ongoing responsibility for the technology your business runs on, and defined project, advisory and specialist work when there's a harder problem to solve."
+  description="Two ways to work with us: ongoing management of the technology your business relies on, and defined project, advisory and specialist work when there's a harder problem to solve."
   jsonLd={jsonLd}
 >
   {/* HERO — the statement and the single action on the left; the two
@@ -81,8 +81,9 @@ const jsonLd = [
             One technology partner, two ways to work.
           </h1>
           <p class="mt-6 max-w-md text-lg leading-relaxed text-steel text-pretty">
-            We take ongoing responsibility for the technology your business runs
-            on — and we take on the harder, one-off problems in between.
+            We provide ongoing management for the technology your business
+            relies on, and defined specialist work when there is a project,
+            decision or harder problem to solve.
           </p>
           <div class="mt-9">
             <Button href={mailto} variant="ember">Get in touch</Button>
@@ -111,7 +112,7 @@ const jsonLd = [
   </section>
 
   {/* MANAGED TECHNOLOGY — the ongoing relationship. The customer-level story
-      first, then what we actually take on, then the levels of responsibility.
+      first, then what the arrangement covers, then the levels of responsibility.
       No pricing, no comparison matrix, no self-configuration. */}
   <section id="managed-technology" class="bg-paper text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
@@ -127,7 +128,7 @@ const jsonLd = [
         </div>
       </div>
 
-      {/* what we take on — label + one line, in customer language */}
+      {/* what Managed Technology covers — label + one line, in customer language */}
       <div class="divider-rule mt-16 pt-12 lg:mt-20 lg:pt-14">
         <h3 class="font-display text-xl font-medium text-ink">
           {managed.areasHeading}
@@ -251,11 +252,11 @@ const jsonLd = [
 
       <div class="mt-24 max-w-2xl">
         <h2 class="font-display text-3xl font-semibold leading-[1.05] text-balance sm:text-4xl lg:text-5xl">
-          If it touches your business, we can probably help.
+          Not sure where it fits? Start with the problem.
         </h2>
         <p class="mt-6 max-w-xl text-lg leading-relaxed text-steel text-pretty">
-          Tell us what you're working with and we'll tell you plainly whether
-          we're the right fit — and if we're not, we'll say so.
+          Tell us what's happening and we'll tell you plainly whether we're the
+          right fit — and if we're not, we'll say so.
         </p>
         <div class="mt-10">
           <Button href={mailto} variant="ember">Get in touch</Button>

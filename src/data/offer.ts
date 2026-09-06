@@ -3,43 +3,68 @@
 // NO PRICING. Prices, rates, tiers and "from" figures never appear on the public
 // site — TWNY's commercial model is explained structurally and priced in
 // conversation. Do not reintroduce pricing data here or anywhere in src/.
+//
+// LANGUAGE RULE (site-wide). TWNY owns the *problem* and stays accountable for
+// it; the client owns its domains, data, systems and decisions. So: manage,
+// look after, coordinate, stay accountable, deliver, solve, work through,
+// advise, transition. Never "take ownership of", "own your technology" or
+// "take on your environment" — those read as TWNY taking control away from the
+// client. The one locked exception is the principle "We own the problem.",
+// which is about responsibility, not property.
 
-// "What we look after" — four capability columns, icon + heading + body.
+// "What we help with" — four plain-English areas of help, NOT four services.
+// The two public service propositions are and remain Managed Technology and
+// Professional Services; every card below aggregates work that appears on the
+// Services page under one or both of them. Headings stay concrete and
+// recognisable to a client ("Day-to-day technology"), never benefit-led
+// marketing abstractions ("Work smoothly", "Unlock potential").
 export interface Capability {
-  icon: "communication" | "presence" | "protection" | "automation";
+  icon: "devices" | "shield-check" | "browser" | "tree-structure";
   heading: string;
   body: string;
+  /** Which Services-page work this card aggregates. Not rendered — it exists so
+   *  the card set can be checked against the actual service model. */
+  covers: string;
 }
 
 export const capabilities: Capability[] = [
   {
-    icon: "communication",
-    heading: "Work smoothly.",
-    body: "Email, files, calendars and Microsoft 365 — working together, quietly maintained.",
+    icon: "devices",
+    heading: "Day-to-day technology",
+    body: "Microsoft 365, devices, accounts, networks, suppliers and renewals — managed together rather than as separate problems.",
+    covers:
+      "Microsoft 365, devices, routine identity and access, networks, connectivity, suppliers, subscriptions, renewals, ordinary ongoing administration.",
   },
   {
-    icon: "presence",
-    heading: "Look professional.",
-    body: "A website and online presence that earns trust, kept current without you asking.",
+    icon: "shield-check",
+    heading: "Security and continuity",
+    body: "Security, access, backup and recovery — kept current and thought through before something goes wrong.",
+    covers:
+      "Cybersecurity administration, identity security, device protection, backup oversight, recovery planning.",
   },
   {
-    icon: "protection",
-    heading: "Stay protected.",
-    body: "Backup, security and recovery planned before you need them, not after.",
+    icon: "browser",
+    heading: "Websites and digital presence",
+    body: "Websites, domains, hosting and online presence — kept current, credible and properly maintained.",
+    covers:
+      "Website operations, domains, hosting, ongoing digital presence, defined website or digital-presence projects.",
   },
   {
-    icon: "automation",
-    heading: "Work smarter.",
-    body: "Practical automation where it genuinely removes work, not where it sounds impressive.",
+    icon: "tree-structure",
+    heading: "Specialist projects and advice",
+    body: "Research, technology decisions, workplace projects, automation and remediation — defined clearly and carried through.",
+    covers:
+      "Technology consulting, advisory, research, analysis, Microsoft 365 and workplace projects, AI and automation, remediation, transition, professional deliverables.",
   },
 ];
 
-// "Two ways we work" — the homepage's structural correction. TWNY is one
-// business that does two complementary things: it takes ongoing responsibility
-// for a technology environment, and it solves defined problems as project or
-// advisory work. Neither is a sub-brand and the customer never has to pick a
-// lane before getting in touch. Prose only — the capability grid below already
-// carries the "what", so this section must not become a second feature list.
+/** The one-line introduction above the four cards. */
+export const capabilitiesLede =
+  "We manage the everyday environment and bring specialist help when something needs to change.";
+
+// "How we work" — the two engagement types, and there are only ever two.
+// Prose only: the capability grid above already carries the "what", so this
+// must not become a second feature list.
 export interface Engagement {
   /** Small mono label — the engagement shape, not a product name. */
   label: string;
@@ -54,30 +79,38 @@ export const engagements: Engagement[] = [
   {
     label: "Ongoing",
     name: "Managed Technology",
-    line: "We take ongoing responsibility for the technology your business depends on.",
-    body: "We take on the technology your business runs on, and keep it working. One place to call, and people who already know how it all fits together.",
+    line: "We manage the technology environment as a whole and stay accountable for keeping it working.",
+    body: "We manage the technology environment as a whole — Microsoft 365, devices, security, backup, suppliers and the day-to-day decisions that keep it working.",
   },
   {
     label: "Project-based",
     name: "Professional Services",
-    line: "We take on defined projects, advisory work and the harder problems.",
-    body: "When there's a specific problem, project or decision, we take it on as defined work with a written scope. You don't need an ongoing arrangement to bring us one.",
+    line: "We deliver defined projects, research and advice when something needs specialist attention.",
+    body: "Defined projects, research and advice when something needs to be solved, improved or transitioned.",
   },
 ];
+
+/** The one-line introduction above the two engagement types. */
+export const engagementsLede =
+  "Some clients need us to manage the environment. Others need a defined piece of work. Many use both.";
 
 // "Why TWNY" — the homepage's emotional centre. Demonstrates the philosophy
 // (we carry the complexity so clients don't have to) rather than asserting
 // differentiation as a list of principles. The rotating terms are not the
 // feature — they're a specimen of the complexity being carried.
+//
+// Each term must read grammatically after the fixed lead-in "You shouldn't need
+// to understand…", so every entry is a noun clause, not a bare product name.
+// Keep them short enough to sit on one line at 360px.
 export const rotatingTerms: string[] = [
-  "DNS records",
-  "SPF & DMARC",
-  "SharePoint permissions",
-  "Conditional Access",
-  "Microsoft 365 licensing",
-  "Backup retention",
-  "SSL certificates",
-  "Copilot licensing",
+  "which licences you actually need",
+  "how your devices stay secure",
+  "who still has access",
+  "whether your backups will restore",
+  "which supplier owns the issue",
+  "when your domains need renewing",
+  "whether a security alert matters",
+  "where automation would genuinely help",
 ];
 
 export interface PhilosophyPoint {
@@ -88,158 +121,89 @@ export interface PhilosophyPoint {
 export const philosophy: PhilosophyPoint[] = [
   {
     title: "The jargon stops with us.",
-    body: "DNS records, licensing tiers, security settings — we carry the detail, so you only ever need the plain answer.",
+    body: "We translate the detail into a clear recommendation, the decision you need to make and what happens next.",
   },
   {
+    // Locked heading. This is about owning the PROBLEM — responsibility and
+    // accountability — never about owning the client's technology.
     title: "We own the problem.",
-    body: "When something needs fixing, we fix it. No supplier to chase, no ticket to escalate, no one else to call.",
+    body: "If a supplier or platform is involved, we coordinate it. We don't hand the problem back to you with another phone number.",
   },
   {
     title: "We notice before you do.",
-    body: "Renewals, risks and the small things worth doing — we raise them early, while they're still easy to deal with.",
+    body: "Renewals, risks and the small things worth doing — raised early, while they're still straightforward to deal with.",
   },
 ];
 
-// "A sense of the work" — factual capability evidence, replacing the scaffold
-// client-stories feature. STRICT RULES: named engagements only where naming is
-// approved, described in safe capability themes, written in the present tense
-// where work is ongoing. NO quotes, NO named individuals, NO metrics, NO logos,
-// NO photography standing in for a client's premises. If a line here cannot be
-// stood behind, delete it rather than soften it.
+// "Both halves, in practice." — factual client work, presented as a genuine
+// split between the two engagement types.
+//
+// STRICT RULES, unchanged: named engagements only where naming is approved,
+// described in safe capability themes, present tense where work is ongoing.
+// NO quotes, NO quotation marks, NO named individuals, NO metrics, NO storage
+// quantities, NO savings, NO claimed business outcomes, NO client logos, NO
+// vendor logos, NO photography standing in for a client's premises. Nothing
+// here implies a client has reviewed, approved or endorsed the wording — these
+// descriptions are factual interim proof, and any quotation, logo or stronger
+// outcome claim requires client approval first. If a line cannot be stood
+// behind, delete it rather than soften it.
 export interface WorkExample {
   client: string;
-  /** Which of the two engagement shapes this sits in. */
-  category: "Managed Technology" | "Professional Services";
   summary: string;
-  tags: string[];
+  /** Short service pills. Restrained and consistent — not a tag cloud. */
+  pills: string[];
 }
 
-/** Two contrasting engagements, one per service shape — the clearest possible
- *  demonstration of both halves without four near-identical blocks. */
-export const featuredWork: WorkExample[] = [
-  {
-    client: "Concrete Sales",
-    category: "Managed Technology",
-    summary:
-      "Consolidating a long-standing environment onto managed Microsoft 365 and modern device management, and moving the business off its last on-premises server.",
-    tags: ["Microsoft 365", "Devices", "Infrastructure modernisation"],
-  },
-  {
-    client: "Stiles Advisory",
-    category: "Professional Services",
-    summary:
-      "Commissioned market research and structured analysis, delivered as an evidence-led report designed to support a decision, not simply document the research.",
-    tags: ["Research and analysis", "Advisory"],
-  },
-];
-
-/** Retained signal, read as one sentence rather than a second grid. Same
- *  factual rules apply: named engagements only, capability themes only, and
- *  nothing here implies a client has reviewed or endorsed the wording. */
-export const otherWork: { client: string; note: string }[] = [
-  { client: "Baza Capital", note: "SharePoint and Microsoft 365 remediation" },
-  { client: "Deller Constructions", note: "website rebuild and digital presence" },
-];
-
-// "Helping businesses like yours" — a living editorial feature, not a carousel.
-// One client story is featured at a time (the emotional anchor), while the full
-// roster of businesses stays visible and selectable (the recognition anchor).
-// The featured story auto-advances and can be driven from the roster.
-//
-// ⚠ RETIRED — NOT RENDERED ANYWHERE. This scaffold is superseded by `work`
-// above and by the "A sense of the work" homepage section. It is kept only so
-// the ClientStories component (also unrendered) still type-checks for a future
-// pass. It contains INVENTED PERSON NAMES and INVENTED QUOTES and images that
-// are not the clients' premises. DO NOT RENDER ANY OF IT. Before this data or
-// that component ever ships, every quote must be genuinely attributed and every
-// image replaced with approved client photography.
-//
-// SCAFFOLD CONTENT. The copy below is placeholder/approved-for-scaffold and the
-// `image` paths point at existing local files reused only as stand-ins — they
-// are NOT the real client photography. Each story carries `image` + `imageAlt`
-// fields built to be swapped for final, approved assets and copy later, without
-// touching the component. Do NOT fabricate claims, quotes, or businesses beyond
-// what is recorded here.
-export interface Story {
-  /** Company name — shown in the overlay and the roster. */
-  name: string;
-  type: string;
-  lookedAfter: string[];
-  outcome: string;
-  quote: string;
-  /** The individual who gave the quote, and their role. Shown as
-   *  `person` over `role, company`. NOTE: the names below are SCAFFOLD
-   *  placeholders for the three quotes we don't yet have a real name for —
-   *  replace with the genuine person (or remove) before launch. */
-  person: string;
-  role: string;
-  /** Replace with final approved client photography. Subject: the business or
-   *  its work (built environment, workplace, practice, site) — never portraits,
-   *  handshakes, headsets, or generic IT/office stock. Compose with the subject
-   *  on the RIGHT of frame, leaving negative space on the left for the overlay. */
-  image: string;
-  imageAlt: string;
+export interface WorkGroup {
+  /** One of the two engagement types. There is no third. */
+  engagement: "Managed Technology" | "Professional Services";
+  label: string;
+  items: WorkExample[];
 }
 
-export const stories: Story[] = [
+/** Two regions, one per engagement type. Deliberately not balanced by count:
+ *  Managed Technology is shown through one substantial example, Professional
+ *  Services through three shorter ones, because that is what the work is. */
+export const workGroups: WorkGroup[] = [
   {
-    name: "Deller Constructions",
-    type: "Residential construction",
-    lookedAfter: ["Website", "Microsoft 365", "Ongoing support"],
-    outcome: "So the builders can focus on building.",
-    quote: "Grant just gets it done. We don't think about IT anymore.",
-    person: "Dean Deller",
-    role: "Director",
-    image: "/images/chapter-craft.webp",
-    imageAlt:
-      "Scaffold image — a completed residential construction project (placeholder for Deller Constructions).",
+    engagement: "Managed Technology",
+    label: "Ongoing",
+    items: [
+      {
+        client: "Concrete Sales",
+        summary:
+          "Consolidating a long-standing environment onto managed Microsoft 365 and modern device management, while transitioning the business away from its final on-premises server.",
+        pills: ["Microsoft 365", "Device management", "Infrastructure transition"],
+      },
+    ],
   },
   {
-    name: "First Finance",
-    type: "Financial advice",
-    lookedAfter: ["Microsoft 365", "Security", "Devices"],
-    outcome: "So advisers can focus on clients.",
-    quote: "Genuinely easy to work with.",
-    person: "Craig Sturt",
-    role: "Director",
-    image: "/images/chapter-presence.webp",
-    imageAlt:
-      "Scaffold image — a branded financial-advice reception and workplace (placeholder for First Finance).",
-  },
-  {
-    name: "Sinclair Brook",
-    type: "Accounting & advisory",
-    lookedAfter: ["Microsoft 365", "Security", "Compliance"],
-    outcome: "So the team can focus on advice, not systems.",
-    quote: "Reliable, responsive and always one step ahead.",
-    person: "Michael Brook",
-    role: "Partner",
-    image: "/images/chapter-calm.webp",
-    imageAlt:
-      "Scaffold image — an accounting and advisory practice at work (placeholder for Sinclair Brook).",
-  },
-  {
-    name: "Baza Property Group",
-    type: "Property advisory",
-    lookedAfter: ["Microsoft 365", "Web presence", "Security"],
-    outcome: "So the business presents professionally and keeps moving.",
-    quote: "Technology feels handled, not handed back to us.",
-    person: "Anthony Baza",
-    role: "Director",
-    image: "/images/hero.webp",
-    imageAlt:
-      "Scaffold image — a property advisory business and its environment (placeholder for Baza Property Group).",
-  },
-  {
-    name: "Speech Made Simple",
-    type: "Speech pathology",
-    lookedAfter: ["Microsoft 365", "AI workflows", "Practice systems"],
-    outcome: "So clinicians can spend more time with people.",
-    quote: "Our clinicians get the tech that actually helps.",
-    person: "Rebecca Hayes",
-    role: "Director",
-    image: "/images/hero-lighthouse.webp",
-    imageAlt:
-      "Scaffold image — a speech pathology practice environment (placeholder for Speech Made Simple).",
+    engagement: "Professional Services",
+    label: "Project-based",
+    items: [
+      {
+        client: "Stiles Advisory",
+        summary:
+          "Commissioned market research and structured analysis, delivered as an evidence-led report designed to support a decision.",
+        pills: ["Research and analysis", "Advisory"],
+      },
+      {
+        client: "Baza Capital",
+        summary:
+          "SharePoint and Microsoft 365 remediation to resolve an existing storage and information-management problem.",
+        pills: ["SharePoint", "Microsoft 365", "Remediation"],
+      },
+      {
+        client: "Deller Constructions",
+        summary:
+          "Website rebuild and digital-presence work centred on presenting the business and its projects more clearly online.",
+        pills: ["Website", "Digital presence"],
+      },
+    ],
   },
 ];
+
+/** The one-line introduction above the work. States what the section is, and
+ *  does not pre-emptively defend the absence of quotes and numbers. */
+export const workLede =
+  "Selected work across ongoing technology management and defined specialist projects.";

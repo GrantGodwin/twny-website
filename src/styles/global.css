@@ -248,23 +248,33 @@
 
 /* ---------------------------------------------------------------------------
    Wordmark entrance — homepage hero only (the over-hero header passes
-   `animate`, which splits "twny" into .wm-letter spans). Each letter
-   materialises into focus one at a time, left to right — a restrained zoom
-   (0.8 → 1) paired with a blur→sharp resolve and fade, on a long easeOutExpo
-   tail ("fast in, slow settle") so each letter appears to settle into place
-   rather than arrive. Plays on every fresh homepage load. Gated behind
-   `.anim-ready` (set only when motion is allowed) so reduced-motion / no-JS
-   users get the full static wordmark immediately.
+   `animate`, which splits "twny" into .wm-letter spans). Each letter resolves
+   into focus one at a time, left to right: a soft fade with a blur→sharp
+   resolve and the smallest possible rise (0.1em). No scale, no bounce, no
+   overshoot, no elastic easing — the easing curve is monotonic, so nothing
+   ever travels past its resting position. Plays on every fresh homepage load.
+   Gated behind `.anim-ready` (set only when motion is allowed) so
+   reduced-motion / no-JS users get the full static wordmark immediately.
+
+   TIMING. This is deliberate brand assembly, not a loading indicator: the
+   first letter starts promptly (200ms) and each subsequent letter follows
+   460ms behind the one before it, so the four read as a sequence a visitor
+   can actually watch rather than a flicker. The last letter starts at
+   200 + 3x460 = 1580ms and resolves 1150ms later: the sequence completes at
+   ~2.73s, and is optically settled (every letter past 98% opacity) at ~2.44s.
+   Nothing else on the page waits for it — the headline, body, action and
+   scroll cue all settle inside the first second — and the link is clickable
+   throughout.
 --------------------------------------------------------------------------- */
 @keyframes wordmark-letter-in {
   from {
     opacity: 0;
-    transform: scale(0.8);
-    filter: blur(8px);
+    transform: translateY(0.1em);
+    filter: blur(5px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: none;
     filter: blur(0);
   }
 }
@@ -283,13 +293,9 @@
      then each letter reverts to its natural resting style — so nothing leaves
      a persistent blur() filter or composited layer at rest (no clipped ink),
      and there's no `will-change: filter` for iOS Safari to choke on, so the
-     entrance plays on mobile too.
-     Entrance settles in ≈1.1s: 80ms lead + last letter (×3) at 110ms stagger
-     starts at 410ms and resolves 700ms later. It previously ran to 3000ms,
-     which left the brand name — the first thing a visitor looks for — visibly
-     assembling long after the rest of the hero had settled. */
-  animation: wordmark-letter-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-  animation-delay: calc(80ms + var(--wm-i) * 110ms);
+     entrance plays on mobile too. */
+  animation: wordmark-letter-in 1.15s cubic-bezier(0.33, 0, 0.2, 1) backwards;
+  animation-delay: calc(200ms + var(--wm-i) * 460ms);
 }
 
 /* The hero is above the fold and is the first thing rendered, so it does not
