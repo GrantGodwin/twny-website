@@ -2,49 +2,100 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Section from "../components/ui/Section.astro";
 import Button from "../components/ui/Button.astro";
+import { email, mailto } from "../data/site";
 
-// Low-friction contact. Email is the working contact path, so it leads — and
-// the address is also shown as a large, selectable link, because a `mailto:`
-// link fails silently on managed devices and webmail-only setups.
+// Low-friction contact. Every general "Get in touch" on the site lands here
+// first, so this page has two jobs: say how a first conversation goes, and
+// offer ONE explicit email action. Email is the working contact path, so the
+// address is also shown as a large, selectable link — a `mailto:` link fails
+// silently on managed devices and webmail-only setups.
 //
 // There is still no form: this is a static build with no server runtime, and
 // no mail-sending credentials or form endpoint exist in the project. Inventing
 // one would ship something that quietly loses enquiries. Adding a real form is
 // follow-up work with a named dependency, not something to fake here.
-import { email, mailto } from "../data/site";
+//
+// No response-time or support-hours promise anywhere on this page: those
+// belong in a proposal or service agreement where they can be stated
+// accurately for a specific client.
+
+// Suggestions for the first email — prompts, not fields. They exist so the
+// blank compose window is less blank, and so the reply can be useful first
+// time rather than a round of questions.
+const helpful = [
+  "Your business, and roughly what it does",
+  "Approximate team size",
+  "What's happening now",
+  "What you'd like to be different",
+];
 ---
 
 <BaseLayout
   title="Contact — tell us what you need | TWNY"
   description="Tell us what's happening in your business and we'll tell you what we'd do about it. You don't need to know which service you need before getting in touch."
 >
+  {/* OPENING — two columns at desktop: the reassurance on the left, the one
+      email action on the right as a quiet panel. Below lg the panel follows
+      the text, so the action is never above the explanation. */}
   <section class="bg-sand">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-24">
-      <p class="font-mono text-xs uppercase tracking-widest text-mineral mb-3">
-        Contact
-      </p>
-      <h1
-        class="font-display text-3xl sm:text-4xl font-semibold text-ink max-w-2xl text-balance"
-      >
-        Tell us what you need.
-      </h1>
-      <p class="mt-4 text-lg text-steel leading-relaxed max-w-2xl text-pretty">
-        You don't need to know which service you need, or have it all worked out
-        first. Tell us what's happening in your business and we'll tell you
-        plainly what we'd do about it — including if that's less than you
-        expected.
-      </p>
+      <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-20">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral mb-5">
+            Contact
+          </p>
+          <h1
+            class="font-display text-3xl sm:text-4xl font-semibold text-ink max-w-2xl text-balance"
+          >
+            Tell us what you need.
+          </h1>
+          <p class="mt-5 text-lg text-steel leading-relaxed max-w-xl text-pretty">
+            You don't need to have all the answers, or to know which service
+            you need. Tell us what's happening in your business and we'll
+            tell you plainly what we'd do about it — including if that's less
+            than you expected.
+          </p>
+          <p class="mt-4 text-base text-steel leading-relaxed max-w-xl text-pretty">
+            Working out whether it's an ongoing Managed Technology arrangement,
+            a defined piece of Professional Services work, or simply some
+            advice is part of the conversation, not something you need to
+            decide first.
+          </p>
+        </div>
 
-      <div class="mt-9 flex flex-col items-start gap-5">
-        <Button href={mailto} variant="ember">Get in touch</Button>
-        <p class="text-base text-steel">
-          Or email us directly at{" "}
+        {/* The one email action. A lifted panel with a hairline, not a form:
+            label, the address, the button, and four prompts. */}
+        <div class="contact-panel rounded-sm border border-line bg-paper p-7 sm:p-8 lg:mt-1">
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+            Email TWNY
+          </p>
           <a
             href={mailto}
-            class="inline-block py-1 font-medium text-mineral transition-colors hover:text-mineral-strong"
+            aria-label={`Email ${email}`}
+            class="mt-4 inline-block font-display text-2xl font-medium leading-tight text-ink transition-colors hover:text-mineral-strong sm:text-[1.75rem] break-all"
             >{email}</a
           >
-        </p>
+          <div class="mt-6">
+            <Button href={mailto} variant="ember">Send an email</Button>
+          </div>
+
+          <p class="mt-9 font-mono text-xs uppercase tracking-[0.18em] text-steel">
+            Helpful to include
+          </p>
+          <ul class="mt-4 space-y-2.5">
+            {
+              helpful.map((line) => (
+                <li class="grid grid-cols-[auto_1fr] gap-3 text-[0.9688rem] leading-[1.6] text-steel">
+                  <span aria-hidden="true" class="mt-[0.7em] h-px w-3 bg-mineral/70" />
+                  <span>{line}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="mt-5 text-sm leading-relaxed text-steel/90 text-pretty">
+            All optional — a couple of lines is enough to start.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -57,25 +108,32 @@ import { email, mailto } from "../data/site";
     <ol class="border-t border-line max-w-2xl">
       <li class="grid grid-cols-[auto_1fr] gap-4 py-5 border-b border-line">
         <span class="font-mono text-mineral">01</span>
-        <span class="text-steel leading-relaxed">
+        <span class="text-[1.0313rem] leading-[1.6] text-steel text-pretty">
           You tell us roughly where you're at — the size of the team, what's
           working, and what isn't.
         </span>
       </li>
       <li class="grid grid-cols-[auto_1fr] gap-4 py-5 border-b border-line">
         <span class="font-mono text-mineral">02</span>
-        <span class="text-steel leading-relaxed">
-          We recommend a starting point — ongoing support, a defined project, or
-          sometimes just advice — with the scope written down.
+        <span class="text-[1.0313rem] leading-[1.6] text-steel text-pretty">
+          We recommend a starting point — ongoing Managed Technology, a defined
+          project, or sometimes just advice — with the scope written down.
         </span>
       </li>
       <li class="grid grid-cols-[auto_1fr] gap-4 py-5 border-b border-line">
         <span class="font-mono text-mineral">03</span>
-        <span class="text-steel leading-relaxed">
+        <span class="text-[1.0313rem] leading-[1.6] text-steel text-pretty">
           If it's a fit, we get started. If it isn't, we'll tell you that too,
           and point you somewhere better.
         </span>
       </li>
     </ol>
+
+    {/* One plain statement of who this is for and how TWNY works. Deliberately
+        unadorned — no "leading", no "full service", no address. */}
+    <p class="mt-12 max-w-2xl text-base leading-relaxed text-ink text-pretty">
+      TWNY works with small and mid-sized Australian businesses through
+      ongoing Managed Technology and defined Professional Services.
+    </p>
   </Section>
 </BaseLayout>

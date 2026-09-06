@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/home/Hero.astro";
 import CapabilityIcon from "../components/home/CapabilityIcon.astro";
 import Button from "../components/ui/Button.astro";
-import { mailto } from "../data/site";
 import {
   capabilities,
   capabilitiesLede,
@@ -27,8 +26,8 @@ import {
 ---
 
 <BaseLayout
-  title="twny — Simplifying the technology behind your business"
-  description="An Australian technology partner. We look after the technology behind your business and step in when there's a harder problem to solve — ongoing technology management, specialist projects and practical advice."
+  title="TWNY — Managed Technology and Professional Services"
+  description="Managed Technology and Professional Services for Australian businesses — Microsoft 365, devices, security, backup, websites and specialist projects."
   heroHeader={true}
 >
   {/* HERO */}
@@ -36,9 +35,16 @@ import {
 
   {/* WHAT WE HELP WITH — four plain-English areas of help, not four services.
       Each aggregates work that appears on the Services page under Managed
-      Technology, Professional Services, or both. Full-width editorial header,
-      then four columns separated by the site's fade-edge hairline rather than
-      boxed cards. bg-paper: a lifted step out of the hero's Ink. */}
+      Technology, Professional Services, or both.
+
+      Set as editorial columns, not a feature row: everything left-aligned,
+      each column opened by the same hairline rule, icon as a marginal mark
+      rather than a centred badge. Four columns only where there is genuinely
+      room for them (the `wide` breakpoint, 1200px, where the container is
+      fully open); a two-by-two below that, so the copy
+      never has to shrink to fit; a single column on phones. The rule-per-item
+      construction is what makes that reflow free — no per-breakpoint divider
+      arithmetic. bg-paper: a lifted step out of the hero's Ink. */}
   <section id="what-we-help-with" class="bg-paper text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
       <div data-animate class="max-w-2xl">
@@ -48,23 +54,23 @@ import {
         <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
           Technology shouldn't be another job.
         </h2>
-        <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+        <p class="mt-5 max-w-xl text-[0.9688rem] leading-[1.6] text-steel text-pretty">
           {capabilitiesLede}
         </p>
       </div>
 
       <div
         data-animate
-        class="capability-grid mt-14 grid grid-cols-1 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4"
+        class="capability-grid mt-14 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:mt-16 wide:grid-cols-4"
       >
         {
           capabilities.map((c) => (
-            <div class="capability-item flex flex-col items-center text-center">
-              <CapabilityIcon name={c.icon} class="h-11 w-11 text-mineral" />
-              <h3 class="capability-heading mt-5 font-display text-lg font-semibold leading-snug text-ink text-balance">
+            <div class="capability-item">
+              <CapabilityIcon name={c.icon} class="h-9 w-9 text-mineral" />
+              <h3 class="mt-5 font-display text-xl font-semibold leading-snug text-ink text-balance">
                 {c.heading}
               </h3>
-              <p class="mt-4 max-w-[17rem] text-[0.9rem] leading-relaxed text-steel/85 text-pretty">
+              <p class="mt-3 max-w-[24rem] text-[0.9688rem] leading-[1.6] text-steel text-pretty">
                 {c.body}
               </p>
             </div>
@@ -93,7 +99,7 @@ import {
         <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
           Two ways to work with us.
         </h2>
-        <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+        <p class="mt-5 max-w-xl text-[0.9688rem] leading-[1.6] text-steel text-pretty">
           {engagementsLede}
         </p>
       </div>
@@ -111,7 +117,7 @@ import {
               <h3 class="mt-4 font-display text-xl font-semibold leading-snug text-ink lg:text-2xl">
                 {e.name}
               </h3>
-              <p class="mt-4 max-w-[30rem] text-[0.9375rem] leading-relaxed text-steel text-pretty">
+              <p class="mt-4 max-w-[30rem] text-[0.9688rem] leading-[1.6] text-steel text-pretty">
                 {e.body}
               </p>
             </div>
@@ -195,7 +201,7 @@ import {
               <h3 class="font-display text-base font-semibold text-ink">
                 {point.title}
               </h3>
-              <p class="mt-2 text-sm leading-relaxed text-steel text-pretty">
+              <p class="mt-2 text-[0.9688rem] leading-[1.6] text-steel text-pretty">
                 {point.body}
               </p>
             </div>
@@ -211,65 +217,91 @@ import {
       three shorter ones. The counts are deliberately unequal — that is what
       the work is, and forcing parity would mean inventing an example.
 
+      So the asymmetry is composed rather than apologised for: the single
+      Managed Technology engagement is set as a feature panel on the left — a
+      lifted surface with a hairline, its pills anchored to the foot — and it
+      stretches to the height of the three-entry Professional Services list
+      beside it. One large thing next to three small things, not one small
+      thing above a lot of empty column.
+
       Factual rules, unchanged: no quotation marks, no attributed praise, no
       logos (client or vendor), no metrics, no storage quantities, no savings,
       no claimed outcomes. Nothing here implies a client has reviewed or
-      approved the wording. Flat bg-sand: the dip between the two bg-band
-      editorial sections either side. */}
+      approved the wording — see docs/client-work-approval.md. Flat bg-sand:
+      the dip between the two bg-band editorial sections either side. */}
   <section id="selected-work" class="bg-sand text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
       <div data-animate class="max-w-2xl">
-        <h2 class="font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">
+          Selected work
+        </p>
+        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
           Both halves, in practice.
         </h2>
-        <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+        <p class="mt-5 max-w-xl text-[0.9688rem] leading-[1.6] text-steel text-pretty">
           {workLede}
         </p>
       </div>
 
       <div
         data-animate
-        class="work-split mt-14 grid gap-x-16 gap-y-14 lg:mt-16 lg:grid-cols-2"
+        class="work-split mt-14 grid gap-x-12 gap-y-14 lg:mt-16 lg:grid-cols-[0.94fr_1.06fr] lg:gap-x-14"
       >
         {
-          workGroups.map((group) => (
-            <section class="work-region" aria-label={group.engagement}>
-              <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">
-                {group.label}
-              </p>
-              <h3 class="mt-3 font-display text-xl font-semibold leading-snug text-mineral">
-                {group.engagement}
-              </h3>
+          workGroups.map((group) => {
+            const feature = group.items.length === 1;
+            return (
+              <section class="work-region flex flex-col" aria-label={group.engagement}>
+                <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">
+                  {group.label}
+                </p>
+                <h3 class="mt-3 font-display text-xl font-semibold leading-snug text-mineral">
+                  {group.engagement}
+                </h3>
 
-              <ul class="mt-8 flex flex-col gap-8">
-                {group.items.map((item) => (
-                  <li class="work-item">
-                    <p
-                      class:list={[
-                        "font-display font-semibold leading-snug text-ink text-balance",
-                        group.items.length === 1 ? "text-2xl" : "text-lg lg:text-xl",
-                      ]}
-                    >
-                      {item.client}
-                    </p>
-                    <p
-                      class:list={[
-                        "mt-3 max-w-[32rem] leading-relaxed text-steel text-pretty",
-                        group.items.length === 1 ? "text-base" : "text-[0.9375rem]",
-                      ]}
-                    >
-                      {item.summary}
-                    </p>
-                    <ul class="mt-4 flex flex-wrap gap-2">
-                      {item.pills.map((pill) => (
-                        <li class="service-pill">{pill}</li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))
+                {feature ? (
+                  /* One engagement, set large: a feature panel that fills the
+                     region's height so the two halves sit level. */
+                  <div class="work-feature mt-7 flex flex-1 flex-col rounded-sm border border-line bg-paper p-7 sm:p-9 lg:p-10">
+                    {group.items.map((item) => (
+                      <div class="flex flex-1 flex-col">
+                        <p class="font-display text-2xl font-semibold leading-snug text-ink text-balance lg:text-[1.75rem]">
+                          {item.client}
+                        </p>
+                        <p class="mt-4 max-w-[30rem] text-[1.0625rem] leading-[1.6] text-steel text-pretty">
+                          {item.summary}
+                        </p>
+                        <ul class="mt-8 flex flex-wrap gap-2 lg:mt-auto lg:pt-10">
+                          {item.pills.map((pill) => (
+                            <li class="service-pill">{pill}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  /* Three engagements, set as a hairline-separated list. */
+                  <ul class="work-list mt-7 flex flex-col">
+                    {group.items.map((item) => (
+                      <li class="work-item">
+                        <p class="font-display text-lg font-semibold leading-snug text-ink text-balance lg:text-xl">
+                          {item.client}
+                        </p>
+                        <p class="mt-3 max-w-[32rem] text-[0.9688rem] leading-[1.6] text-steel text-pretty">
+                          {item.summary}
+                        </p>
+                        <ul class="mt-4 flex flex-wrap gap-2">
+                          {item.pills.map((pill) => (
+                            <li class="service-pill">{pill}</li>
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            );
+          })
         }
       </div>
     </div>
@@ -298,7 +330,7 @@ import {
         </div>
 
         <div class="mt-20">
-          <Button href={mailto} variant="ember">Get in touch</Button>
+          <Button href="/contact" variant="ember">Get in touch</Button>
         </div>
       </div>
     </div>
@@ -350,35 +382,13 @@ import {
     }
   }
 
-  /* "Both halves, in practice." — two engagement regions rather than a flat
-     grid of clients. The same fade-edge hairline separates them: vertical
-     between the two columns on desktop, horizontal between the stacked groups
-     on mobile, so the split stays legible at every width without boxes.
-     align-items: start keeps each region its own height — Professional
-     Services is legitimately taller, and stretching Managed Technology to
-     match would only add empty space. */
-  .work-split {
-    align-items: start;
-  }
+  /* "Both halves, in practice." — two engagement regions side by side on
+     desktop, stacked on everything narrower. The regions stretch to a shared
+     height (grid default), which is what lets the feature panel on the left
+     fill the same vertical space as the three-entry list on the right. A
+     fade-edge hairline separates the stacked groups on narrow screens. */
   .work-region {
     position: relative;
-  }
-  @media (min-width: 1024px) {
-    .work-split > .work-region:nth-child(2)::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: -2rem;
-      width: 1px;
-      background: linear-gradient(
-        to bottom,
-        transparent,
-        color-mix(in srgb, var(--line) 60%, transparent) 8%,
-        color-mix(in srgb, var(--line) 60%, transparent) 92%,
-        transparent
-      );
-    }
   }
   @media (max-width: 1023px) {
     .work-region + .work-region::before {
@@ -396,6 +406,13 @@ import {
         transparent
       );
     }
+  }
+  /* The Professional Services list: a hairline above every entry after the
+     first, same language as the capability columns. */
+  .work-list > .work-item + .work-item {
+    margin-top: 1.75rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
   }
 
   /* Service pills — visibly pill-shaped, quiet, and identical everywhere they
@@ -417,98 +434,12 @@ import {
     white-space: nowrap;
   }
 
-  /* "What we help with" capability columns — quiet separators between columns
-     (vertical) and rows (horizontal) as the grid wraps, without boxed cards.
-     align-items: start keeps each item's own content height, so a divider
-     never stretches taller than the panel it sits beside. */
-  .capability-grid {
-    row-gap: 4rem;
-    column-gap: 2rem;
-    align-items: start;
-  }
+  /* "What we help with" — every column opens on the same hairline rule, so
+     the set reads as one editorial row (or two, or four) at any column count
+     without boxed cards and without per-breakpoint divider arithmetic. */
   .capability-item {
-    position: relative;
-  }
-  /* Four columns: the headings wrap to two lines at different points, so
-     reserve two lines for all of them and the body copy starts on one line
-     across the row. Below this width the columns are wide enough that most
-     headings fit on one line and reserving space would only add a gap. */
-  @media (min-width: 1024px) {
-    .capability-heading {
-      min-height: 2.75em; /* 2 lines at leading-snug (1.375) */
-    }
-  }
-  @media (max-width: 639px) {
-    .capability-item + .capability-item::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 10%;
-      right: 10%;
-      height: 1px;
-      background: linear-gradient(
-        to right,
-        transparent,
-        color-mix(in srgb, var(--line) 48%, transparent) 30%,
-        color-mix(in srgb, var(--line) 48%, transparent) 70%,
-        transparent
-      );
-    }
-    .capability-item + .capability-item {
-      padding-top: 2.5rem;
-    }
-  }
-  @media (min-width: 640px) and (max-width: 1023px) {
-    .capability-item:nth-child(n + 3)::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 10%;
-      right: 10%;
-      height: 1px;
-      background: linear-gradient(
-        to right,
-        transparent,
-        color-mix(in srgb, var(--line) 48%, transparent) 30%,
-        color-mix(in srgb, var(--line) 48%, transparent) 70%,
-        transparent
-      );
-    }
-    .capability-item:nth-child(n + 3) {
-      padding-top: 2.5rem;
-    }
-    .capability-item:nth-child(even)::before {
-      content: "";
-      position: absolute;
-      top: 16%;
-      bottom: 16%;
-      left: -1rem;
-      width: 1px;
-      background: linear-gradient(
-        to bottom,
-        transparent,
-        color-mix(in srgb, var(--line) 48%, transparent) 30%,
-        color-mix(in srgb, var(--line) 48%, transparent) 70%,
-        transparent
-      );
-    }
-  }
-  @media (min-width: 1024px) {
-    .capability-item:not(:first-child)::before {
-      content: "";
-      position: absolute;
-      top: 16%;
-      bottom: 16%;
-      left: -1rem;
-      width: 1px;
-      background: linear-gradient(
-        to bottom,
-        transparent,
-        color-mix(in srgb, var(--line) 48%, transparent) 30%,
-        color-mix(in srgb, var(--line) 48%, transparent) 70%,
-        transparent
-      );
-    }
+    padding-top: 1.75rem;
+    border-top: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
   }
 
   /* "Why TWNY" philosophy row divider — the same fade-edged hairline used

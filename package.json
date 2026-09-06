@@ -11,7 +11,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
-    "verify": "astro build && node scripts/check-build.mjs"
+    "verify": "astro build && node scripts/check-build.mjs",
+    "verify:live": "node scripts/check-live.mjs",
+    "og-image": "node scripts/og-image.mjs"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",

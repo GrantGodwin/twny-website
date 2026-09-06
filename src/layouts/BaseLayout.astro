@@ -2,6 +2,14 @@
 import "../styles/global.css";
 import SiteHeader from "../components/chrome/SiteHeader.astro";
 import SiteFooter from "../components/chrome/SiteFooter.astro";
+import { orgId } from "../data/site";
+// The two faces on the critical path of every page — body text and the
+// display face used by the wordmark and headings. Preloaded so the swap from
+// the fallback font happens before first paint rather than a frame after it;
+// measured, that removes most of the small layout shift the pages had at
+// font-swap time. The remaining weights load normally.
+import interRegular from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
+import groteskSemibold from "@fontsource/space-grotesk/files/space-grotesk-latin-600-normal.woff2?url";
 
 interface Props {
   title: string;
@@ -9,8 +17,10 @@ interface Props {
   // Homepage opts in: header floats over the immersive hero, no top spacer.
   heroHeader?: boolean;
   /**
-   * Page-specific JSON-LD, appended after the site-wide Organization node.
-   * Only add schema that describes content actually visible on the page.
+   * Page-specific JSON-LD nodes, merged into the page's single @graph after
+   * the site-wide Organization (and, on the homepage, WebSite) nodes. Refer to
+   * the organisation with `{ "@id": orgId(Astro.site) }` rather than restating it. Only
+   * add schema that describes content actually visible on the page.
    */
   jsonLd?: Record<string, unknown>[];
   /**
@@ -35,26 +45,52 @@ const {
 const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const canonical = new URL(path, Astro.site).href;
 const ogImage = new URL("/og-image.jpg", Astro.site).href;
+const siteUrl = new URL("/", Astro.site).href;
 
-// Site-wide entity. Deliberately minimal: every field below is verifiable from
-// the site itself or the repository. No address, phone, opening hours, ratings,
-// reviews or physical premises — none of that is established, and inventing it
-// for schema would be fabricating business facts.
+// One entity model for the whole site, emitted as a single @graph per page.
+//
+// Organization carries a stable @id so every other node — the homepage
+// WebSite, the two Service nodes on /services — can point at the same entity
+// instead of restating an anonymous copy of it. Deliberately minimal: every
+// field is verifiable from the site or the repository. No address, phone,
+// opening hours, ratings, reviews, sameAs or physical premises — none of that
+// is established (the LinkedIn page still carries superseded positioning and
+// is not linked until it is updated), and inventing any of it for schema would
+// be fabricating business facts.
 //
 // Note on ProfessionalService: it is a LocalBusiness subtype whose expected
 // properties are address, geo and openingHours. Using it here would invite
 // exactly the fabrication above, so Organization carries the same true facts
 // without the implication of a storefront.
+const ORG_ID = orgId(Astro.site);
+const WEBSITE_ID = `${siteUrl}#website`;
+
 const organization = {
-  "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": ORG_ID,
   name: "TWNY",
   legalName: "TWNY Pty Ltd",
-  url: new URL("/", Astro.site).href,
+  url: siteUrl,
   email: "hello@twny.com.au",
+  logo: new URL("/logo.png", Astro.site).href,
   description:
-    "An Australian technology partner. Ongoing technology management, specialist projects and practical advice.",
+    "Managed Technology and Professional Services for small and mid-sized Australian businesses: Microsoft 365, devices, security, backup, websites and specialist projects.",
   areaServed: { "@type": "Country", name: "Australia" },
+};
+
+// The WebSite node belongs to the homepage only — one site, declared once.
+const website = {
+  "@type": "WebSite",
+  "@id": WEBSITE_ID,
+  name: "TWNY",
+  url: siteUrl,
+  inLanguage: "en-AU",
+  publisher: { "@id": ORG_ID },
+};
+
+const graph = {
+  "@context": "https://schema.org",
+  "@graph": [organization, ...(path === "/" ? [website] : []), ...jsonLd],
 };
 ---
 
@@ -67,6 +103,8 @@ const organization = {
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="canonical" href={canonical} />
+    <link rel="preload" as="font" type="font/woff2" href={interRegular} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={groteskSemibold} crossorigin />
     {noindex && <meta name="robots" content="noindex, follow" />}
 
     {/* Icons. PNG rather than SVG: the mark is the wordmark set in Space
@@ -85,11 +123,12 @@ const organization = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="A lighthouse on a dark coastal headland, its beam sweeping across the bay."
+      content="TWNY — Technology, simplified. The twny wordmark over a lighthouse on a dark coastal headland."
     />
 
     {/* Twitter / X */}
@@ -114,16 +153,7 @@ const organization = {
       })();
     </script>
 
-    <script
-      type="application/ld+json"
-      is:inline
-      set:html={JSON.stringify(organization)}
-    />
-    {
-      jsonLd.map((node) => (
-        <script type="application/ld+json" is:inline set:html={JSON.stringify(node)} />
-      ))
-    }
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(graph)} />
   </head>
   <body class="min-h-screen flex flex-col font-body">
     <a

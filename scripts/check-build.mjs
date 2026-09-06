@@ -119,7 +119,12 @@ const visibleText = (html) =>
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
     .replace(/<style[\s\S]*?<\/style>/gi, " ")
     .replace(/<[^>]+>/g, " ")
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, "&")
     .replace(/&[a-z]+;/gi, " ");
+// Whitespace-normalised, for comparing sentences that wrap across source lines.
+const norm = (text) => text.replace(/\s+/g, " ").trim();
 
 const PRICING = [
   /\$\s?\d/,
@@ -262,7 +267,8 @@ const LOCKED = [
   ["index.html", "That's where we come in."],
   ["services/index.html", "One technology partner, two ways to work."],
   ["services/index.html", "One accountable partner across your technology."],
-  ["services/index.html", "What Managed Technology covers."],
+  ["services/index.html", "What we manage."],
+  ["services/index.html", "Where we help."],
   ["services/index.html", "Sometimes you just need the problem solved."],
   ["services/index.html", "Not sure where it fits? Start with the problem."],
   // The ownership passage is the clearest statement that the client keeps what
@@ -324,7 +330,7 @@ for (const needle of RETIRED) {
 // The four named engagements are interim proof, described in capability terms.
 // Nothing may imply a quotation, an endorsement, a metric or an outcome.
 const homeHtml = existsSync("dist/index.html") ? readFileSync("dist/index.html", "utf8") : "";
-const homeText = visibleText(homeHtml);
+const homeText = norm(visibleText(homeHtml));
 for (const client of ["Concrete Sales", "Stiles Advisory", "Baza Capital", "Deller Constructions"]) {
   check(`${client} named in the work section`, homeText.includes(client));
 }
@@ -397,6 +403,101 @@ check(
     ...JSON.parse(readFileSync("package.json", "utf8")).devDependencies,
   }).includes("phosphor"),
 );
+
+// --- 17. CTA routing ---------------------------------------------------------
+// General "Get in touch" actions route through the Contact page, which says
+// how a first conversation goes before asking for anything. Only the Contact
+// page's own action, the footer address and the 404's "ask us" line open mail.
+{
+  const home = readFileSync("dist/index.html", "utf8");
+  const services = readFileSync("dist/services/index.html", "utf8");
+  const contact = readFileSync("dist/contact/index.html", "utf8");
+  const ctas = (html) => [...html.matchAll(/<a href="([^"]+)"[^>]*>\s*Get in touch/g)].map((m) => m[1]);
+  check("home: every 'Get in touch' routes to /contact", ctas(home).length >= 2 && ctas(home).every((h) => h === "/contact"), ctas(home).join(", "));
+  check("services: every 'Get in touch' routes to /contact", ctas(services).length >= 2 && ctas(services).every((h) => h === "/contact"), ctas(services).join(", "));
+  check("contact: no 'Get in touch' pointing at itself", ctas(contact).length === 0, ctas(contact).join(", "));
+  check("contact: exactly one email button", (contact.match(/>\s*Send an email/g) ?? []).length === 1);
+  check("contact: address shown as a mailto link", contact.includes(`<a href="${EXPECTED_MAILTO}" aria-label="Email hello@twny.com.au"`));
+  check("contact: header action omitted on the contact page", !/site-header[\s\S]*?<\/header>/.exec(contact)?.[0].includes("Get in touch"));
+  check("contact: trust statement present", norm(visibleText(contact)).includes("TWNY works with small and mid-sized Australian businesses through ongoing Managed Technology and defined Professional Services."));
+  check("contact: helpful-to-include prompts present", visibleText(contact).includes("Helpful to include"));
+  check("contact: no response-time promise", !/\b(within|respond|reply) (\d+|one|two|a few|24|48)\b/i.test(visibleText(contact)) && !/business hours/i.test(visibleText(contact)));
+}
+
+// --- 18. Metadata and the entity graph -------------------------------------
+{
+  const home = readFileSync("dist/index.html", "utf8");
+  const title = home.match(/<title>([^<]*)<\/title>/)?.[1] ?? "";
+  const desc = home.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? "";
+  check("home title names both engagement types", /Managed Technology and Professional Services/.test(title), title);
+  check("home title length ≤ 60", title.length <= 60, `${title.length}`);
+  check("home description length 120-160", desc.length >= 120 && desc.length <= 160, `${desc.length}`);
+  check("home description names Australian businesses", /Australian businesses/.test(desc));
+  check("home H1 stays 'Technology, simplified.'", /<h1[^>]*>\s*Technology,\s*<span[^>]*>simplified\.<\/span>/.test(home));
+
+  const graphs = {};
+  for (const [file, path] of PAGES) {
+    const html = readFileSync(file, "utf8");
+    const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+    check(`${path}: exactly one JSON-LD block`, blocks.length === 1, `found ${blocks.length}`);
+    let parsed = null;
+    try { parsed = JSON.parse(blocks[0] ?? ""); } catch {}
+    check(`${path}: JSON-LD parses as a @graph`, !!parsed && Array.isArray(parsed["@graph"]));
+    graphs[path] = parsed?.["@graph"] ?? [];
+  }
+  const orgs = (nodes) => nodes.filter((n) => n["@type"] === "Organization");
+  for (const path of Object.keys(graphs)) {
+    const o = orgs(graphs[path]);
+    check(`${path}: exactly one Organization node`, o.length === 1, `found ${o.length}`);
+    check(`${path}: Organization @id is ${ORIGIN}/#organization`, o[0]?.["@id"] === `${ORIGIN}/#organization`, o[0]?.["@id"]);
+    check(`${path}: Organization logo on canonical origin`, typeof o[0]?.logo === "string" && o[0].logo.startsWith(ORIGIN));
+    check(`${path}: Organization has no address/phone/hours/ratings`, !["address", "telephone", "openingHours", "aggregateRating", "review", "geo"].some((k) => k in (o[0] ?? {})));
+    check(`${path}: Organization has no sameAs`, !("sameAs" in (o[0] ?? {})));
+    check(`${path}: no knowsAbout keyword dump`, !graphs[path].some((n) => "knowsAbout" in n));
+  }
+  const site = graphs["/"].filter((n) => n["@type"] === "WebSite");
+  check("home: exactly one WebSite node", site.length === 1);
+  check("home: WebSite @id and publisher reference the Organization", site[0]?.["@id"] === `${ORIGIN}/#website` && site[0]?.publisher?.["@id"] === `${ORIGIN}/#organization`);
+  check("contact/services: no WebSite node", !graphs["/services"].some((n) => n["@type"] === "WebSite") && !graphs["/contact"].some((n) => n["@type"] === "WebSite"));
+
+  const services = graphs["/services"].filter((n) => n["@type"] === "Service");
+  check("services: exactly two Service nodes", services.length === 2);
+  check("services: Service names are the two engagement types", services.map((s) => s.name).sort().join("|") === "Managed Technology|Professional Services");
+  check("services: Service provider references Organization @id", services.every((s) => s.provider?.["@id"] === `${ORIGIN}/#organization` && Object.keys(s.provider).length === 1));
+  check("services: no Offer/price on Service nodes", !services.some((s) => "offers" in s || "price" in s || "priceRange" in s));
+  const faq = graphs["/services"].filter((n) => n["@type"] === "FAQPage");
+  check("services: exactly one FAQPage", faq.length === 1);
+  const servicesHtml = readFileSync("dist/services/index.html", "utf8");
+  const visibleQs = [...servicesHtml.matchAll(/<summary[^>]*>\s*([^<]+?)\s*<span/g)].map((m) => norm(visibleText(m[1])));
+  const schemaQs = (faq[0]?.mainEntity ?? []).map((q) => q.name);
+  check("services: FAQ schema questions exactly match visible questions", JSON.stringify(visibleQs) === JSON.stringify(schemaQs), `visible ${visibleQs.length} / schema ${schemaQs.length}`);
+  const visibleText_ = norm(visibleText(servicesHtml));
+  check("services: every FAQ schema answer is visible on the page", (faq[0]?.mainEntity ?? []).every((q) => visibleText_.includes(norm(q.acceptedAnswer.text))));
+  check("services: IT-support FAQ present", schemaQs.includes("Does Managed Technology include day-to-day IT support?"));
+  check("services: IT-support answer keeps the distinction", /goes further/.test(visibleText_) && /managed together/.test(visibleText_) && !/\bMSP\b/.test(visibleText_));
+  check("services: 'What we manage.' heading", visibleText_.includes("What we manage."));
+  check("services: 'Where we help.' heading", visibleText_.includes("Where we help."));
+  check("services: 'technology consulting and advisory' appears once", (visibleText_.match(/technology consulting and advisory/gi) ?? []).length === 1);
+}
+
+// --- 19. Social image ------------------------------------------------------
+{
+  const home = readFileSync("dist/index.html", "utf8");
+  check("og:image:type declared", home.includes('<meta property="og:image:type" content="image/jpeg"'));
+  const jpg = readFileSync("dist/og-image.jpg");
+  // JPEG SOF0/SOF2 marker carries height then width.
+  let w = 0, h = 0;
+  for (let i = 2; i < jpg.length - 9; i++) {
+    if (jpg[i] === 0xff && (jpg[i + 1] === 0xc0 || jpg[i + 1] === 0xc2)) { h = jpg.readUInt16BE(i + 5); w = jpg.readUInt16BE(i + 7); break; }
+  }
+  check("og-image.jpg is 1200x630", w === 1200 && h === 630, `${w}x${h}`);
+  check("og-image.jpg is a JPEG", jpg[0] === 0xff && jpg[1] === 0xd8);
+  const png = existsSync("dist/logo.png") ? readFileSync("dist/logo.png") : Buffer.alloc(0);
+  check("logo.png present and 512x512", png.length > 24 && png.readUInt32BE(16) === 512 && png.readUInt32BE(20) === 512);
+}
+
+// --- 20. Internal docs never reach the build -------------------------------
+check("no docs/ content in dist", !allFiles.some((f) => /client-work-approval|deployment-handoff|ROADMAP/.test(f)));
 
 // --- report ----------------------------------------------------------------
 const passed = checks.filter((c) => c.ok).length;

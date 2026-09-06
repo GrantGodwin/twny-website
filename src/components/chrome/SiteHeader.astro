@@ -1,7 +1,6 @@
 ---
 import Wordmark from "./Wordmark.astro";
 import Button from "../ui/Button.astro";
-import { mailto } from "../../data/site";
 
 interface Props {
   // When true the header floats transparently over an immersive hero and
@@ -16,6 +15,14 @@ const nav = [
 ];
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+// The header action routes to the Contact page, not straight into a mail
+// client: that page explains how a first conversation goes before asking for
+// anything, which is the reassurance the button is promising. On the Contact
+// page itself the action is dropped — the page IS the action, and a "Get in
+// touch" button pointing at the page it sits on is noise next to the real
+// email control below it.
+const onContact = path === "/contact";
 ---
 
 <header
@@ -41,7 +48,9 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
               href={item.href}
               aria-current={active ? "page" : undefined}
               class:list={[
-                "site-link font-body text-[0.9375rem] font-medium transition-colors duration-200 ease-out",
+                // py-1 lifts the text link to a ≥24px target (WCAG 2.5.8) without
+                // changing its visual weight.
+                "site-link py-1 font-body text-[0.9375rem] font-medium transition-colors duration-200 ease-out",
                 active ? "text-mineral" : "text-steel hover:text-ink",
               ]}
             >
@@ -52,10 +61,14 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
       }
     </nav>
 
-    {/* desktop/tablet CTA — always visible and static (no scroll-reveal) */}
-    <div class="hidden items-center sm:flex ml-8">
-      <Button href={mailto} variant="ember">Get in touch</Button>
-    </div>
+    {/* desktop/tablet CTA — static (no scroll-reveal); omitted on /contact */}
+    {
+      !onContact && (
+        <div class="hidden items-center sm:flex ml-8">
+          <Button href="/contact" variant="ember">Get in touch</Button>
+        </div>
+      )
+    }
 
     <button
       type="button"
@@ -94,11 +107,15 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
           );
         })
       }
-      <div class="pt-5">
-        <Button href={mailto} variant="ember" class="w-full justify-center">
-          Get in touch
-        </Button>
-      </div>
+      {
+        !onContact && (
+          <div class="pt-5">
+            <Button href="/contact" variant="ember" class="w-full justify-center">
+              Get in touch
+            </Button>
+          </div>
+        )
+      }
     </nav>
   </div>
 </header>

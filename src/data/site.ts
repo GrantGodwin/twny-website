@@ -12,3 +12,11 @@ export const email = "hello@twny.com.au";
  * contains a space.
  */
 export const mailto = `mailto:${email}?subject=${encodeURIComponent("Website enquiry")}`;
+
+/**
+ * Stable schema.org identifier for the TWNY Organization node. Derived from the
+ * configured site origin so the @id, the canonical and the sitemap can only
+ * ever agree. BaseLayout emits the node; page-level Service nodes reference it
+ * as `provider: { "@id": orgId(Astro.site) }` instead of restating it.
+ */
+export const orgId = (site: URL | undefined) => `${new URL("/", site).href}#organization`;
