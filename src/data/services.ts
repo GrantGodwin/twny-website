@@ -7,7 +7,12 @@
 // customer in conversation and in a proposal, never on the public site.
 //
 // The customer-level story leads. Internal service taxonomy stays internal —
-// the reader should understand what TWNY takes on, not how TWNY files it.
+// the reader should understand what TWNY looks after, not how TWNY files it.
+//
+// LANGUAGE RULE (site-wide). TWNY owns the *problem* and stays accountable for
+// it; the client owns its domains, data, systems and decisions. Prefer manage,
+// look after, coordinate, stay accountable, deliver, solve, work through,
+// advise, transition. Never "take ownership of" or "own your technology".
 
 export interface Engagement {
   label: string;
@@ -20,12 +25,12 @@ export const engagementRows: Engagement[] = [
   {
     label: "Ongoing",
     name: "Managed Technology",
-    line: "We take responsibility for the technology your business runs on, and keep it running.",
+    line: "We manage the technology environment as a whole and stay accountable for keeping it working.",
   },
   {
     label: "Project-based",
     name: "Professional Services",
-    line: "We take on defined projects, advisory work and the problems that need specialist attention.",
+    line: "We deliver defined projects, research and advice when something needs specialist attention.",
   },
 ];
 
@@ -53,41 +58,41 @@ export const managed: {
   ownership: string;
 } = {
   eyebrow: "Managed Technology",
-  heading: "Someone whose job it is to own your technology.",
+  heading: "One accountable partner across your technology.",
   body: [
-    "Most small businesses end up with technology spread across a handful of providers, none of whom are responsible for the whole thing. Managed Technology is the opposite arrangement: we take on the environment as a whole and stay responsible for it.",
-    "That means the everyday things are handled without being asked, the things that need deciding get raised early, and when something goes wrong there is one place to call — not a queue, and not a hand-off to whoever set it up originally.",
+    "Most small businesses end up with Microsoft 365, devices, security, internet, domains and support spread across different providers. Each may do its part, but nobody is looking across the whole environment. Managed Technology gives that responsibility a clear home.",
+    "We handle routine administration, raise decisions early and coordinate other providers when needed. When something breaks, you call us and we work the problem through.",
   ],
-  areasHeading: "What we take on.",
+  areasHeading: "What Managed Technology covers.",
   areas: [
     {
       label: "Microsoft 365",
-      line: "Email, files, Teams and calendars — set up properly and kept that way.",
+      line: "Email, files, Teams, calendars and licensing — set up properly and kept that way.",
     },
     {
       label: "Devices",
-      line: "Laptops and desktops, enrolled, updated and consistent across the team.",
+      line: "Laptops and desktops — enrolled, updated, supported and kept consistent across the team.",
     },
     {
       label: "Identity and access",
-      line: "Accounts, permissions and sign-in security, including people joining and leaving.",
+      line: "Accounts, permissions and sign-in security, including people joining, changing roles and leaving.",
     },
     {
       label: "Security and backup",
       line: "Protection, backup and a recovery position that has actually been thought through.",
     },
     {
-      label: "Suppliers and renewals",
-      line: "Providers, subscriptions and renewals coordinated, so you're not chasing them.",
+      label: "Networks and suppliers",
+      line: "Internet, local networks, technology providers, subscriptions and renewals — supported and coordinated without you having to chase each party.",
     },
     {
       label: "Websites and domains",
-      line: "Kept current and reliable, where they form part of the environment we look after.",
+      line: "Kept current and reliable where they form part of the environment we manage.",
     },
   ],
-  levelsHeading: "Different businesses need different levels of responsibility.",
+  levelsHeading: "The right level depends on how your business uses technology.",
   levelsLede:
-    "Managed Technology scales with how much your business leans on its technology. You don't need to work out which one you are before talking to us — that's part of the conversation.",
+    "Managed Technology scales with how much your business relies on its technology and how much support, oversight and planning it needs. You don't need to work out which level fits before talking to us — that's part of the conversation.",
   levels: [
     {
       name: "Core",
@@ -95,7 +100,7 @@ export const managed: {
     },
     {
       name: "Business",
-      body: "Broader responsibility for the whole environment — security, backup, identity and suppliers handled together, with regular attention rather than reactive fixes.",
+      body: "Broader responsibility for the whole environment — security, backup, identity, networks and suppliers managed together, with regular attention rather than reactive fixes.",
     },
     {
       name: "Strategic",
@@ -123,7 +128,7 @@ export const professional: {
   eyebrow: "Professional Services",
   heading: "Sometimes you just need the problem solved.",
   body: [
-    "Not everything belongs in an ongoing arrangement. A migration, a clean-up, a piece of research, a decision that needs someone independent to look at it properly — these have a beginning and an end, and we take them on as defined work with a written scope.",
+    "Not everything belongs in an ongoing arrangement. A migration, a clean-up, a piece of research, a decision that needs someone independent to look at it properly — these have a beginning and an end, and we deliver them as defined work with a written scope.",
   ],
   groups: [
     {
@@ -148,7 +153,7 @@ export const professional: {
     },
     {
       title: "Remediation and transition",
-      body: "Untangling environments that have grown messy over time, and taking over from a previous provider cleanly.",
+      body: "Untangling environments that have grown messy over time, and moving cleanly from a previous provider.",
     },
   ],
   bridge:
@@ -199,11 +204,11 @@ export const serviceFaqs: ServiceFaq[] = [
   },
   {
     q: "What if I already have systems set up?",
-    a: "That's normal, and it's fine. We can take over what you've got, tidy it up, or move you to something cleaner — and we'll tell you which of those we think it needs. Either way you end up with one place responsible for it.",
+    a: "That's normal, and it's fine. We can work with what you've got, tidy it up or move you to something cleaner — and we'll tell you which approach we think it needs. Either way, you end up with one accountable point of contact.",
   },
   {
     q: "What size of business is this for?",
-    a: "Small and mid-sized Australian businesses. If you're big enough to depend on your technology but not big enough to want an IT department of your own, that's the fit.",
+    a: "Small and mid-sized Australian businesses that depend on technology but don't need or want a full internal IT function.",
   },
   {
     q: "Do you work remotely, or come on-site?",
@@ -211,6 +216,6 @@ export const serviceFaqs: ServiceFaq[] = [
   },
   {
     q: "What's outside what you do?",
-    a: "Personal devices, home networks and large legacy server rooms aren't what we're built for. If that's most of what you need, we'll say so early rather than take it on anyway.",
+    a: "Personal devices, home networks and large legacy server rooms aren't what we're built for. If that's most of what you need, we'll say so early rather than pretend we're the right fit.",
   },
 ];

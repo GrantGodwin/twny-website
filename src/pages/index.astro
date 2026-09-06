@@ -4,27 +4,87 @@ import Hero from "../components/home/Hero.astro";
 import CapabilityIcon from "../components/home/CapabilityIcon.astro";
 import Button from "../components/ui/Button.astro";
 import { mailto } from "../data/site";
-import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatingTerms } from "../data/offer";
+import {
+  capabilities,
+  capabilitiesLede,
+  engagements,
+  engagementsLede,
+  philosophy,
+  rotatingTerms,
+  workGroups,
+  workLede,
+} from "../data/offer";
 
+// Homepage narrative order (locked):
+//   promise -> areas of help -> engagement model -> differentiation ->
+//   evidence -> action.
+// "What we help with" sits directly beneath the hero because the hero's scroll
+// cue points at it; "How we work" follows, so a visitor understands the two
+// engagement types before the proof section splits along them.
+//
+// Surfaces still step tonally between neighbours: hero (photo over Ink) ->
+// paper -> sand -> band -> sand -> band -> footer (paper).
 ---
 
 <BaseLayout
   title="twny — Simplifying the technology behind your business"
-  description="An Australian technology partner. We take ongoing responsibility for the technology your business runs on, and take on the specialist projects and advice in between — one place to call, and clean ownership you keep."
+  description="An Australian technology partner. We look after the technology behind your business and step in when there's a harder problem to solve — ongoing technology management, specialist projects and practical advice."
   heroHeader={true}
 >
   {/* HERO */}
   <Hero />
 
-  {/* TWO WAYS WE WORK — the homepage's structural correction, placed at the
-      first narrative transition out of the hero. TWNY is one business that
-      takes ongoing responsibility for an environment AND solves defined
-      problems; a visitor has to understand both before the capability grid
-      below narrows to the everyday. Prose only, two columns, one hairline —
-      deliberately not a second feature list, not cards, not a diagram. On
-      bg-paper: a lifted step out of the hero's Ink, and tonally distinct from
-      the bg-sand section beneath it. */}
-  <section id="how-we-work" class="bg-paper text-ink">
+  {/* WHAT WE HELP WITH — four plain-English areas of help, not four services.
+      Each aggregates work that appears on the Services page under Managed
+      Technology, Professional Services, or both. Full-width editorial header,
+      then four columns separated by the site's fade-edge hairline rather than
+      boxed cards. bg-paper: a lifted step out of the hero's Ink. */}
+  <section id="what-we-help-with" class="bg-paper text-ink">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
+      <div data-animate class="max-w-2xl">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
+          What we help with
+        </p>
+        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
+          Technology shouldn't be another job.
+        </h2>
+        <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
+          {capabilitiesLede}
+        </p>
+      </div>
+
+      <div
+        data-animate
+        class="capability-grid mt-14 grid grid-cols-1 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4"
+      >
+        {
+          capabilities.map((c) => (
+            <div class="capability-item flex flex-col items-center text-center">
+              <CapabilityIcon name={c.icon} class="h-11 w-11 text-mineral" />
+              <h3 class="capability-heading mt-5 font-display text-lg font-semibold leading-snug text-ink text-balance">
+                {c.heading}
+              </h3>
+              <p class="mt-4 max-w-[17rem] text-[0.9rem] leading-relaxed text-steel/85 text-pretty">
+                {c.body}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div data-animate class="mt-16 lg:mt-20">
+        <Button href="/services" variant="mineral">
+          See our services
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  {/* HOW WE WORK — the two engagement types, and only ever two. Prose only,
+      two columns, one hairline: the grid above already carries the "what", so
+      this must not become a second feature list. bg-sand steps back down to
+      the base canvas, distinct from paper above and band below. */}
+  <section id="how-we-work" class="bg-sand text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
       <div data-animate class="max-w-2xl">
         <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
@@ -34,8 +94,7 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
           Two ways to work with us.
         </h2>
         <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
-          Sometimes we look after everything. Sometimes it's one hard problem.
-          Often it's both.
+          {engagementsLede}
         </p>
       </div>
 
@@ -62,57 +121,13 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
     </div>
   </section>
 
-  {/* WHAT WE LOOK AFTER — full-width editorial header, then four wide
-      capability panels. Flat bg-sand: "Two ways we work" above now holds
-      bg-paper, so this steps back down to the base canvas and remains
-      tonally distinct from BOTH its neighbours (paper above, Why TWNY's
-      bg-band below) without a gradient. */}
-  <section id="what-we-look-after" class="bg-sand text-ink">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
-      <div data-animate class="max-w-2xl">
-        <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-          What we look after
-        </p>
-        <h2 class="mt-6 font-display text-3xl font-semibold leading-[1.07] text-balance sm:text-4xl">
-          Technology shouldn't be another job.
-        </h2>
-      </div>
-
-      <div
-        data-animate
-        class="capability-grid mt-5 grid grid-cols-1 sm:grid-cols-2 lg:mt-9 lg:grid-cols-4"
-      >
-        {
-          capabilities.map((c) => (
-            <div class="capability-item flex flex-col items-center text-center">
-              <CapabilityIcon name={c.icon} class="h-16 w-16 text-mineral" />
-              <h3 class="mt-5 font-display text-xl font-semibold leading-snug text-ink whitespace-nowrap lg:text-2xl">
-                {c.heading}
-              </h3>
-              <p class="mt-5 max-w-[15rem] text-[0.9rem] leading-relaxed text-steel/85 text-pretty">
-                {c.body}
-              </p>
-            </div>
-          ))
-        }
-      </div>
-
-      <div data-animate class="mt-16 lg:mt-20">
-        <Button href="/services" variant="mineral">
-          See how we can help
-        </Button>
-      </div>
-    </div>
-  </section>
-
-  {/* WHY TWNY — the homepage's emotional centre. Demonstrates the
-      philosophy (we carry the complexity so clients don't have to) rather
-      than asserting differentiation as a principles list. No cards, no
-      icons, no diagram — typography and one restrained vertical-reel motion
-      carry the section. The rotating term is not the feature; it's a
-      specimen of the complexity being carried, so its meaning survives
-      entirely intact with motion off or JS disabled (the markup's initial
-      term is simply what's shown, statically). */}
+  {/* WHY TWNY — the homepage's emotional centre. Demonstrates the philosophy
+      (we carry the complexity so clients don't have to) rather than asserting
+      differentiation as a principles list. No cards, no icons, no diagram —
+      typography and one restrained vertical-reel motion carry the section. The
+      rotating clause is not the feature; it's a specimen of the complexity
+      being carried, so its meaning survives entirely intact with motion off or
+      JS disabled (the markup's initial clause is simply what's shown). */}
   <section id="why-twny" class="bg-band text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-16 lg:py-20">
       <div data-animate class="max-w-[63rem]">
@@ -131,10 +146,10 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
         <p
           data-animate
           data-rotating-term-wrapper
-          class="mt-3 font-display text-base leading-snug text-ink sm:text-lg lg:mt-4 lg:text-xl"
+          class="mt-4 font-display text-base leading-snug text-ink sm:text-lg lg:mt-5 lg:text-xl"
         >
           <span aria-hidden="true">
-            You shouldn't need to understand
+            <span class="block sm:inline">You shouldn't need to understand</span>
             <span class="term-reel">
               <span class="term-reel__track" data-rotating-track>
                 <span
@@ -162,7 +177,7 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
 
         <p
           data-animate
-          class="mt-3 max-w-[548px] text-sm leading-relaxed text-steel text-pretty sm:mt-4 sm:text-base"
+          class="mt-4 max-w-[548px] text-sm leading-relaxed text-steel text-pretty sm:mt-5 sm:text-base"
         >
           Technology is complicated. The jargon, the platforms and the
           security requirements keep changing — we stay across all of it,
@@ -190,15 +205,17 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
     </div>
   </section>
 
-  {/* THE WORK — two contrasting engagements, one per service shape, rather than
-      four near-identical blocks that read as a long repetitive scroll on mobile.
-      Concrete Sales carries Managed Technology; Stiles Advisory carries
-      Professional Services. The remaining two keep their signal in a single
-      line rather than a second grid. No eyebrow here: the heading carries the
-      section on its own, and the page already runs three eyebrows above it.
-      Same factual rules as before — no quotes, individuals, metrics, logos or
-      photography, and present tense where the work is ongoing. Flat bg-sand:
-      the dip between the two bg-band editorial sections either side. */}
+  {/* BOTH HALVES, IN PRACTICE — the proof, split along the two engagement
+      types rather than presented as an undifferentiated grid. Managed
+      Technology carries one substantial example; Professional Services carries
+      three shorter ones. The counts are deliberately unequal — that is what
+      the work is, and forcing parity would mean inventing an example.
+
+      Factual rules, unchanged: no quotation marks, no attributed praise, no
+      logos (client or vendor), no metrics, no storage quantities, no savings,
+      no claimed outcomes. Nothing here implies a client has reviewed or
+      approved the wording. Flat bg-sand: the dip between the two bg-band
+      editorial sections either side. */}
   <section id="selected-work" class="bg-sand text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-20 lg:py-28">
       <div data-animate class="max-w-2xl">
@@ -206,90 +223,77 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
           Both halves, in practice.
         </h2>
         <p class="mt-5 max-w-xl text-sm leading-relaxed text-steel text-pretty">
-          Real engagements, described plainly. We don't publish quotes or
-          numbers we can't stand behind.
+          {workLede}
         </p>
       </div>
 
       <div
         data-animate
-        class="work-grid mt-14 grid gap-x-16 gap-y-12 sm:grid-cols-2 lg:mt-16"
+        class="work-split mt-14 grid gap-x-16 gap-y-14 lg:mt-16 lg:grid-cols-2"
       >
         {
-          featuredWork.map((item) => (
-            <div class="work-item">
-              <p class="font-mono text-xs uppercase tracking-[0.18em] text-mineral">
-                {item.category}
+          workGroups.map((group) => (
+            <section class="work-region" aria-label={group.engagement}>
+              <p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">
+                {group.label}
               </p>
-              <h3 class="mt-4 font-display text-2xl font-semibold leading-snug text-ink text-balance">
-                {item.client}
+              <h3 class="mt-3 font-display text-xl font-semibold leading-snug text-mineral">
+                {group.engagement}
               </h3>
-              <p class="mt-4 max-w-[30rem] text-[0.9375rem] leading-relaxed text-steel text-pretty">
-                {item.summary}
-              </p>
-              <ul class="mt-5 flex flex-wrap gap-x-5 gap-y-1.5">
-                {item.tags.map((tag) => (
-                  <li class="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-steel">
-                    {tag}
+
+              <ul class="mt-8 flex flex-col gap-8">
+                {group.items.map((item) => (
+                  <li class="work-item">
+                    <p
+                      class:list={[
+                        "font-display font-semibold leading-snug text-ink text-balance",
+                        group.items.length === 1 ? "text-2xl" : "text-lg lg:text-xl",
+                      ]}
+                    >
+                      {item.client}
+                    </p>
+                    <p
+                      class:list={[
+                        "mt-3 max-w-[32rem] leading-relaxed text-steel text-pretty",
+                        group.items.length === 1 ? "text-base" : "text-[0.9375rem]",
+                      ]}
+                    >
+                      {item.summary}
+                    </p>
+                    <ul class="mt-4 flex flex-wrap gap-2">
+                      {item.pills.map((pill) => (
+                        <li class="service-pill">{pill}</li>
+                      ))}
+                    </ul>
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
           ))
         }
       </div>
-
-      {/* Supporting work — subordinate to the two featured engagements, but
-          set as a deliberate closing line rather than a footnote: joined to the
-          grid above by the same fade-edge hairline used elsewhere, at body size
-          rather than small print, with each client in Ink. Same factual rules
-          as the featured items — capability themes only, no quotes, metrics,
-          outcomes or logos, and nothing implying client sign-off. */}
-      <p
-        data-animate
-        class="work-coda relative mt-14 max-w-2xl pt-10 text-base leading-relaxed text-steel text-pretty lg:mt-16"
-      >
-        {/* Kept on one line, with every space written explicitly: JSX newlines
-            inside the expression leak stray spaces before the dashes and the
-            full stop. The no-break space before each em dash keeps the dash
-            bound to the word it follows, so a line can never open with a
-            dangling "— and". */}
-        Selected work also includes {otherWork.map((o, i) => (<Fragment>{i === 0 ? "" : i === otherWork.length - 1 ? "\u00A0— and " : "\u00A0— "}<span class="text-ink">{o.client}</span>{"\u00A0— "}{o.note}</Fragment>))}.
-      </p>
     </div>
   </section>
 
-  {/* CLOSING SECTION — "the handshake". Replaces BOTH the old standalone
-      Pricing section and the old conversion CTA band. Not a feature, pricing,
-      or process section: the homepage's final beat, whose single job is to
-      remove the last hesitation before getting in touch. Resolved in the
-      brand's own voice — "the jargon stops with us" applied to the first
-      conversation: you don't have to have all the answers.
-
-      Flat bg-band — the same token as Why TWNY (non-adjacent, separated by
-      Client Stories' bg-sand dip, so reusing it doesn't blur any boundary).
-      Steps up cleanly from that dip with no gradient blend. The exhale is
-      made with space, not colour: this is the most generously padded section
-      on the page. Left-aligned, single column; no cards, icons, diagrams,
-      illustrations, or steps. The footer (bg-paper) sits cleanly beneath as
-      its own utility surface, separated by its own top hairline rather than
-      a gradient fade. */}
+  {/* CLOSING SECTION — "the handshake". The homepage's final beat, whose
+      single job is to remove the last hesitation before getting in touch.
+      Deliberately does not restate the hero proposition. Flat bg-band, and
+      the most generously padded section on the page: the exhale is made with
+      space, not colour. Left-aligned, single column; no cards, icons,
+      diagrams or steps. */}
   <section id="getting-started" class="bg-band text-ink">
     <div class="mx-auto max-w-6xl px-5 sm:px-8 py-28 sm:py-36 lg:py-48">
       <div data-animate class="max-w-2xl">
         <h2 class="font-display text-3xl font-semibold leading-[1.05] text-balance sm:text-4xl lg:text-5xl">
-          You don't have to have all the answers.
+          You don't need to have all the answers.
         </h2>
 
         <div class="mt-8 max-w-xl space-y-5 text-base leading-relaxed text-steel text-pretty sm:text-[1.0625rem]">
           <p>That's where we come in.</p>
           <p>
-            Whether you've got one thing in mind or you're not sure where to
-            begin, tell us what's happening in your business.
-          </p>
-          <p>
-            We'll help you work out what matters and where it makes sense to
-            start.
+            Start with the problem rather than the service. Tell us what's
+            happening, and we'll work out what matters and where it makes
+            sense to begin.
           </p>
         </div>
 
@@ -302,21 +306,17 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
 </BaseLayout>
 
 <style>
-  /* Two-up editorial grids ("Two ways we work", "A sense of the work"). Same
-     hairline language as the capability columns below — a quiet fade-edge rule
-     between items, never a boxed card. Vertical between columns, horizontal
-     between stacked rows. */
-  .engagement-pair,
-  .work-grid {
+  /* Two-up editorial grid ("How we work"). The same hairline language as the
+     capability columns — a quiet fade-edge rule between items, never a boxed
+     card. Vertical between columns, horizontal between stacked rows. */
+  .engagement-pair {
     align-items: start;
   }
-  .engagement-item,
-  .work-item {
+  .engagement-item {
     position: relative;
   }
   @media (min-width: 640px) {
-    .engagement-pair > .engagement-item:nth-child(2n)::before,
-    .work-grid > .work-item:nth-child(2n)::before {
+    .engagement-pair > .engagement-item:nth-child(2n)::before {
       content: "";
       position: absolute;
       top: 0;
@@ -331,25 +331,9 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
         transparent
       );
     }
-    .work-grid > .work-item:nth-child(n + 3)::after {
-      content: "";
-      position: absolute;
-      top: -3rem;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(
-        to right,
-        transparent,
-        color-mix(in srgb, var(--line) 48%, transparent) 30%,
-        color-mix(in srgb, var(--line) 48%, transparent) 70%,
-        transparent
-      );
-    }
   }
   @media (max-width: 639px) {
-    .engagement-item + .engagement-item::before,
-    .work-item + .work-item::before {
+    .engagement-item + .engagement-item::before {
       content: "";
       position: absolute;
       top: -1.5rem;
@@ -366,29 +350,77 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
     }
   }
 
-  /* Supporting-work coda — the fade-edge hairline that ties the sentence to
-     the proof grid above it, so it reads as the section's closing line rather
-     than as detached small print. */
-  .work-coda::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      color-mix(in srgb, var(--line) 60%, transparent) 30%,
-      color-mix(in srgb, var(--line) 60%, transparent) 70%,
-      transparent
-    );
+  /* "Both halves, in practice." — two engagement regions rather than a flat
+     grid of clients. The same fade-edge hairline separates them: vertical
+     between the two columns on desktop, horizontal between the stacked groups
+     on mobile, so the split stays legible at every width without boxes.
+     align-items: start keeps each region its own height — Professional
+     Services is legitimately taller, and stretching Managed Technology to
+     match would only add empty space. */
+  .work-split {
+    align-items: start;
+  }
+  .work-region {
+    position: relative;
+  }
+  @media (min-width: 1024px) {
+    .work-split > .work-region:nth-child(2)::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -2rem;
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        color-mix(in srgb, var(--line) 60%, transparent) 8%,
+        color-mix(in srgb, var(--line) 60%, transparent) 92%,
+        transparent
+      );
+    }
+  }
+  @media (max-width: 1023px) {
+    .work-region + .work-region::before {
+      content: "";
+      position: absolute;
+      top: -1.75rem;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        color-mix(in srgb, var(--line) 48%, transparent) 30%,
+        color-mix(in srgb, var(--line) 48%, transparent) 70%,
+        transparent
+      );
+    }
   }
 
-  /* "What we look after" capability columns — quiet separators between
-     columns (vertical) and rows (horizontal) as the grid wraps, without
-     boxed cards. align-items: start keeps each item's own content height,
-     so a divider never stretches taller than the panel it sits beside. */
+  /* Service pills — visibly pill-shaped, quiet, and identical everywhere they
+     appear. Outline only: a filled chip would compete with the Ember action,
+     and a Mineral fill would read as a link. No icons: four to nine of these
+     sit together, and glyphs at this size turn a calm row into noise. */
+  .service-pill {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid color-mix(in srgb, var(--line) 90%, transparent);
+    border-radius: 9999px;
+    padding: 0.3125rem 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--steel);
+    white-space: nowrap;
+  }
+
+  /* "What we help with" capability columns — quiet separators between columns
+     (vertical) and rows (horizontal) as the grid wraps, without boxed cards.
+     align-items: start keeps each item's own content height, so a divider
+     never stretches taller than the panel it sits beside. */
   .capability-grid {
     row-gap: 4rem;
     column-gap: 2rem;
@@ -396,6 +428,15 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
   }
   .capability-item {
     position: relative;
+  }
+  /* Four columns: the headings wrap to two lines at different points, so
+     reserve two lines for all of them and the body copy starts on one line
+     across the row. Below this width the columns are wide enough that most
+     headings fit on one line and reserving space would only add a gap. */
+  @media (min-width: 1024px) {
+    .capability-heading {
+      min-height: 2.75em; /* 2 lines at leading-snug (1.375) */
+    }
   }
   @media (max-width: 639px) {
     .capability-item + .capability-item::after {
@@ -471,8 +512,8 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
   }
 
   /* "Why TWNY" philosophy row divider — the same fade-edged hairline used
-     between "What we look after"'s capability columns, widened and lightened
-     slightly for this wider, lower-contrast context. */
+     between the capability columns, widened and lightened slightly for this
+     wider, lower-contrast context. */
   .divider-fade::before {
     content: "";
     position: absolute;
@@ -496,25 +537,26 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
     color: color-mix(in srgb, var(--steel) 58%, var(--ink) 42%);
   }
 
-  /* "Why TWNY" rotating term — sits inline immediately after "understand",
-     not as a centred chip: text is left-aligned within the reel so the word
-     starts right where the sentence leaves off, with any reserved width
-     trailing harmlessly after it instead of opening a gap before it. The
-     clipping window is exactly one line tall, so only the active term is
-     ever visible at rest — no permanently-visible neighbouring terms above
-     or below. The previous/next terms only become momentarily visible,
-     in full pure Ember, while one slides out and the next slides into
-     place; nothing fades or dims, the track itself transitions. A generous fixed
-     minimum width holds the longest term, so the surrounding sentence never
-     reflows as shorter or longer terms rotate through. */
+  /* "Why TWNY" rotating clause. The clause is now a phrase rather than a
+     single term, so at narrow widths the lead-in sits on its own line and the
+     reel takes the line beneath it (the `block sm:inline` on the lead-in) —
+     that keeps every rotation on ONE line at 360px instead of rewrapping the
+     sentence as clauses of different lengths pass through.
+
+     The clipping window is exactly one line tall, so only the active clause is
+     ever visible at rest — no permanently-visible neighbours above or below.
+     The previous/next clauses only become momentarily visible, in full Ember,
+     while one slides out and the next slides in; nothing fades or dims, the
+     track itself transitions. A fixed minimum width holds the longest clause,
+     so the line never reflows as clauses of different lengths rotate. */
   .term-reel {
     position: relative;
     display: inline-block;
-    height: 1.3em;
-    min-width: 18rem;
-    margin-left: -0.025em;
+    height: 1.35em;
+    min-width: 100%;
+    max-width: 100%;
     overflow: hidden;
-    vertical-align: -0.33375em;
+    vertical-align: -0.35em;
   }
   .term-reel__track {
     display: block;
@@ -523,19 +565,21 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
   }
   .term-reel__item {
     display: block;
-    height: 1.3em;
-    line-height: 1.3em;
+    height: 1.35em;
+    line-height: 1.35em;
     white-space: nowrap;
     text-align: left;
   }
   @media (min-width: 640px) {
     .term-reel {
-      min-width: 20rem;
+      margin-left: 0.28em;
+      min-width: 21rem;
+      max-width: none;
     }
   }
   @media (min-width: 1024px) {
     .term-reel {
-      min-width: 22rem;
+      min-width: 24rem;
     }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -570,9 +614,7 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
       },
       // Pre-trigger: the root is extended 12% of the viewport BELOW the fold,
       // so a section starts revealing just before it scrolls into view and is
-      // already settled by the time it is actually being read. With the old
-      // -8% inset the reveal only began once the section was well inside the
-      // viewport, which is what made a fast scroll land on a blank panel.
+      // already settled by the time it is actually being read.
       { threshold: 0, rootMargin: "0px 0px 12% 0px" }
     );
     targets.forEach((el) => io.observe(el));
@@ -580,12 +622,14 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
 </script>
 
 <script define:vars={{ terms: rotatingTerms }}>
-  // "Why TWNY" rotating term — a vertical reel (translateY on a 3-item
-  // track), not a crossfade, carousel or typing effect. ~1s dwell, one quick
-  // scroll per advance. Pauses on hover/focus and when scrolled out of view.
-  // Under prefers-reduced-motion the CSS above hides the edge slivers and
-  // strips the transform/transition entirely, so this script does nothing
-  // and the markup's initial static term is simply what shows.
+  // "Why TWNY" rotating clause — a vertical reel (translateY on a 3-item
+  // track), not a crossfade, carousel or typing effect. The clauses are longer
+  // than the single terms they replaced, so the dwell is longer too: a reader
+  // has to be able to finish one before the next arrives.
+  // Pauses on hover/focus and when scrolled out of view. Under
+  // prefers-reduced-motion the CSS above hides the edge slivers and strips the
+  // transform/transition entirely, so this script does nothing and the
+  // markup's initial static clause is simply what shows.
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const track = document.querySelector("[data-rotating-track]");
   const prevEl = document.querySelector("[data-reel-prev]");
@@ -624,7 +668,7 @@ import { capabilities, engagements, featuredWork, otherWork, philosophy, rotatin
       );
     };
 
-    setInterval(advance, 1400);
+    setInterval(advance, 2600);
 
     wrapper?.addEventListener("mouseenter", () => (hoverPaused = true));
     wrapper?.addEventListener("mouseleave", () => (hoverPaused = false));
